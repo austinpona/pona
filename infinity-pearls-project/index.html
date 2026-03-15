@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Infinity Pearls — handcrafted bracelets made with love in South Africa. Shop the latest collection, add to cart, and contact us directly.">
+  <meta name="theme-color" content="#0b1220">
+  <title>Infinity Pearls | Handcrafted Jewelry</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23d4af37%22/%3E%3Cstop offset=%221%22 stop-color=%22%23ffdf7e%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%230b1220%22/%3E%3Cpath d=%22M18 32c0-7.7 6.3-14 14-14%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M46 32c0 7.7-6.3 14-14 14%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%225%22 fill=%22url(%23g)%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Header -->
+  <header class="header" id="home">
+    <nav class="nav">
+      <a class="brand" href="#home" aria-label="Infinity Pearls home">
+        <img
+          class="brand__logo"
+          src="images/IMG-20260122-WA0007.jpg"
+          alt="Infinity Pearls logo"
+          loading="eager"
+          onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 rx=%2240%22 fill=%22%23ffffff%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 font-size=%2224%22 fill=%22%230b1220%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EIP%3C/text%3E%3C/svg%3E'"
+        >
+        <span class="brand__name">Infinity Pearls</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+        <span class="sr-only">Open menu</span>
+        <span class="nav__toggle-lines" aria-hidden="true"></span>
+      </button>
+
+      <div class="nav__menu" id="navMenu">
+        <a class="nav__link" href="#products">Shop</a>
+        <a class="nav__link" href="#about">About</a>
+        <a class="nav__link" href="#contact">Contact</a>
+        <button class="nav__icon" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <span aria-hidden="true">🌙</span>
+        </button>
+        <button class="nav__icon nav__cart" id="cartOpen" type="button" aria-label="Open cart">
+          <span aria-hidden="true">🛒</span>
+          <span class="pill" id="cartCount" aria-label="Items in cart">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Handmade • Limited pieces • South Africa</p>
+        <h1 class="hero__title">Jewelry that feels personal.</h1>
+        <p class="hero__subtitle">Discover handcrafted bracelets—made with love, styled for everyday confidence.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#products">Shop the collection</a>
+          <a class="btn btn--ghost" href="#contact">Custom order</a>
+        </div>
+        <div class="trust">
+          <div class="trust__item"><span class="trust__icon" aria-hidden="true">✨</span> Handmade finish</div>
+          <div class="trust__item"><span class="trust__icon" aria-hidden="true">🧵</span> Quality beads</div>
+          <div class="trust__item"><span class="trust__icon" aria-hidden="true">🎁</span> Gift-ready</div>
+        </div>
+      </div>
+
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__card">
+          <img class="hero__img" src="images/IMG-20260122-WA0011.jpg" alt="" loading="lazy">
+        </div>
+        <div class="hero__card hero__card--offset">
+          <img class="hero__img" src="images/IMG-20260122-WA0012.jpg" alt="" loading="lazy">
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="main">
+    <section class="section section--tight">
+      <div class="container">
+        <div class="features">
+          <article class="feature">
+            <h3 class="feature__title">Modern, minimal design</h3>
+            <p class="feature__text">Clean styling, smooth interactions, and mobile-first layout.</p>
+          </article>
+          <article class="feature">
+            <h3 class="feature__title">Fast shopping experience</h3>
+            <p class="feature__text">Search and sort products, open quick details, add to cart instantly.</p>
+          </article>
+          <article class="feature">
+            <h3 class="feature__title">Message us directly</h3>
+            <p class="feature__text">Built-in contact form connected to the backend.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2 class="section__title">Shop the collection</h2>
+            <p class="section__subtitle">Browse handcrafted pieces and add your favorites to the cart.</p>
+          </div>
+          <div class="controls">
+            <label class="control">
+              <span class="sr-only">Search products</span>
+              <input id="searchInput" class="input" type="search" placeholder="Search (e.g. pink, crystal, rainbow)" autocomplete="off">
+            </label>
+            <label class="control">
+              <span class="sr-only">Sort</span>
+              <select id="sortSelect" class="input">
+                <option value="featured">Sort: Featured</option>
+                <option value="price-asc">Price: Low → High</option>
+                <option value="price-desc">Price: High → Low</option>
+                <option value="name-asc">Name: A → Z</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid" id="productsGrid" aria-live="polite">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="empty" id="emptyState" hidden>
+          <p class="empty__title">No results found.</p>
+          <p class="empty__text">Try a different search or clear the filter.</p>
+          <button class="btn btn--ghost" id="clearSearch" type="button">Clear search</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about__copy">
+          <h2 class="section__title">About Infinity Pearls</h2>
+          <p class="section__subtitle">A small handcrafted brand with big attention to detail.</p>
+          <p class="prose">
+            Infinity Pearls is focused on playful, wearable designs—made to feel special without being “too much”.
+            Each bracelet is assembled with care and photographed as real pieces (what you see is what you get).
+          </p>
+          <ul class="bullets">
+            <li>Custom colors and charm ideas welcome</li>
+            <li>Perfect for birthdays, gifts, or everyday wear</li>
+            <li>Locally inspired and made with love</li>
+          </ul>
+          <a class="btn btn--primary" href="#contact">Request a custom piece</a>
+        </div>
+        <div class="about__media" aria-hidden="true">
+          <img class="about__img" src="images/IMG-20260122-WA0010.jpg" alt="" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact">
+        <div class="contact__head">
+          <h2 class="section__title">Contact</h2>
+          <p class="section__subtitle">Tell us what you want. We’ll reply as soon as possible.</p>
+        </div>
+
+        <div class="contact__grid">
+          <form class="card form" id="contactForm" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact">
+            <div class="form__row">
+              <label class="form__field">
+                <span class="form__label">Name</span>
+                <input class="input" type="text" name="name" required minlength="2" placeholder="Your name">
+              </label>
+              <label class="form__field">
+                <span class="form__label">Email</span>
+                <input class="input" type="email" name="email" required placeholder="you@email.com">
+              </label>
+            </div>
+            <label class="form__field">
+              <span class="form__label">Message</span>
+              <textarea class="input input--textarea" name="message" required minlength="10" placeholder="What would you like to order or ask?"></textarea>
+            </label>
+            <div class="form__actions">
+              <button class="btn btn--primary" type="submit" id="contactSubmit">Send message</button>
+              <p class="hint" id="contactHint">We’ll reply as soon as we can.</p>
+            </div>
+          </form>
+
+          <aside class="card contact__card">
+            <h3 class="contact__title">Quick info</h3>
+            <ul class="contact__list">
+              <li><span aria-hidden="true">📍</span> South Africa</li>
+              <li><span aria-hidden="true">📧</span> infinitypearls83@gmail.com</li>
+              <li><span aria-hidden="true">📱</span> 064 557 5188</li>
+            </ul>
+            <div class="divider"></div>
+            <p class="prose">
+              Want a specific color theme? Mention your preferred colors and charm style and we’ll recommend options.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="admin">
+      <div class="container">
+        <h2 class="section__title">Store totals (admin)</h2>
+        <p class="section__subtitle">Live totals from Supabase (paid orders).</p>
+
+        <div class="features">
+          <article class="feature">
+            <h3 class="feature__title">Total sales</h3>
+            <p class="feature__text" id="adminTotalSales">Loading...</p>
+          </article>
+          <article class="feature">
+            <h3 class="feature__title">Total orders</h3>
+            <p class="feature__text" id="adminTotalOrders">Loading...</p>
+          </article>
+          <article class="feature">
+            <h3 class="feature__title">Total customers</h3>
+            <p class="feature__text" id="adminTotalCustomers">Loading...</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <div class="footer__name">Infinity Pearls</div>
+        <div class="footer__tag">Handcrafted bracelets</div>
+      </div>
+      <div class="footer__links">
+        <a href="#products">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer__small">&copy; <span id="year"></span> Infinity Pearls</div>
+    </div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <button class="icon-x" type="button" data-close-modal aria-label="Close product details">✕</button>
+      <div class="modal__content">
+        <img class="modal__img" id="modalImage" alt="">
+        <div class="modal__copy">
+          <h3 class="modal__title" id="modalTitle"></h3>
+          <p class="modal__text" id="modalDescription"></p>
+          <div class="modal__row">
+            <div class="price" id="modalPrice"></div>
+            <button class="btn btn--primary" id="modalAddToCart" type="button">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer__backdrop" data-close-drawer></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="Shopping cart">
+      <div class="drawer__head">
+        <h3 class="drawer__title">Your cart</h3>
+        <button class="icon-x" type="button" data-close-drawer aria-label="Close cart">✕</button>
+      </div>
+      <div class="drawer__body" id="cartItems"></div>
+      <div class="drawer__foot">
+        <div class="totals">
+          <span>Total</span>
+          <strong id="cartTotal">R0.00</strong>
+        </div>
+        <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout (demo)</button>
+        <button class="btn btn--ghost" id="clearCartBtn" type="button">Clear cart</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toasts" id="toasts" aria-live="polite" aria-relevant="additions text"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
