@@ -12,12 +12,12 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Stripe (direct HTTPS — no SDK) ──────────────────────────
-const STRIPE_SECRET_KEY    = process.env.STRIPE_SECRET_KEY    || '';
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
+const STRIPE_SECRET_KEY     = (process.env.STRIPE_SECRET_KEY     || '').trim();
+const STRIPE_WEBHOOK_SECRET = (process.env.STRIPE_WEBHOOK_SECRET || '').trim();
 
 // ── Supabase (server-side service key) ───────────────────────
 const SUPABASE_URL         = 'https://eascxtwbhzebrlvqzxzp.supabase.co';
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || '';
+const SUPABASE_SERVICE_KEY = (process.env.SUPABASE_SERVICE_KEY || '').trim();
 const supabase = SUPABASE_URL && SUPABASE_SERVICE_KEY
   ? createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
   : null;
