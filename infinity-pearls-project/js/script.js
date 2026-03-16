@@ -502,7 +502,7 @@ function initEvents() {
       }
     } catch (e) {
       console.error(e);
-      toast('Checkout failed', 'Backend may not be running. Try again later.');
+      toast('Checkout failed', e.message || 'Please try again.');
     }
   });
 
