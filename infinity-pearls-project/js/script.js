@@ -24,10 +24,10 @@ const FALLBACK_PRODUCTS = [
   { id: 10, name: 'Pink Crystal Bear Charm', description: 'Sweet pink crystal beads with adorable bear face charm', price: 60, image: 'images/IMG-20260122-WA0011.jpg' },
 ];
 
-// Badge logic: 1-3 = New, 4-6 = Bestseller, 7+ = none
-function getBadge(id) {
-  if (id <= 3) return { label: 'New', cls: 'product-card__badge--new' };
-  if (id <= 6) return { label: 'Bestseller', cls: 'product-card__badge--best' };
+// Badge from product data (set in Supabase: 'new' | 'bestseller' | null)
+function getBadge(product) {
+  if (product.badge === 'new')        return { label: 'New',        cls: 'product-card__badge--new' };
+  if (product.badge === 'bestseller') return { label: 'Bestseller', cls: 'product-card__badge--best' };
   return null;
 }
 
@@ -200,7 +200,7 @@ function renderGrid() {
   if (empty) empty.hidden = true;
 
   grid.innerHTML = filtered.map((p, i) => {
-    const badge = getBadge(p.id);
+    const badge = getBadge(p);
     return `
       <article class="product-card" tabindex="0" role="button"
                aria-label="View ${p.name}" data-product-id="${p.id}"
