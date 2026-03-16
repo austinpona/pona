@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 3000;
 // Stripe setup (fill env vars in .env)
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
-const stripe = STRIPE_SECRET_KEY ? stripeLib(STRIPE_SECRET_KEY) : null;
+const stripe = STRIPE_SECRET_KEY
+  ? stripeLib(STRIPE_SECRET_KEY, { httpClient: stripeLib.createNodeHttpClient() })
+  : null;
 
 // Supabase admin client (server-side, using service role key)
 const SUPABASE_URL = 'https://eascxtwbhzebrlvqzxzp.supabase.co';
