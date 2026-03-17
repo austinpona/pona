@@ -439,13 +439,16 @@ function initEvents() {
     changeQty(Number(wrap.dataset.cartId), Number(btn.dataset.qty));
   });
   document.getElementById('clearCartBtn')?.addEventListener('click', clearCart);
-  document.getElementById('checkoutBtn')?.addEventListener('click', handleCheckout);
+  document.getElementById('checkoutBtn')?.addEventListener('click', openCheckoutModal);
 
   // Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     if (document.getElementById('productModal')?.getAttribute('aria-hidden') === 'false') closeModal();
     if (document.getElementById('cartDrawer')?.getAttribute('aria-hidden') === 'false') closeDrawer();
+    if (document.getElementById('authModal')?.getAttribute('aria-hidden') === 'false') closeAuthModal();
+    if (document.getElementById('accountDrawer')?.getAttribute('aria-hidden') === 'false') closeAccountDrawer();
+    if (document.getElementById('checkoutModal')?.getAttribute('aria-hidden') === 'false') closeCheckoutModal();
   });
 
   // Contact form
@@ -481,8 +484,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const fromStripe = handleStripeReturn();
   initEvents();
+  initAuthEvents();
+  initAccountEvents();
+  initCheckoutEvents();
   initScrollReveal();
   maybeShowAdmin();
+  initAuth();
 
   await fetchProducts();
 
@@ -490,3 +497,470 @@ window.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => toast('Welcome to Infinity Pearls ✦', 'Browse the collection and add your favorites to cart.'), 600);
   }
 });
+
+// ════════════════════════════════════════════════════════════
+// AUTH — Supabase Auth (email/password + Google)
+// ════════════════════════════════════════════════════════════
+
+let currentUser = null;
+
+async function initAuth() {
+  if (!supabaseClient) return;
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  currentUser = session?.user || null;
+  updateAuthUI();
+
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+    updateAuthUI();
+  });
+}
+
+function updateAuthUI() {
+  const dot     = document.getElementById('accountDot');
+  const emailEl = document.getElementById('accountEmail');
+  const avatarEl = document.getElementById('accountAvatar');
+  if (dot)     dot.hidden = !currentUser;
+  if (emailEl) emailEl.textContent = currentUser?.email || '';
+  if (avatarEl) avatarEl.textContent = currentUser?.email?.[0]?.toUpperCase() || '?';
+  const pName  = document.getElementById('profileName');
+  const pEmail = document.getElementById('profileEmail');
+  if (pEmail && currentUser) pEmail.value = currentUser.email || '';
+  if (pName  && currentUser) pName.value  = currentUser.user_metadata?.full_name || '';
+}
+
+function openAuthModal(tab) {
+  tab = tab || 'login';
+  const modal = document.getElementById('authModal');
+  if (!modal) return;
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  switchAuthTab(tab);
+}
+
+function closeAuthModal() {
+  const modal = document.getElementById('authModal');
+  if (!modal) return;
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  const lh = document.getElementById('loginHint');
+  const rh = document.getElementById('registerHint');
+  if (lh) lh.textContent = '';
+  if (rh) rh.textContent = '';
+}
+
+function switchAuthTab(tab) {
+  const loginBtn  = document.getElementById('loginTabBtn');
+  const regBtn    = document.getElementById('registerTabBtn');
+  const loginPane = document.getElementById('loginPane');
+  const regPane   = document.getElementById('registerPane');
+  if (tab === 'login') {
+    loginBtn.classList.add('active');   regBtn.classList.remove('active');
+    loginPane.hidden = false;           regPane.hidden = true;
+  } else {
+    regBtn.classList.add('active');     loginBtn.classList.remove('active');
+    regPane.hidden = false;             loginPane.hidden = true;
+  }
+}
+
+async function handleLogin(email, password) {
+  const hint = document.getElementById('loginHint');
+  hint.textContent = 'Signing in...';
+  const { error } = await supabaseClient.auth.signInWithPassword({ email: email, password: password });
+  if (error) { hint.textContent = error.message; return; }
+  closeAuthModal();
+  toast('Welcome back', email);
+}
+
+async function handleRegister(name, email, password) {
+  const hint = document.getElementById('registerHint');
+  hint.textContent = 'Creating account...';
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: { data: { full_name: name } },
+  });
+  if (error) { hint.textContent = error.message; return; }
+  if (data && data.user) {
+    await supabaseClient.from('customers').upsert(
+      { name: name, email: email, auth_user_id: data.user.id },
+      { onConflict: 'email' }
+    );
+  }
+  hint.textContent = '';
+  closeAuthModal();
+  toast('Account created', 'Check your email to confirm your address.');
+}
+
+async function handleGoogleLogin() {
+  if (!supabaseClient) return;
+  await supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin },
+  });
+}
+
+async function handleSignOut() {
+  if (!supabaseClient) return;
+  await supabaseClient.auth.signOut();
+  currentUser = null;
+  updateAuthUI();
+  closeAccountDrawer();
+  toast('Signed out', 'See you next time!');
+}
+
+function initAuthEvents() {
+  document.getElementById('loginTabBtn')?.addEventListener('click', function() { switchAuthTab('login'); });
+  document.getElementById('registerTabBtn')?.addEventListener('click', function() { switchAuthTab('register'); });
+  document.getElementById('authClose')?.addEventListener('click', closeAuthModal);
+  document.getElementById('authBackdrop')?.addEventListener('click', closeAuthModal);
+
+  document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('loginEmail').value.trim();
+    var pass  = document.getElementById('loginPassword').value;
+    if (email && pass) handleLogin(email, pass);
+  });
+
+  document.getElementById('registerForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name  = document.getElementById('registerName').value.trim();
+    var email = document.getElementById('registerEmail').value.trim();
+    var pass  = document.getElementById('registerPassword').value;
+    if (name && email && pass) handleRegister(name, email, pass);
+  });
+
+  document.getElementById('googleLoginBtn')?.addEventListener('click', handleGoogleLogin);
+  document.getElementById('googleRegisterBtn')?.addEventListener('click', handleGoogleLogin);
+}
+
+// ════════════════════════════════════════════════════════════
+// ACCOUNT DRAWER
+// ════════════════════════════════════════════════════════════
+
+function openAccountDrawer() {
+  if (!currentUser) { openAuthModal('login'); return; }
+  var drawer = document.getElementById('accountDrawer');
+  if (!drawer) return;
+  drawer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  updateAuthUI();
+  switchAccountTab('profile');
+}
+
+function closeAccountDrawer() {
+  var drawer = document.getElementById('accountDrawer');
+  if (!drawer) return;
+  drawer.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function switchAccountTab(tab) {
+  var panes = { profile: 'profilePane', orders: 'ordersPane', addresses: 'addressesPane' };
+  Object.keys(panes).forEach(function(key) {
+    var el = document.getElementById(panes[key]);
+    if (el) el.hidden = (key !== tab);
+  });
+  document.querySelectorAll('.account-tab-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
+  });
+  if (tab === 'orders')    loadOrders();
+  if (tab === 'addresses') loadAddresses();
+}
+
+async function loadOrders() {
+  if (!supabaseClient || !currentUser) return;
+  var loadingEl = document.getElementById('ordersLoading');
+  var listEl    = document.getElementById('ordersList');
+  var emptyEl   = document.getElementById('ordersEmpty');
+  if (loadingEl) loadingEl.hidden = false;
+  if (listEl)    listEl.innerHTML = '';
+
+  var custResult = await supabaseClient
+    .from('customers').select('id').eq('email', currentUser.email).maybeSingle();
+  var customer = custResult.data;
+
+  if (!customer) {
+    if (loadingEl) loadingEl.hidden = true;
+    if (emptyEl)   emptyEl.hidden = false;
+    return;
+  }
+
+  var ordResult = await supabaseClient
+    .from('orders')
+    .select('id, status, total_amount, created_at, order_items(product_name, quantity, unit_price)')
+    .eq('customer_id', customer.id)
+    .order('created_at', { ascending: false });
+  var orders = ordResult.data;
+
+  if (loadingEl) loadingEl.hidden = true;
+  if (!orders || orders.length === 0) { if (emptyEl) emptyEl.hidden = false; return; }
+  if (emptyEl) emptyEl.hidden = true;
+
+  listEl.innerHTML = orders.map(function(o) {
+    var items = (o.order_items || []).map(function(i) { return i.product_name + ' x' + i.quantity; }).join(', ');
+    var date  = new Date(o.created_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
+    var idStr = String(o.id).padStart(4, '0');
+    return '<li class="order-card">' +
+      '<div class="order-card__header">' +
+        '<span class="order-card__id">#' + idStr + '</span>' +
+        '<span class="order-card__status">' + o.status + '</span>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<span class="order-card__date">' + date + '</span>' +
+        '<span class="order-card__total">' + zar(o.total_amount) + '</span>' +
+      '</div>' +
+      '<p class="order-card__items">' + items + '</p>' +
+    '</li>';
+  }).join('');
+}
+
+async function loadAddresses() {
+  if (!supabaseClient || !currentUser) return;
+  var listEl  = document.getElementById('addressList');
+  var emptyEl = document.getElementById('addressesEmpty');
+  if (!listEl) return;
+  listEl.innerHTML = '';
+
+  var result = await supabaseClient
+    .from('saved_addresses')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .order('is_default', { ascending: false });
+  var addrs = result.data;
+
+  if (!addrs || addrs.length === 0) { if (emptyEl) emptyEl.hidden = false; return; }
+  if (emptyEl) emptyEl.hidden = true;
+
+  listEl.innerHTML = addrs.map(function(a) {
+    var addrText = [a.street, a.city, a.province, a.postal_code, a.country].filter(Boolean).join(', ');
+    var defBadge = a.is_default ? '<span class="address-card__default-badge">Default · </span>' : '';
+    var setBtn   = !a.is_default ? '<button class="address-card__btn" data-set-default="' + a.id + '">Set default</button>' : '';
+    return '<li class="address-card ' + (a.is_default ? 'address-card--default' : '') + '" data-addr-id="' + a.id + '">' +
+      '<div class="address-card__text">' + defBadge + addrText + '</div>' +
+      '<div class="address-card__actions">' +
+        setBtn +
+        '<button class="address-card__btn" data-delete-addr="' + a.id + '">Delete</button>' +
+      '</div>' +
+    '</li>';
+  }).join('');
+
+  listEl.querySelectorAll('[data-set-default]').forEach(function(btn) {
+    btn.addEventListener('click', function() { setDefaultAddress(Number(btn.dataset.setDefault)); });
+  });
+  listEl.querySelectorAll('[data-delete-addr]').forEach(function(btn) {
+    btn.addEventListener('click', function() { deleteAddress(Number(btn.dataset.deleteAddr)); });
+  });
+}
+
+async function setDefaultAddress(id) {
+  if (!supabaseClient || !currentUser) return;
+  await supabaseClient.from('saved_addresses').update({ is_default: false }).eq('user_id', currentUser.id);
+  await supabaseClient.from('saved_addresses').update({ is_default: true }).eq('id', id).eq('user_id', currentUser.id);
+  loadAddresses();
+}
+
+async function deleteAddress(id) {
+  if (!supabaseClient || !currentUser) return;
+  await supabaseClient.from('saved_addresses').delete().eq('id', id).eq('user_id', currentUser.id);
+  loadAddresses();
+}
+
+function initAccountEvents() {
+  document.getElementById('accountBtn')?.addEventListener('click', openAccountDrawer);
+  document.getElementById('accountDrawerClose')?.addEventListener('click', closeAccountDrawer);
+  document.getElementById('accountBackdrop')?.addEventListener('click', closeAccountDrawer);
+  document.getElementById('signOutBtn')?.addEventListener('click', handleSignOut);
+
+  document.querySelectorAll('.account-tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { switchAccountTab(btn.dataset.tab); });
+  });
+
+  document.getElementById('profileForm')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var name  = document.getElementById('profileName').value.trim();
+    var email = document.getElementById('profileEmail').value.trim();
+    var hint  = document.getElementById('profileHint');
+    if (!supabaseClient || !currentUser) return;
+    hint.textContent = 'Saving...';
+    var updateResult = await supabaseClient.auth.updateUser({ email: email, data: { full_name: name } });
+    if (updateResult.error) { hint.textContent = updateResult.error.message; return; }
+    await supabaseClient.from('customers').update({ name: name }).eq('auth_user_id', currentUser.id);
+    hint.textContent = 'Saved!';
+    setTimeout(function() { hint.textContent = ''; }, 2000);
+    toast('Profile updated', '');
+  });
+
+  document.getElementById('addAddressForm')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!supabaseClient || !currentUser) return;
+    var hint = document.getElementById('addAddrHint');
+    var payload = {
+      user_id:     currentUser.id,
+      street:      document.getElementById('addrStreet').value.trim(),
+      city:        document.getElementById('addrCity').value.trim(),
+      province:    document.getElementById('addrProvince').value.trim(),
+      postal_code: document.getElementById('addrPostal').value.trim(),
+      country:     document.getElementById('addrCountry').value.trim() || 'South Africa',
+    };
+    if (!payload.street || !payload.city) { hint.textContent = 'Street and city are required.'; return; }
+    var insertResult = await supabaseClient.from('saved_addresses').insert(payload);
+    if (insertResult.error) { hint.textContent = insertResult.error.message; return; }
+    hint.textContent = '';
+    document.getElementById('addAddressDetails').open = false;
+    e.target.reset();
+    loadAddresses();
+    toast('Address saved', '');
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+// CHECKOUT STEPPER
+// ════════════════════════════════════════════════════════════
+
+var checkoutInfo = {};
+var coStep = 1;
+
+async function openCheckoutModal() {
+  if (cart.length === 0) { toast('Cart is empty', 'Add a product first.'); return; }
+  coStep = 1;
+  checkoutInfo = {};
+
+  var nameEl  = document.getElementById('coName');
+  var emailEl = document.getElementById('coEmail');
+  if (nameEl  && currentUser) nameEl.value  = currentUser.user_metadata?.full_name || '';
+  if (emailEl && currentUser) emailEl.value = currentUser.email || '';
+
+  if (supabaseClient && currentUser) {
+    var addrResult = await supabaseClient
+      .from('saved_addresses').select('*')
+      .eq('user_id', currentUser.id).eq('is_default', true).maybeSingle();
+    var addr = addrResult.data;
+    if (addr) {
+      document.getElementById('coStreet').value   = addr.street   || '';
+      document.getElementById('coCity').value     = addr.city     || '';
+      document.getElementById('coProvince').value = addr.province || '';
+      document.getElementById('coPostal').value   = addr.postal_code || '';
+      document.getElementById('coCountry').value  = addr.country  || 'South Africa';
+    }
+  }
+
+  var saveLabel = document.getElementById('saveAddrLabel');
+  if (saveLabel) saveLabel.hidden = !currentUser;
+
+  showCoStep(1);
+  var modal = document.getElementById('checkoutModal');
+  if (modal) modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  closeDrawer();
+}
+
+function closeCheckoutModal() {
+  var modal = document.getElementById('checkoutModal');
+  if (modal) modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function showCoStep(n) {
+  coStep = n;
+  [1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('coStep' + i);
+    var dot  = document.getElementById('stepDot' + i);
+    if (step) step.classList.toggle('active', i === n);
+    if (dot) {
+      dot.classList.toggle('active', i === n);
+      dot.classList.toggle('done',   i < n);
+    }
+  });
+  if (n === 3) buildCoReview();
+}
+
+function validateCoStep1() {
+  var name  = (document.getElementById('coName')?.value  || '').trim();
+  var email = (document.getElementById('coEmail')?.value || '').trim();
+  var hint  = document.getElementById('coStep1Hint');
+  if (!name || name.length < 2)                             { hint.textContent = 'Please enter your full name.'; return false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { hint.textContent = 'Please enter a valid email.';  return false; }
+  hint.textContent = '';
+  checkoutInfo.name  = name;
+  checkoutInfo.email = email;
+  return true;
+}
+
+function validateCoStep2() {
+  var street = (document.getElementById('coStreet')?.value || '').trim();
+  var city   = (document.getElementById('coCity')?.value   || '').trim();
+  var hint   = document.getElementById('coStep2Hint');
+  if (!street) { hint.textContent = 'Please enter your street address.'; return false; }
+  if (!city)   { hint.textContent = 'Please enter your city.';           return false; }
+  hint.textContent = '';
+  checkoutInfo.street      = street;
+  checkoutInfo.city        = city;
+  checkoutInfo.province    = (document.getElementById('coProvince')?.value || '').trim();
+  checkoutInfo.postal_code = (document.getElementById('coPostal')?.value   || '').trim();
+  checkoutInfo.country     = (document.getElementById('coCountry')?.value  || 'South Africa').trim();
+  return true;
+}
+
+function buildCoReview() {
+  var itemsEl = document.getElementById('coReviewItems');
+  var totalEl = document.getElementById('coReviewTotal');
+  var addrEl  = document.getElementById('coReviewAddress');
+
+  if (itemsEl) {
+    itemsEl.innerHTML = cart.map(function(item) {
+      return '<li class="review-item"><span>' + item.name + ' x' + item.quantity + '</span><span>' + zar(item.price * item.quantity) + '</span></li>';
+    }).join('');
+  }
+  if (totalEl) totalEl.textContent = zar(cartTotal());
+  if (addrEl) {
+    var parts = [checkoutInfo.name, checkoutInfo.street,
+      [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', '),
+      checkoutInfo.postal_code, checkoutInfo.country].filter(Boolean);
+    addrEl.textContent = parts.join('\n');
+    addrEl.style.whiteSpace = 'pre-line';
+  }
+}
+
+async function handleCoPay() {
+  var btn  = document.getElementById('coPayBtn');
+  var hint = document.getElementById('coStep3Hint');
+  if (btn) { btn.disabled = true; btn.textContent = 'Processing...'; }
+  if (hint) hint.textContent = '';
+
+  var saveAddr = document.getElementById('coSaveAddr')?.checked;
+  if (saveAddr && supabaseClient && currentUser) {
+    await supabaseClient.from('saved_addresses').insert({
+      user_id:     currentUser.id,
+      street:      checkoutInfo.street,
+      city:        checkoutInfo.city,
+      province:    checkoutInfo.province,
+      postal_code: checkoutInfo.postal_code,
+      country:     checkoutInfo.country,
+    });
+  }
+
+  try {
+    var res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart, customerInfo: checkoutInfo }),
+    });
+    var json = await res.json();
+    if (!res.ok || !json.url) throw new Error(json.message || 'Checkout failed');
+    window.location.href = json.url;
+  } catch (err) {
+    if (hint) hint.textContent = err.message;
+    if (btn) { btn.disabled = false; btn.textContent = 'Pay with Stripe'; }
+  }
+}
+
+function initCheckoutEvents() {
+  document.getElementById('checkoutModalClose')?.addEventListener('click', closeCheckoutModal);
+  document.getElementById('checkoutBackdrop')?.addEventListener('click', closeCheckoutModal);
+  document.getElementById('coNext1')?.addEventListener('click', function() { if (validateCoStep1()) showCoStep(2); });
+  document.getElementById('coBack2')?.addEventListener('click', function() { showCoStep(1); });
+  document.getElementById('coNext2')?.addEventListener('click', function() { if (validateCoStep2()) showCoStep(3); });
+  document.getElementById('coBack3')?.addEventListener('click', function() { showCoStep(2); });
+  document.getElementById('coPayBtn')?.addEventListener('click', handleCoPay);
+}

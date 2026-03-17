@@ -193,6 +193,8 @@ app.post('/api/checkout', async (req, res) => {
   const items = Array.isArray(req.body?.items) ? req.body.items : [];
   if (items.length === 0) return res.status(400).json({ message: 'Cart is empty.' });
 
+  const info = req.body?.customerInfo || {};
+
   const origin = req.headers.origin || `http://localhost:${PORT}`;
   const params = {
     mode: 'payment',
@@ -200,6 +202,16 @@ app.post('/api/checkout', async (req, res) => {
     success_url: `${origin}/?success=1`,
     cancel_url:  `${origin}/?canceled=1`,
   };
+
+  if (info.email) params['customer_email']           = String(info.email).trim();
+  if (info.name)  params['metadata[customer_name]']  = String(info.name).trim();
+  if (info.street) {
+    params['metadata[shipping_street]']   = String(info.street).trim();
+    params['metadata[shipping_city]']     = String(info.city     || '').trim();
+    params['metadata[shipping_province]'] = String(info.province || '').trim();
+    params['metadata[shipping_postal]']   = String(info.postal_code || '').trim();
+    params['metadata[shipping_country]']  = String(info.country  || 'South Africa').trim();
+  }
 
   items.forEach((item, i) => {
     params[`line_items[${i}][quantity]`]                               = item.quantity || 1;

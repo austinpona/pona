@@ -98,3 +98,36 @@ INSERT INTO products (name, description, price, image_url, badge) VALUES
   ('Crystal Daisy Bracelet',      'Sparkling clear crystal beads with white daisy charm',                             60, 'images/IMG-20260122-WA0010.jpg', null),
   ('Pink Crystal Bear Charm',     'Sweet pink crystal beads with adorable bear face charm',                           60, 'images/IMG-20260122-WA0011.jpg', null)
 ON CONFLICT DO NOTHING;
+
+
+-- ── 8. Add auth_user_id to customers (for Supabase Auth link) ─
+ALTER TABLE customers
+  ADD COLUMN IF NOT EXISTS auth_user_id UUID REFERENCES auth.users(id);
+
+
+-- ── 9. Saved addresses ────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS saved_addresses (
+  id           BIGSERIAL PRIMARY KEY,
+  user_id      UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  name         TEXT,
+  street       TEXT,
+  city         TEXT,
+  province     TEXT,
+  postal_code  TEXT,
+  country      TEXT DEFAULT 'South Africa',
+  is_default   BOOLEAN DEFAULT false,
+  created_at   TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE saved_addresses ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users manage own addresses"
+  ON saved_addresses FOR ALL USING (auth.uid() = user_id);
+
+-- Allow authenticated users to read their own orders
+CREATE POLICY "Users read own orders"
+  ON orders FOR SELECT USING (
+    customer_id IN (
+      SELECT id FROM customers WHERE auth_user_id = auth.uid()
+    )
+  );
