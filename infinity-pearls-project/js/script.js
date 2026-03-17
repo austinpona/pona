@@ -458,11 +458,23 @@ function initEvents() {
   });
 
   // Newsletter form
-  document.getElementById('newsletterForm')?.addEventListener('submit', (e) => {
+  document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const input = e.target.querySelector('input[type="email"]');
-    toast('Subscribed ✦', `Thanks! We'll keep ${input?.value || 'you'} in the loop.`);
-    e.target.reset();
+    const email = input?.value?.trim() || '';
+    if (!email) return;
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      toast('Subscribed', `Thanks! We'll keep ${email} in the loop.`);
+      e.target.reset();
+    } catch {
+      toast('Oops', 'Could not subscribe. Please try again.');
+    }
   });
 }
 
@@ -513,6 +525,14 @@ async function initAuth() {
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     currentUser = session?.user || null;
     updateAuthUI();
+    // On sign-in, link (or create) the customer record so orders RLS works
+    if (_event === 'SIGNED_IN' && currentUser) {
+      supabaseClient.from('customers').upsert(
+        { email: currentUser.email, auth_user_id: currentUser.id,
+          name: currentUser.user_metadata?.full_name || null },
+        { onConflict: 'email' }
+      ).then(() => {});
+    }
   });
 }
 

@@ -231,6 +231,18 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
+// ── Newsletter — save subscriber email ───────────────────────
+app.post('/api/newsletter', async (req, res) => {
+  const email = String(req.body?.email || '').trim();
+  if (!isEmail(email)) return res.status(400).json({ message: 'Please enter a valid email.' });
+  if (supabase) {
+    await supabase.from('contact_submissions')
+      .insert({ name: 'Newsletter', email, message: 'Newsletter subscription request' });
+  }
+  console.log('Newsletter signup:', email);
+  return res.json({ success: true });
+});
+
 // ── Static frontend ───────────────────────────────────────────
 const publicDir = path.join(__dirname, 'infinity-pearls-project');
 app.use(express.static(publicDir));

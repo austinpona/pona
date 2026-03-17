@@ -131,3 +131,27 @@ CREATE POLICY "Users read own orders"
       SELECT id FROM customers WHERE auth_user_id = auth.uid()
     )
   );
+
+
+-- ── 10. Customers RLS (so logged-in users can read/link their record) ─
+DROP POLICY IF EXISTS "Users read own customer"   ON customers;
+DROP POLICY IF EXISTS "Users insert own customer" ON customers;
+DROP POLICY IF EXISTS "Users update own customer" ON customers;
+
+-- Read: user matches by auth_user_id OR by their verified email (before linking)
+CREATE POLICY "Users read own customer" ON customers FOR SELECT
+  USING (
+    auth_user_id = auth.uid()
+    OR email = (SELECT email FROM auth.users WHERE id = auth.uid())
+  );
+
+-- Insert: any authenticated user can create their own customer record
+CREATE POLICY "Users insert own customer" ON customers FOR INSERT
+  WITH CHECK (auth.uid() IS NOT NULL);
+
+-- Update: user can update if auth_user_id matches OR email matches their account
+CREATE POLICY "Users update own customer" ON customers FOR UPDATE
+  USING (
+    auth_user_id = auth.uid()
+    OR email = (SELECT email FROM auth.users WHERE id = auth.uid())
+  );
