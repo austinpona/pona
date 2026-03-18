@@ -87,16 +87,17 @@ GRANT SELECT ON business_totals TO anon;
 
 -- ── 7. Insert products ────────────────────────────────────────
 INSERT INTO products (name, description, price, image_url, badge) VALUES
-  ('Aqua & Pearl Spider Charm',   'Elegant bracelet with turquoise beads, clear crystals, and a unique spider charm', 60, 'images/IMG-20260122-WA0007.jpg', 'new'),
-  ('Red & Pearl 8-Ball Bracelet', 'Bold red beads with white pearls featuring an 8-ball charm and star accent',       60, 'images/IMG-20260122-WA0008.jpg', 'new'),
-  ('Coral & Mint Bat Charm',      'Unique color-blocked design with coral, orange, and mint beads with bat charm',    60, 'images/IMG-20260122-WA0010.jpg', 'new'),
-  ('Rainbow Flower Power',        'Vibrant rainbow gradient bracelet with cheerful flower charm',                     60, 'images/IMG-20260122-WA0011.jpg', 'bestseller'),
-  ('Pink & Black Heart Star',     'Chic pink and black beads with heart and star charm accents',                     60, 'images/IMG-20260122-WA0012.jpg', 'bestseller'),
-  ('Purple Cross & Star',         'Deep purple beads with decorative cross and star charms',                          60, 'images/IMG-20260122-WA0013.jpg', 'bestseller'),
-  ('Infinity Link Bracelet',      'Elegant silver bracelet with repeating infinity symbol links',                     60, 'images/IMG-20260122-WA0007.jpg', null),
-  ('Pink Ombre Set',              'Delicate pink gradient bracelets - perfect matching pair',                         60, 'images/IMG-20260122-WA0008.jpg', null),
-  ('Crystal Daisy Bracelet',      'Sparkling clear crystal beads with white daisy charm',                             60, 'images/IMG-20260122-WA0010.jpg', null),
-  ('Pink Crystal Bear Charm',     'Sweet pink crystal beads with adorable bear face charm',                           60, 'images/IMG-20260122-WA0011.jpg', null)
+  ('Infinity Link Bracelet',          'Elegant silver bracelet with repeating infinity symbol links',                         65, 'images/IMG-20260318-WA0058.jpg', 'bestseller'),
+  ('Silver Star Necklace',            'Delicate silver chain necklace with a dainty star pendant',                            35, 'images/IMG-20260318-WA0059.jpg', 'new'),
+  ('Silver Cross Necklace',           'Minimalist silver chain with an elegant open cross pendant',                           65, 'images/IMG-20260318-WA0060.jpg', 'new'),
+  ('Letter & Star Charm Necklace',    'Silver chain necklace with initial letter pendant and star charms',                    65, 'images/IMG-20260318-WA0061.jpg', 'new'),
+  ('Custom Name Bracelets',           'Personalised pearl bracelets with letter beads, flower and butterfly charms',           60, 'images/IMG-20260318-WA0062.jpg', 'bestseller'),
+  ('Blue Crystal Cross Bracelet Set', 'Stunning blue and clear crystal bead bracelet pair with cross and angel charms',       50, 'images/IMG-20260318-WA0063.jpg', null),
+  ('Pink Crystal Bear Bracelet',      'Sweet pink crystal beads with adorable bear face charm and dangle accent',             65, 'images/IMG-20260318-WA0064.jpg', 'bestseller'),
+  ('Crystal Daisy Bracelet',          'Sparkling clear crystal beads with a beautiful white daisy flower charm',              45, 'images/IMG-20260318-WA0065.jpg', null),
+  ('Pink & Black Hello Kitty Bracelet','Pink and black beads with crystal spacers and Hello Kitty star charm',                45, 'images/IMG-20260318-WA0066.jpg', null),
+  ('Gothic Cross Link Bracelet',      'Bold silver gothic cross link bracelet with vintage charm',                            45, 'images/IMG-20260318-WA0067.jpg', null),
+  ('Leopard Charm Bangle',            'Silver cable bangle with leopard print beads, 8-ball, cherry and cheetah charms',      50, 'images/IMG-20260223-WA0008.jpg', 'new')
 ON CONFLICT DO NOTHING;
 
 

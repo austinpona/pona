@@ -24,16 +24,17 @@ const supabase = SUPABASE_URL && SUPABASE_SERVICE_KEY
 
 // ── Fallback products (if Supabase unavailable) ───────────────
 const FALLBACK_PRODUCTS = [
-  { id: 1, name: 'Aqua & Pearl Spider Charm',   description: 'Elegant bracelet with turquoise beads, clear crystals, and a unique spider charm', price: 60, image: 'images/IMG-20260122-WA0007.jpg', badge: 'new' },
-  { id: 2, name: 'Red & Pearl 8-Ball Bracelet', description: 'Bold red beads with white pearls featuring an 8-ball charm and star accent',         price: 60, image: 'images/IMG-20260122-WA0008.jpg', badge: 'new' },
-  { id: 3, name: 'Coral & Mint Bat Charm',       description: 'Unique color-blocked design with coral, orange, and mint beads with bat charm',       price: 60, image: 'images/IMG-20260122-WA0010.jpg', badge: 'new' },
-  { id: 4, name: 'Rainbow Flower Power',         description: 'Vibrant rainbow gradient bracelet with cheerful flower charm',                        price: 60, image: 'images/IMG-20260122-WA0011.jpg', badge: 'bestseller' },
-  { id: 5, name: 'Pink & Black Heart Star',      description: 'Chic pink and black beads with heart and star charm accents',                        price: 60, image: 'images/IMG-20260122-WA0012.jpg', badge: 'bestseller' },
-  { id: 6, name: 'Purple Cross & Star',          description: 'Deep purple beads with decorative cross and star charms',                             price: 60, image: 'images/IMG-20260122-WA0013.jpg', badge: 'bestseller' },
-  { id: 7, name: 'Infinity Link Bracelet',       description: 'Elegant silver bracelet with repeating infinity symbol links',                        price: 60, image: 'images/IMG-20260122-WA0007.jpg', badge: null },
-  { id: 8, name: 'Pink Ombre Set',               description: 'Delicate pink gradient bracelets - perfect matching pair',                            price: 60, image: 'images/IMG-20260122-WA0008.jpg', badge: null },
-  { id: 9, name: 'Crystal Daisy Bracelet',       description: 'Sparkling clear crystal beads with white daisy charm',                                price: 60, image: 'images/IMG-20260122-WA0010.jpg', badge: null },
-  { id: 10, name: 'Pink Crystal Bear Charm',     description: 'Sweet pink crystal beads with adorable bear face charm',                              price: 60, image: 'images/IMG-20260122-WA0011.jpg', badge: null },
+  { id: 1,  name: 'Infinity Link Bracelet',         description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 65, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
+  { id: 2,  name: 'Silver Star Necklace',            description: 'Delicate silver chain necklace with a dainty star pendant',                            price: 35, image: 'images/IMG-20260318-WA0059.jpg', badge: 'new' },
+  { id: 3,  name: 'Silver Cross Necklace',           description: 'Minimalist silver chain with an elegant open cross pendant',                           price: 65, image: 'images/IMG-20260318-WA0060.jpg', badge: 'new' },
+  { id: 4,  name: 'Letter & Star Charm Necklace',    description: 'Silver chain necklace with initial letter pendant and star charms',                    price: 65, image: 'images/IMG-20260318-WA0061.jpg', badge: 'new' },
+  { id: 5,  name: 'Custom Name Bracelets',           description: 'Personalised pearl bracelets with letter beads, flower and butterfly charms',           price: 60, image: 'images/IMG-20260318-WA0062.jpg', badge: 'bestseller' },
+  { id: 6,  name: 'Blue Crystal Cross Bracelet Set', description: 'Stunning blue and clear crystal bead bracelet pair with cross and angel charms',       price: 50, image: 'images/IMG-20260318-WA0063.jpg', badge: null },
+  { id: 7,  name: 'Pink Crystal Bear Bracelet',      description: 'Sweet pink crystal beads with adorable bear face charm and dangle accent',             price: 65, image: 'images/IMG-20260318-WA0064.jpg', badge: 'bestseller' },
+  { id: 8,  name: 'Crystal Daisy Bracelet',          description: 'Sparkling clear crystal beads with a beautiful white daisy flower charm',              price: 45, image: 'images/IMG-20260318-WA0065.jpg', badge: null },
+  { id: 9,  name: 'Pink & Black Hello Kitty Bracelet', description: 'Pink and black beads with crystal spacers and Hello Kitty star charm',              price: 45, image: 'images/IMG-20260318-WA0066.jpg', badge: null },
+  { id: 10, name: 'Gothic Cross Link Bracelet',      description: 'Bold silver gothic cross link bracelet with vintage charm',                            price: 45, image: 'images/IMG-20260318-WA0067.jpg', badge: null },
+  { id: 11, name: 'Leopard Charm Bangle',            description: 'Silver cable bangle with leopard print beads, 8-ball, cherry and cheetah charms',     price: 50, image: 'images/IMG-20260223-WA0008.jpg', badge: 'new' },
 ];
 
 app.use(cors());
