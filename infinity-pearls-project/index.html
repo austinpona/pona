@@ -1,381 +1,213 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Infinity Pearls — handcrafted bracelets made with love in South Africa. Shop unique designs, place custom orders, and experience jewelry that feels personal.">
-  <meta name="theme-color" content="#0a0e1a">
+  <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="Infinity Pearls | Handcrafted Jewelry">
   <meta property="og:description" content="Handcrafted bracelets made with love in South Africa.">
   <meta property="og:type" content="website">
   <title>Infinity Pearls | Handcrafted Jewelry — South Africa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23c9a84c%22/%3E%3Cstop offset=%221%22 stop-color=%22%23e8c97e%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%230a0e1a%22/%3E%3Cpath d=%22M18 32c0-7.7 6.3-14 14-14%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M46 32c0 7.7-6.3 14-14 14%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%225%22 fill=%22url(%23g)%22/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23111%22/%3E%3Ctext x=%2232%22 y=%2240%22 font-size=%2232%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Announcement bar -->
-  <div class="announce" id="announce">
-    <p>✨ Handcrafted with love in South Africa &nbsp;·&nbsp; Custom orders welcome &nbsp;·&nbsp;
-      <a href="https://wa.me/27645575188" target="_blank" rel="noopener">WhatsApp us</a>
-    </p>
-    <button class="announce__close" id="announceClose" aria-label="Dismiss">×</button>
-  </div>
-
-  <!-- Header -->
-  <header class="header" id="home">
-    <nav class="nav" id="mainNav">
-      <a class="brand" href="#home" aria-label="Infinity Pearls home">
-        <img class="brand__logo" src="images/IMG-20260316-WA0033.jpg" alt="Infinity Pearls"
-             onerror="this.onerror=null;this.style.display='none'">
-        <div class="brand__text">
-          <span class="brand__name">Infinity Pearls</span>
-          <span class="brand__tagline">Handcrafted Jewelry</span>
-        </div>
-      </a>
-
-      <ul class="nav__links" id="navMenu" role="list">
-        <li><a href="#products" class="nav__link">Shop</a></li>
-        <li><a href="#about" class="nav__link">About</a></li>
-        <li><a href="#testimonials" class="nav__link">Reviews</a></li>
-        <li><a href="#contact" class="nav__link">Contact</a></li>
-      </ul>
-
-      <div class="nav__actions">
-        <button class="nav__icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-          <span class="theme-icon" aria-hidden="true">🌙</span>
-        </button>
-        <a class="nav__wa" href="https://wa.me/27645575188" target="_blank" rel="noopener" aria-label="WhatsApp us" title="WhatsApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-        </a>
-        <button class="nav__icon-btn" id="accountBtn" aria-label="My account">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span class="account-dot" id="accountDot" hidden></span>
-        </button>
-        <button class="nav__cart-btn" id="cartOpen" aria-label="Open cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-          </svg>
-          <span class="cart-pill" id="cartCount" aria-live="polite" aria-label="Items in cart">0</span>
-        </button>
-        <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero" aria-label="Welcome">
-      <div class="hero__content">
-        <span class="hero__eyebrow">Handmade · Limited pieces · South Africa</span>
-        <h1 class="hero__title">Jewelry that feels <em>personal.</em></h1>
-        <p class="hero__desc">Discover handcrafted bracelets — made with love, styled for everyday confidence.</p>
-        <div class="hero__cta">
-          <a class="btn btn--gold btn--lg" href="#products">Shop the Collection</a>
-          <a class="btn btn--ghost btn--lg" href="https://wa.me/27645575188" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Custom Order
-          </a>
-        </div>
-        <div class="hero__pills">
-          <span class="pill-tag">✦ Handmade finish</span>
-          <span class="pill-tag">✦ Quality beads</span>
-          <span class="pill-tag">✦ Gift-ready</span>
-          <span class="pill-tag">✦ Made in SA</span>
-        </div>
-      </div>
-      <div class="hero__visual" aria-hidden="true">
-        <div class="hero__img-stack">
-          <div class="hero__img-card hero__img-card--back">
-            <img src="images/IMG-20260122-WA0012.jpg" alt="" loading="eager">
-          </div>
-          <div class="hero__img-card hero__img-card--front">
-            <img src="images/IMG-20260122-WA0011.jpg" alt="" loading="eager">
-          </div>
-          <div class="hero__stat-badge">
-            <span class="stat-num">10+</span>
-            <span class="stat-label">Unique Designs</span>
-          </div>
-          <div class="hero__star-badge">★★★★★</div>
-        </div>
-      </div>
-    </section>
+  <!-- ═══ Top Header ═══ -->
+  <header class="top-header" id="topHeader">
+    <button class="top-header__back" aria-label="Go back" onclick="history.back()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="top-header__title">
+      <img class="top-header__logo" src="images/IMG-20260316-WA0033.jpg" alt="Infinity Pearls" onerror="this.onerror=null;this.style.display='none'">
+      <span>Infinity Pearls</span>
+    </div>
+    <button class="top-header__search" id="searchToggle" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
   </header>
 
-  <!-- Main -->
+  <!-- ═══ Search Bar (hidden by default) ═══ -->
+  <div class="search-bar" id="searchBar" hidden>
+    <input id="searchInput" class="search-bar__input" type="search" placeholder="Search bracelets, necklaces..." autocomplete="off">
+    <button class="search-bar__close" id="searchClose" aria-label="Close search">Cancel</button>
+  </div>
+
+  <!-- ═══ Filter Bar ═══ -->
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-bar__scroll">
+      <button class="filter-pill" id="filterBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="10" cy="18" r="2" fill="currentColor"/></svg>
+        Filter
+      </button>
+      <div class="filter-pill filter-pill--select">
+        <label class="sr-only" for="sortSelect">Sort</label>
+        <select id="sortSelect" class="filter-pill__select">
+          <option value="featured">Sort</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name-asc">Name: A → Z</option>
+        </select>
+      </div>
+      <button class="filter-pill" data-filter="bracelets">Bracelets</button>
+      <button class="filter-pill" data-filter="necklaces">Necklaces</button>
+      <button class="filter-pill" data-filter="all">All</button>
+    </div>
+  </div>
+
+  <!-- ═══ Item Count ═══ -->
+  <div class="item-count" id="itemCount">11 items</div>
+
+  <!-- ═══ Main Content ═══ -->
   <main id="main">
 
-    <!-- Features strip -->
-    <div class="features-strip reveal">
-      <div class="container">
-        <div class="features-strip__inner">
-          <div class="strip-item">
-            <span aria-hidden="true">🎁</span>
-            <div><strong>Gift-ready</strong><span>Beautiful packaging</span></div>
-          </div>
-          <div class="strip-item">
-            <span aria-hidden="true">✦</span>
-            <div><strong>Handcrafted</strong><span>Made with love in SA</span></div>
-          </div>
-          <div class="strip-item">
-            <span aria-hidden="true">💬</span>
-            <div><strong>Custom orders</strong><span>Your colors, your style</span></div>
-          </div>
-          <div class="strip-item">
-            <span aria-hidden="true">🔒</span>
-            <div><strong>Secure checkout</strong><span>Powered by Stripe</span></div>
-          </div>
-        </div>
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+      <div class="products-grid" id="productsGrid" aria-live="polite" aria-label="Products">
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
       </div>
-    </div>
 
-    <!-- Products -->
-    <section class="section" id="products">
-      <div class="container">
-        <div class="section__intro reveal">
-          <div>
-            <p class="section__eyebrow">The Collection</p>
-            <h2 class="section__title">Shop Handcrafted Pieces</h2>
-            <p class="section__sub">Each bracelet is made by hand and photographed as a real piece — what you see is what you get.</p>
-          </div>
-          <div class="filter-bar">
-            <label class="sr-only" for="searchInput">Search products</label>
-            <input id="searchInput" class="input input--search" type="search" placeholder="Search (e.g. pink, crystal...)" autocomplete="off">
-            <label class="sr-only" for="sortSelect">Sort products</label>
-            <select id="sortSelect" class="input input--select">
-              <option value="featured">Featured</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-              <option value="name-asc">Name: A → Z</option>
-            </select>
-          </div>
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-state__icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </div>
-
-        <div class="products-grid" id="productsGrid" aria-live="polite" aria-label="Products">
-          <div class="skeleton-card" aria-hidden="true"></div>
-          <div class="skeleton-card" aria-hidden="true"></div>
-          <div class="skeleton-card" aria-hidden="true"></div>
-          <div class="skeleton-card" aria-hidden="true"></div>
-        </div>
-
-        <div class="empty-state" id="emptyState" hidden>
-          <div class="empty-state__icon" aria-hidden="true">🔍</div>
-          <p class="empty-state__title">No results found.</p>
-          <p class="empty-state__text">Try a different search term.</p>
-          <button class="btn btn--outline" id="clearSearch" type="button">Clear search</button>
-        </div>
+        <p class="empty-state__title">No results found</p>
+        <p class="empty-state__text">Try a different search term</p>
+        <button class="btn btn--dark" id="clearSearch" type="button">Clear search</button>
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section section--alt" id="testimonials">
-      <div class="container">
-        <div class="section__intro section__intro--center reveal">
-          <p class="section__eyebrow">Happy Customers</p>
-          <h2 class="section__title">Loved by Many</h2>
+    <!-- Home Section (scrollable below products) -->
+    <section class="home-section" id="homeSection">
+
+      <!-- About -->
+      <div class="about-block" id="about">
+        <h2 class="section-heading">About Infinity Pearls</h2>
+        <p class="about-text">Handcrafted bracelets and necklaces made with love in South Africa. Each piece is unique and made to feel personal.</p>
+        <div class="about-features">
+          <div class="feature-chip">Handmade</div>
+          <div class="feature-chip">Custom Orders</div>
+          <div class="feature-chip">Gift-Ready</div>
+          <div class="feature-chip">Made in SA</div>
         </div>
-        <div class="testimonials reveal">
-          <article class="testimonial-card">
-            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <p class="testimonial-text">"Absolutely beautiful bracelet. The quality is incredible and it arrived perfectly packaged. Will definitely be ordering again!"</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">TM</div>
-              <div>
-                <strong>Thandi M.</strong>
-                <span>Johannesburg</span>
-              </div>
+        <a class="btn btn--whatsapp" href="https://wa.me/27645575188" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Custom Order via WhatsApp
+        </a>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials-block" id="testimonials">
+        <h2 class="section-heading">Customer Reviews</h2>
+        <div class="testimonials-scroll">
+          <article class="review-card">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"Absolutely beautiful bracelet. The quality is incredible and it arrived perfectly packaged!"</p>
+            <div class="review-card__author">
+              <div class="review-card__avatar">TM</div>
+              <div><strong>Thandi M.</strong><span>Johannesburg</span></div>
             </div>
           </article>
-          <article class="testimonial-card">
-            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <p class="testimonial-text">"I ordered a custom piece for my sister's birthday and she absolutely loved it. The colors were exactly what I asked for. 10/10!"</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">LK</div>
-              <div>
-                <strong>Lerato K.</strong>
-                <span>Cape Town</span>
-              </div>
+          <article class="review-card">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"I ordered a custom piece for my sister's birthday and she loved it. Colors were exactly what I asked for!"</p>
+            <div class="review-card__author">
+              <div class="review-card__avatar">LK</div>
+              <div><strong>Lerato K.</strong><span>Cape Town</span></div>
             </div>
           </article>
-          <article class="testimonial-card">
-            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <p class="testimonial-text">"The packaging felt so luxurious — like opening a gift from a high-end store. The bracelet itself is gorgeous. Highly recommend!"</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">NP</div>
-              <div>
-                <strong>Nomsa P.</strong>
-                <span>Pretoria</span>
-              </div>
+          <article class="review-card">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"The packaging felt so luxurious. The bracelet itself is gorgeous. Highly recommend!"</p>
+            <div class="review-card__author">
+              <div class="review-card__avatar">NP</div>
+              <div><strong>Nomsa P.</strong><span>Pretoria</span></div>
             </div>
           </article>
         </div>
       </div>
-    </section>
 
-    <!-- About -->
-    <section class="section" id="about">
-      <div class="container">
-        <div class="about-grid reveal">
-          <div class="about-media">
-            <img class="about-img" src="images/IMG-20260122-WA0010.jpg" alt="Handcrafted jewelry" loading="lazy">
-            <div class="about-img-accent">
-              <img src="images/IMG-20260122-WA0013.jpg" alt="" loading="lazy">
-            </div>
-          </div>
-          <div class="about-copy">
-            <p class="section__eyebrow">Our Story</p>
-            <h2 class="section__title">About Infinity Pearls</h2>
-            <p class="about-text">Infinity Pearls is a small South African brand focused on playful, wearable designs — made to feel special without being "too much". Each bracelet is assembled with care and photographed as a real piece. What you see is what you get.</p>
-            <ul class="about-list">
-              <li>Custom colors and charm ideas welcome</li>
-              <li>Perfect for birthdays, gifts, or everyday wear</li>
-              <li>Locally inspired and made with love</li>
-              <li>Every piece is one-of-a-kind</li>
-            </ul>
-            <div class="about-actions">
-              <a class="btn btn--gold" href="#products">Shop the Collection</a>
-              <a class="btn btn--ghost" href="https://wa.me/27645575188" target="_blank" rel="noopener">Custom Order</a>
-            </div>
-          </div>
+      <!-- Contact -->
+      <div class="contact-block" id="contact">
+        <h2 class="section-heading">Contact Us</h2>
+        <form class="contact-form" id="contactForm" novalidate>
+          <input class="form-input" type="text" name="name" required minlength="2" placeholder="Your name">
+          <input class="form-input" type="email" name="email" required placeholder="Email address">
+          <textarea class="form-input form-input--textarea" name="message" required minlength="10" placeholder="Your message..."></textarea>
+          <button class="btn btn--dark btn--full" type="submit" id="contactSubmit">Send Message</button>
+          <span class="form-hint" id="contactHint"></span>
+        </form>
+        <div class="contact-info">
+          <a href="mailto:infinitypearls83@gmail.com">infinitypearls83@gmail.com</a>
+          <a href="tel:+27645575188">064 557 5188</a>
         </div>
       </div>
-    </section>
 
-    <!-- Contact -->
-    <section class="section section--alt" id="contact">
-      <div class="container">
-        <div class="section__intro section__intro--center reveal">
-          <p class="section__eyebrow">Get in Touch</p>
-          <h2 class="section__title">Contact Us</h2>
-          <p class="section__sub">Questions? Custom order? We'd love to hear from you.</p>
-        </div>
-        <div class="contact-grid reveal">
-          <form class="card contact-form" id="contactForm" novalidate>
-            <div class="form-row">
-              <label class="form-field">
-                <span class="form-label">Your Name</span>
-                <input class="input" type="text" name="name" required minlength="2" placeholder="Your full name">
-              </label>
-              <label class="form-field">
-                <span class="form-label">Email Address</span>
-                <input class="input" type="email" name="email" required placeholder="you@email.com">
-              </label>
-            </div>
-            <label class="form-field">
-              <span class="form-label">Message</span>
-              <textarea class="input input--textarea" name="message" required minlength="10" placeholder="What would you like to order or ask?"></textarea>
-            </label>
-            <div class="form-actions">
-              <button class="btn btn--gold" type="submit" id="contactSubmit">Send Message</button>
-              <span class="form-hint" id="contactHint">We reply as soon as possible.</span>
-            </div>
-          </form>
-
-          <aside class="card contact-aside">
-            <h3 class="contact-aside__title">Reach Us Directly</h3>
-            <ul class="contact-aside__list">
-              <li>
-                <span aria-hidden="true">📍</span>
-                <span>South Africa</span>
-              </li>
-              <li>
-                <span aria-hidden="true">📧</span>
-                <a href="mailto:infinitypearls83@gmail.com">infinitypearls83@gmail.com</a>
-              </li>
-              <li>
-                <span aria-hidden="true">📱</span>
-                <a href="tel:+27645575188">064 557 5188</a>
-              </li>
-            </ul>
-            <div class="divider"></div>
-            <p class="contact-aside__note">Want a specific color theme? Tell us your preferred colors and charm style and we'll create something just for you.</p>
-            <a class="btn btn--whatsapp" href="https://wa.me/27645575188" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Chat on WhatsApp
-            </a>
-          </aside>
-        </div>
+      <!-- Newsletter -->
+      <div class="newsletter-block">
+        <h2 class="section-heading">Stay in the loop</h2>
+        <p class="newsletter-text">New designs, restocks & exclusive offers.</p>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <input class="form-input" type="email" placeholder="your@email.com" required aria-label="Email">
+          <button class="btn btn--dark" type="submit">Subscribe</button>
+        </form>
       </div>
-    </section>
 
-    <!-- Newsletter -->
-    <section class="newsletter-section reveal">
-      <div class="container">
-        <div class="newsletter">
-          <div class="newsletter__copy">
-            <h2 class="newsletter__title">Stay in the loop</h2>
-            <p>New designs, restocks & exclusive offers. No spam, ever.</p>
-          </div>
-          <form class="newsletter__form" id="newsletterForm" novalidate>
-            <input class="input" type="email" placeholder="your@email.com" required aria-label="Email address">
-            <button class="btn btn--gold" type="submit">Subscribe</button>
-          </form>
-        </div>
-      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <p class="footer__brand">Infinity Pearls</p>
+        <p class="footer__tag">Handcrafted Jewelry · South Africa</p>
+        <p class="footer__copy">© <span id="year"></span> Infinity Pearls</p>
+      </footer>
     </section>
 
     <!-- Admin (hidden — accessible via ?admin=1) -->
-    <section class="section section--tight" id="admin" style="display:none" aria-hidden="true">
-      <div class="container">
-        <div class="section__intro">
-          <p class="section__eyebrow">Admin</p>
-          <h2 class="section__title">Store Totals</h2>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-card__label">Total Sales</span>
-            <span class="stat-card__value" id="adminTotalSales">—</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-card__label">Total Orders</span>
-            <span class="stat-card__value" id="adminTotalOrders">—</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-card__label">Total Customers</span>
-            <span class="stat-card__value" id="adminTotalCustomers">—</span>
-          </div>
-        </div>
+    <section class="admin-section" id="admin" style="display:none" aria-hidden="true">
+      <h2 class="section-heading">Store Totals</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-card__label">Sales</span><span class="stat-card__value" id="adminTotalSales">—</span></div>
+        <div class="stat-card"><span class="stat-card__label">Orders</span><span class="stat-card__value" id="adminTotalOrders">—</span></div>
+        <div class="stat-card"><span class="stat-card__label">Customers</span><span class="stat-card__value" id="adminTotalCustomers">—</span></div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="footer__name">Infinity Pearls</span>
-        <span class="footer__tag">Handcrafted Jewelry · South Africa</span>
+  <!-- ═══ Bottom Navigation ═══ -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bottom-nav__tab" data-tab="home" aria-label="Home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav__tab active" data-tab="shop" aria-label="Shop">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
+      <span>Shop</span>
+    </button>
+    <button class="bottom-nav__tab" data-tab="cart" id="bottomCartBtn" aria-label="Cart">
+      <div class="bottom-nav__cart-wrap">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        <span class="bottom-nav__badge" id="bottomCartCount" hidden>0</span>
       </div>
-      <nav class="footer__nav" aria-label="Footer">
-        <a href="#products">Shop</a>
-        <a href="#about">About</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="footer__social">
-        <a href="https://wa.me/27645575188" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        </a>
-        <a href="mailto:infinitypearls83@gmail.com" aria-label="Email us">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </a>
-      </div>
-      <div class="footer__copy">© <span id="year"></span> Infinity Pearls. All rights reserved.</div>
-    </div>
-  </footer>
+      <span>Cart</span>
+    </button>
+    <button class="bottom-nav__tab" data-tab="wallet" aria-label="Orders">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><rect x="14" y="14" width="4" height="2" rx="1"/></svg>
+      <span>Wallet</span>
+    </button>
+    <button class="bottom-nav__tab" data-tab="profile" id="bottomProfileBtn" aria-label="Profile">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </button>
+  </nav>
 
-  <!-- Product Modal -->
+  <!-- ═══ Product Modal ═══ -->
   <div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal__backdrop" data-close-modal></div>
     <div class="modal__panel">
@@ -387,19 +219,18 @@
           <img class="modal__img" id="modalImage" alt="">
         </div>
         <div class="modal__info">
-          <span class="modal__badge-tag">Handcrafted</span>
           <h2 class="modal__title" id="modalTitle"></h2>
           <p class="modal__desc" id="modalDescription"></p>
           <div class="modal__meta">
-            <span class="modal__stars" aria-label="5 stars">★★★★★</span>
-            <span class="modal__stock">✦ In stock</span>
+            <span class="modal__stars">★★★★★</span>
+            <span class="modal__stock">In stock</span>
           </div>
           <div class="modal__price-row">
             <div class="modal__price" id="modalPrice"></div>
-            <button class="btn btn--gold modal__add-btn" id="modalAddToCart" type="button">Add to Cart</button>
+            <button class="btn btn--dark modal__add-btn" id="modalAddToCart" type="button">Add to Cart</button>
           </div>
           <a class="btn btn--whatsapp modal__wa-btn" id="modalWhatsapp" href="https://wa.me/27645575188" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Order via WhatsApp
           </a>
         </div>
@@ -407,7 +238,7 @@
     </div>
   </div>
 
-  <!-- Cart Drawer -->
+  <!-- ═══ Cart Drawer ═══ -->
   <div class="drawer" id="cartDrawer" aria-hidden="true">
     <div class="drawer__backdrop" data-close-drawer></div>
     <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="Shopping cart">
@@ -426,24 +257,16 @@
           </div>
           <p class="cart-summary__note">Shipping calculated at checkout</p>
         </div>
-        <button class="btn btn--gold btn--full" id="checkoutBtn" type="button">Checkout</button>
-        <button class="btn btn--ghost btn--full" id="clearCartBtn" type="button">Clear Cart</button>
+        <button class="btn btn--dark btn--full" id="checkoutBtn" type="button">Checkout</button>
+        <button class="btn btn--outline btn--full" id="clearCartBtn" type="button">Clear Cart</button>
       </div>
     </aside>
   </div>
 
-  <!-- WhatsApp float -->
-  <a class="wa-float" href="https://wa.me/27645575188" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    <span class="wa-float__tip">Chat with us</span>
-  </a>
-
-  <!-- Toasts -->
+  <!-- ═══ Toasts ═══ -->
   <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
 
-  <!-- Auth Modal -->
+  <!-- ═══ Auth Modal ═══ -->
   <div class="modal" id="authModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
     <div class="modal__backdrop" id="authBackdrop"></div>
     <div class="modal__panel modal__panel--narrow">
@@ -452,65 +275,46 @@
       </button>
       <h2 class="modal__panel-title" id="authModalTitle">My Account</h2>
       <div class="auth-tabs" role="tablist">
-        <button class="auth-tab-btn active" id="loginTabBtn" role="tab" aria-selected="true" aria-controls="loginPane">Sign In</button>
-        <button class="auth-tab-btn" id="registerTabBtn" role="tab" aria-selected="false" aria-controls="registerPane">Register</button>
+        <button class="auth-tab-btn active" id="loginTabBtn" role="tab" aria-selected="true">Sign In</button>
+        <button class="auth-tab-btn" id="registerTabBtn" role="tab" aria-selected="false">Register</button>
       </div>
-
-      <!-- Login pane -->
       <div class="auth-pane" id="loginPane" role="tabpanel">
         <form id="loginForm" novalidate>
-          <div class="form-field">
-            <span class="form-label">Email</span>
-            <input class="input" type="email" id="loginEmail" placeholder="you@email.com" required autocomplete="email">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Password</span>
-            <input class="input" type="password" id="loginPassword" placeholder="Your password" required autocomplete="current-password">
-          </div>
+          <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" id="loginEmail" placeholder="you@email.com" required autocomplete="email"></div>
+          <div class="form-field"><span class="form-label">Password</span><input class="form-input" type="password" id="loginPassword" placeholder="Your password" required autocomplete="current-password"></div>
           <span class="form-hint" id="loginHint"></span>
-          <button class="btn btn--gold btn--full" type="submit">Sign In</button>
+          <button class="btn btn--dark btn--full" type="submit">Sign In</button>
         </form>
         <div class="auth-divider"><span>or</span></div>
         <button class="btn btn--google btn--full" id="googleLoginBtn" type="button">
-          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
           Continue with Google
         </button>
       </div>
-
-      <!-- Register pane -->
       <div class="auth-pane" id="registerPane" role="tabpanel" hidden>
         <form id="registerForm" novalidate>
-          <div class="form-field">
-            <span class="form-label">Full Name</span>
-            <input class="input" type="text" id="registerName" placeholder="Your name" required autocomplete="name">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Email</span>
-            <input class="input" type="email" id="registerEmail" placeholder="you@email.com" required autocomplete="email">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Password</span>
-            <input class="input" type="password" id="registerPassword" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password">
-          </div>
+          <div class="form-field"><span class="form-label">Full Name</span><input class="form-input" type="text" id="registerName" placeholder="Your name" required autocomplete="name"></div>
+          <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" id="registerEmail" placeholder="you@email.com" required autocomplete="email"></div>
+          <div class="form-field"><span class="form-label">Password</span><input class="form-input" type="password" id="registerPassword" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password"></div>
           <span class="form-hint" id="registerHint"></span>
-          <button class="btn btn--gold btn--full" type="submit">Create Account</button>
+          <button class="btn btn--dark btn--full" type="submit">Create Account</button>
         </form>
         <div class="auth-divider"><span>or</span></div>
         <button class="btn btn--google btn--full" id="googleRegisterBtn" type="button">
-          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
           Continue with Google
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Account Drawer -->
+  <!-- ═══ Account Drawer ═══ -->
   <div class="drawer" id="accountDrawer" aria-hidden="true">
     <div class="drawer__backdrop" id="accountBackdrop"></div>
     <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="My account">
       <div class="drawer__head">
         <h2 class="drawer__title">My Account</h2>
-        <button class="drawer__close" id="accountDrawerClose" aria-label="Close account panel">
+        <button class="drawer__close" id="accountDrawerClose" aria-label="Close">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
@@ -526,158 +330,85 @@
         <button class="account-tab-btn" data-tab="orders" role="tab">Orders</button>
         <button class="account-tab-btn" data-tab="addresses" role="tab">Addresses</button>
       </div>
-
-      <!-- Profile tab -->
       <div class="account-pane" id="profilePane">
         <form id="profileForm" novalidate>
-          <div class="form-field">
-            <span class="form-label">Full Name</span>
-            <input class="input" type="text" id="profileName" placeholder="Your name" autocomplete="name">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Email</span>
-            <input class="input" type="email" id="profileEmail" placeholder="you@email.com" autocomplete="email">
-          </div>
+          <div class="form-field"><span class="form-label">Full Name</span><input class="form-input" type="text" id="profileName" placeholder="Your name" autocomplete="name"></div>
+          <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" id="profileEmail" placeholder="you@email.com" autocomplete="email"></div>
           <span class="form-hint" id="profileHint"></span>
-          <button class="btn btn--gold" type="submit">Save Changes</button>
+          <button class="btn btn--dark" type="submit">Save Changes</button>
         </form>
       </div>
-
-      <!-- Orders tab -->
       <div class="account-pane" id="ordersPane" hidden>
-        <p class="account-pane__loading" id="ordersLoading">Loading orders…</p>
-        <ul class="orders-list" id="ordersList" aria-label="Your orders"></ul>
-        <p class="account-pane__empty" id="ordersEmpty" hidden>No orders yet. Start shopping!</p>
+        <p class="account-pane__loading" id="ordersLoading">Loading orders...</p>
+        <ul class="orders-list" id="ordersList"></ul>
+        <p class="account-pane__empty" id="ordersEmpty" hidden>No orders yet.</p>
       </div>
-
-      <!-- Addresses tab -->
       <div class="account-pane" id="addressesPane" hidden>
-        <ul class="address-list" id="addressList" aria-label="Saved addresses"></ul>
+        <ul class="address-list" id="addressList"></ul>
         <p class="account-pane__empty" id="addressesEmpty" hidden>No saved addresses.</p>
         <details class="add-address-details" id="addAddressDetails">
           <summary class="btn btn--outline btn--sm">+ Add Address</summary>
           <form id="addAddressForm" novalidate class="add-address-form">
-            <div class="form-field">
-              <span class="form-label">Street Address</span>
-              <input class="input" type="text" id="addrStreet" placeholder="123 Main St" required>
+            <div class="form-field"><span class="form-label">Street</span><input class="form-input" type="text" id="addrStreet" placeholder="123 Main St" required></div>
+            <div class="form-row">
+              <div class="form-field"><span class="form-label">City</span><input class="form-input" type="text" id="addrCity" placeholder="Johannesburg" required></div>
+              <div class="form-field"><span class="form-label">Province</span><input class="form-input" type="text" id="addrProvince" placeholder="Gauteng"></div>
             </div>
             <div class="form-row">
-              <div class="form-field">
-                <span class="form-label">City</span>
-                <input class="input" type="text" id="addrCity" placeholder="Johannesburg" required>
-              </div>
-              <div class="form-field">
-                <span class="form-label">Province</span>
-                <input class="input" type="text" id="addrProvince" placeholder="Gauteng">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-field">
-                <span class="form-label">Postal Code</span>
-                <input class="input" type="text" id="addrPostal" placeholder="2000">
-              </div>
-              <div class="form-field">
-                <span class="form-label">Country</span>
-                <input class="input" type="text" id="addrCountry" value="South Africa">
-              </div>
+              <div class="form-field"><span class="form-label">Postal Code</span><input class="form-input" type="text" id="addrPostal" placeholder="2000"></div>
+              <div class="form-field"><span class="form-label">Country</span><input class="form-input" type="text" id="addrCountry" value="South Africa"></div>
             </div>
             <span class="form-hint" id="addAddrHint"></span>
-            <button class="btn btn--gold btn--sm" type="submit">Save Address</button>
+            <button class="btn btn--dark btn--sm" type="submit">Save Address</button>
           </form>
         </details>
       </div>
     </aside>
   </div>
 
-  <!-- Checkout Stepper Modal -->
+  <!-- ═══ Checkout Stepper Modal ═══ -->
   <div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkoutModalTitle">
     <div class="modal__backdrop" id="checkoutBackdrop"></div>
     <div class="modal__panel modal__panel--narrow">
-      <button class="modal__close" id="checkoutModalClose" aria-label="Close checkout">
+      <button class="modal__close" id="checkoutModalClose" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
       <h2 class="modal__panel-title" id="checkoutModalTitle">Checkout</h2>
-
-      <!-- Step indicator -->
-      <div class="step-indicator" aria-label="Checkout steps">
-        <div class="step-item active" id="stepDot1">
-          <div class="step-dot">1</div>
-          <span class="step-label">Contact</span>
-        </div>
+      <div class="step-indicator">
+        <div class="step-item active" id="stepDot1"><div class="step-dot">1</div><span class="step-label">Contact</span></div>
         <div class="step-line"></div>
-        <div class="step-item" id="stepDot2">
-          <div class="step-dot">2</div>
-          <span class="step-label">Shipping</span>
-        </div>
+        <div class="step-item" id="stepDot2"><div class="step-dot">2</div><span class="step-label">Shipping</span></div>
         <div class="step-line"></div>
-        <div class="step-item" id="stepDot3">
-          <div class="step-dot">3</div>
-          <span class="step-label">Review</span>
-        </div>
+        <div class="step-item" id="stepDot3"><div class="step-dot">3</div><span class="step-label">Review</span></div>
       </div>
-
-      <!-- Step 1: Contact -->
       <div class="checkout-step active" id="coStep1">
-        <div class="form-field">
-          <span class="form-label">Full Name</span>
-          <input class="input" type="text" id="coName" placeholder="Your full name" required autocomplete="name">
-        </div>
-        <div class="form-field">
-          <span class="form-label">Email Address</span>
-          <input class="input" type="email" id="coEmail" placeholder="you@email.com" required autocomplete="email">
-        </div>
+        <div class="form-field"><span class="form-label">Full Name</span><input class="form-input" type="text" id="coName" placeholder="Your full name" required autocomplete="name"></div>
+        <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" id="coEmail" placeholder="you@email.com" required autocomplete="email"></div>
         <span class="form-hint" id="coStep1Hint"></span>
-        <div class="step-actions">
-          <button class="btn btn--gold btn--full" id="coNext1" type="button">Continue to Shipping</button>
-        </div>
+        <div class="step-actions"><button class="btn btn--dark btn--full" id="coNext1" type="button">Continue to Shipping</button></div>
       </div>
-
-      <!-- Step 2: Shipping -->
       <div class="checkout-step" id="coStep2">
-        <div class="form-field">
-          <span class="form-label">Street Address</span>
-          <input class="input" type="text" id="coStreet" placeholder="123 Main Street" required autocomplete="street-address">
+        <div class="form-field"><span class="form-label">Street Address</span><input class="form-input" type="text" id="coStreet" placeholder="123 Main Street" required autocomplete="street-address"></div>
+        <div class="form-row">
+          <div class="form-field"><span class="form-label">City</span><input class="form-input" type="text" id="coCity" placeholder="Johannesburg" required autocomplete="address-level2"></div>
+          <div class="form-field"><span class="form-label">Province</span><input class="form-input" type="text" id="coProvince" placeholder="Gauteng" autocomplete="address-level1"></div>
         </div>
         <div class="form-row">
-          <div class="form-field">
-            <span class="form-label">City</span>
-            <input class="input" type="text" id="coCity" placeholder="Johannesburg" required autocomplete="address-level2">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Province</span>
-            <input class="input" type="text" id="coProvince" placeholder="Gauteng" autocomplete="address-level1">
-          </div>
+          <div class="form-field"><span class="form-label">Postal Code</span><input class="form-input" type="text" id="coPostal" placeholder="2000" autocomplete="postal-code"></div>
+          <div class="form-field"><span class="form-label">Country</span><input class="form-input" type="text" id="coCountry" value="South Africa" autocomplete="country-name"></div>
         </div>
-        <div class="form-row">
-          <div class="form-field">
-            <span class="form-label">Postal Code</span>
-            <input class="input" type="text" id="coPostal" placeholder="2000" autocomplete="postal-code">
-          </div>
-          <div class="form-field">
-            <span class="form-label">Country</span>
-            <input class="input" type="text" id="coCountry" value="South Africa" autocomplete="country-name">
-          </div>
-        </div>
-        <label class="save-addr-label" id="saveAddrLabel" hidden>
-          <input type="checkbox" id="coSaveAddr">
-          <span>Save this address to my account</span>
-        </label>
+        <label class="save-addr-label" id="saveAddrLabel" hidden><input type="checkbox" id="coSaveAddr"><span>Save this address</span></label>
         <span class="form-hint" id="coStep2Hint"></span>
         <div class="step-actions">
-          <button class="btn btn--ghost" id="coBack2" type="button">Back</button>
-          <button class="btn btn--gold" id="coNext2" type="button">Review Order</button>
+          <button class="btn btn--outline" id="coBack2" type="button">Back</button>
+          <button class="btn btn--dark" id="coNext2" type="button">Review Order</button>
         </div>
       </div>
-
-      <!-- Step 3: Review -->
       <div class="checkout-step" id="coStep3">
         <div class="review-section">
           <h3 class="review-heading">Order Summary</h3>
           <ul class="review-items" id="coReviewItems"></ul>
-          <div class="review-total">
-            <span>Total</span>
-            <strong id="coReviewTotal"></strong>
-          </div>
+          <div class="review-total"><span>Total</span><strong id="coReviewTotal"></strong></div>
         </div>
         <div class="review-section">
           <h3 class="review-heading">Shipping To</h3>
@@ -685,11 +416,10 @@
         </div>
         <span class="form-hint" id="coStep3Hint"></span>
         <div class="step-actions">
-          <button class="btn btn--ghost" id="coBack3" type="button">Back</button>
-          <button class="btn btn--gold" id="coPayBtn" type="button">Pay with Stripe</button>
+          <button class="btn btn--outline" id="coBack3" type="button">Back</button>
+          <button class="btn btn--dark" id="coPayBtn" type="button">Pay with Stripe</button>
         </div>
       </div>
-
     </div>
   </div>
 

@@ -12,16 +12,17 @@ if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
 
 // ── Fallback products (if API is unreachable) ────────────────
 const FALLBACK_PRODUCTS = [
-  { id: 1, name: 'Aqua & Pearl Spider Charm', description: 'Elegant bracelet with turquoise beads, clear crystals, and a unique spider charm', price: 60, image: 'images/IMG-20260122-WA0007.jpg' },
-  { id: 2, name: 'Red & Pearl 8-Ball Bracelet', description: 'Bold red beads with white pearls featuring an 8-ball charm and star accent', price: 60, image: 'images/IMG-20260122-WA0008.jpg' },
-  { id: 3, name: 'Coral & Mint Bat Charm', description: 'Unique color-blocked design with coral, orange, and mint beads with bat charm', price: 60, image: 'images/IMG-20260122-WA0010.jpg' },
-  { id: 4, name: 'Rainbow Flower Power', description: 'Vibrant rainbow gradient bracelet with cheerful flower charm', price: 60, image: 'images/IMG-20260122-WA0011.jpg' },
-  { id: 5, name: 'Pink & Black Heart Star', description: 'Chic pink and black beads with heart and star charm accents', price: 60, image: 'images/IMG-20260122-WA0012.jpg' },
-  { id: 6, name: 'Purple Cross & Star', description: 'Deep purple beads with decorative cross and star charms', price: 60, image: 'images/IMG-20260122-WA0013.jpg' },
-  { id: 7, name: 'Infinity Link Bracelet', description: 'Elegant silver bracelet with repeating infinity symbol links', price: 60, image: 'images/IMG-20260122-WA0007.jpg' },
-  { id: 8, name: 'Pink Ombre Set', description: 'Delicate pink gradient bracelets - perfect matching pair', price: 60, image: 'images/IMG-20260122-WA0008.jpg' },
-  { id: 9, name: 'Crystal Daisy Bracelet', description: 'Sparkling clear crystal beads with white daisy charm', price: 60, image: 'images/IMG-20260122-WA0010.jpg' },
-  { id: 10, name: 'Pink Crystal Bear Charm', description: 'Sweet pink crystal beads with adorable bear face charm', price: 60, image: 'images/IMG-20260122-WA0011.jpg' },
+  { id: 1,  name: 'Infinity Link Bracelet',          description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 65, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
+  { id: 2,  name: 'Silver Star Necklace',             description: 'Delicate silver chain necklace with a dainty star pendant',                            price: 35, image: 'images/IMG-20260318-WA0059.jpg', badge: 'new' },
+  { id: 3,  name: 'Silver Cross Necklace',            description: 'Minimalist silver chain with an elegant open cross pendant',                           price: 65, image: 'images/IMG-20260318-WA0060.jpg', badge: 'new' },
+  { id: 4,  name: 'Letter & Star Charm Necklace',     description: 'Silver chain necklace with initial letter pendant and star charms',                    price: 65, image: 'images/IMG-20260318-WA0061.jpg', badge: 'new' },
+  { id: 5,  name: 'Custom Name Bracelets',            description: 'Personalised pearl bracelets with letter beads, flower and butterfly charms',           price: 60, image: 'images/IMG-20260318-WA0062.jpg', badge: 'bestseller' },
+  { id: 6,  name: 'Blue Crystal Cross Bracelet Set',  description: 'Stunning blue and clear crystal bead bracelet pair with cross and angel charms',       price: 50, image: 'images/IMG-20260318-WA0063.jpg', badge: null },
+  { id: 7,  name: 'Pink Crystal Bear Bracelet',       description: 'Sweet pink crystal beads with adorable bear face charm and dangle accent',             price: 65, image: 'images/IMG-20260318-WA0064.jpg', badge: 'bestseller' },
+  { id: 8,  name: 'Crystal Daisy Bracelet',           description: 'Sparkling clear crystal beads with a beautiful white daisy flower charm',              price: 45, image: 'images/IMG-20260318-WA0065.jpg', badge: null },
+  { id: 9,  name: 'Pink & Black Hello Kitty Bracelet', description: 'Pink and black beads with crystal spacers and Hello Kitty star charm',               price: 45, image: 'images/IMG-20260318-WA0066.jpg', badge: null },
+  { id: 10, name: 'Gothic Cross Link Bracelet',       description: 'Bold silver gothic cross link bracelet with vintage charm',                            price: 45, image: 'images/IMG-20260318-WA0067.jpg', badge: null },
+  { id: 11, name: 'Leopard Charm Bangle',             description: 'Silver cable bangle with leopard print beads, 8-ball, cherry and cheetah charms',      price: 50, image: 'images/IMG-20260223-WA0008.jpg', badge: 'new' },
 ];
 
 // Badge from product data (set in Supabase: 'new' | 'bestseller' | null)
@@ -33,13 +34,14 @@ function getBadge(product) {
 
 // ── Image fallback ───────────────────────────────────────────
 const IMG_FALLBACK =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect fill='%231a2235' width='600' height='400'/%3E%3Ctext x='50%25' y='50%25' font-size='28' fill='%23c9a84c' text-anchor='middle' dominant-baseline='middle'%3E✦%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23f0f0f0' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='28' fill='%23999' text-anchor='middle' dominant-baseline='middle'%3E✦%3C/text%3E%3C/svg%3E";
 
 // ── State ────────────────────────────────────────────────────
 let products = [];
 let filtered = [];
 let activeProductId = null;
 let cart = [];
+let activeFilter = 'all';
 
 // ── Helpers ──────────────────────────────────────────────────
 function zar(value) {
@@ -73,11 +75,17 @@ function cartTotal() { return cart.reduce((s, i) => s + i.price * i.quantity, 0)
 
 // ── Cart UI ──────────────────────────────────────────────────
 function updateCartUI() {
-  const countEl = document.getElementById('cartCount');
   const totalEl = document.getElementById('cartTotal');
   const itemsEl = document.getElementById('cartItems');
 
-  if (countEl) countEl.textContent = String(cartCount());
+  // Update bottom nav cart badge
+  const bottomCount = document.getElementById('bottomCartCount');
+  const count = cartCount();
+  if (bottomCount) {
+    bottomCount.textContent = String(count);
+    bottomCount.hidden = count === 0;
+  }
+
   if (totalEl) totalEl.textContent = zar(cartTotal());
   if (!itemsEl) return;
 
@@ -111,7 +119,7 @@ function addToCart(id) {
   else cart.push({ ...product, quantity: 1 });
   saveCart();
   updateCartUI();
-  toast('Added to cart ✦', product.name);
+  toast('Added to cart', product.name);
 }
 
 function changeQty(id, delta) {
@@ -180,10 +188,19 @@ function applyFilters() {
   const sortKey = document.getElementById('sortSelect')?.value || 'featured';
 
   filtered = products.filter((p) => {
-    if (!q) return true;
-    return p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
+    // Text search
+    if (q && !p.name.toLowerCase().includes(q) && !p.description.toLowerCase().includes(q)) return false;
+    // Category filter
+    if (activeFilter === 'bracelets') return p.name.toLowerCase().includes('bracelet') || p.name.toLowerCase().includes('bangle');
+    if (activeFilter === 'necklaces') return p.name.toLowerCase().includes('necklace');
+    return true;
   });
   filtered = sortProducts(filtered, sortKey);
+
+  // Update item count
+  const countEl = document.getElementById('itemCount');
+  if (countEl) countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
+
   renderGrid();
 }
 
@@ -205,23 +222,17 @@ function renderGrid() {
       <article class="product-card" tabindex="0" role="button"
                aria-label="View ${p.name}" data-product-id="${p.id}"
                style="animation-delay:${i * 0.05}s">
-        ${badge ? `<span class="product-card__badge ${badge.cls}">${badge.label}</span>` : ''}
         <div class="product-card__img-wrap">
+          ${badge ? `<span class="product-card__badge ${badge.cls}">${badge.label}</span>` : ''}
           <img class="product-card__img" src="${p.image}" alt="${p.name}" loading="lazy"
                onerror="this.onerror=null;this.src='${IMG_FALLBACK}'">
-          <div class="product-card__overlay">
-            <button class="btn btn--gold" type="button" data-add="${p.id}" aria-label="Add ${p.name} to cart">
-              Add to Cart
-            </button>
-          </div>
+          <button class="product-card__heart" type="button" data-heart="${p.id}" aria-label="Add to wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
         </div>
         <div class="product-card__body">
           <h3 class="product-card__name">${p.name}</h3>
-          <p class="product-card__desc">${p.description}</p>
-          <div class="product-card__row">
-            <span class="product-card__price">${zar(p.price)}</span>
-            <button class="product-card__add" type="button" data-add="${p.id}" aria-label="Add ${p.name}">Add</button>
-          </div>
+          <span class="product-card__price">${zar(p.price)}</span>
         </div>
       </article>
     `;
@@ -240,20 +251,6 @@ async function fetchProducts() {
   applyFilters();
 }
 
-// ── Theme ────────────────────────────────────────────────────
-function setTheme(next) {
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('ip_theme', next);
-  const icon = document.querySelector('.theme-icon');
-  if (icon) icon.textContent = next === 'light' ? '🌙' : '☀️';
-}
-
-function initTheme() {
-  const saved = localStorage.getItem('ip_theme');
-  if (saved === 'light' || saved === 'dark') { setTheme(saved); return; }
-  setTheme(window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-}
-
 // ── Contact form ─────────────────────────────────────────────
 async function submitContact(form) {
   const btn  = document.getElementById('contactSubmit');
@@ -268,7 +265,7 @@ async function submitContact(form) {
     const json = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(json.message || 'Failed');
     form.reset();
-    toast('Message sent ✦', json.message || 'Thanks! We\'ll reply soon.');
+    toast('Message sent', json.message || 'Thanks! We\'ll reply soon.');
     if (hint) hint.textContent = 'Message sent — we\'ll be in touch!';
   } catch (e) {
     toast('Could not send', e.message || 'Please try again.');
@@ -326,7 +323,7 @@ function handleStripeReturn() {
   if (params.get('success') === '1') {
     clearCart();
     updateCartUI();
-    toast('Payment successful ✦', 'Thank you! Your order is confirmed. We\'ll be in touch.');
+    toast('Payment successful', 'Thank you! Your order is confirmed.');
     window.history.replaceState({}, '', window.location.pathname);
     return true;
   }
@@ -338,23 +335,64 @@ function handleStripeReturn() {
   return false;
 }
 
-// ── Scroll reveal ────────────────────────────────────────────
-function initScrollReveal() {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-}
+// ── Bottom Nav ───────────────────────────────────────────────
+function switchTab(tab) {
+  const tabs = document.querySelectorAll('.bottom-nav__tab');
+  tabs.forEach((t) => t.classList.toggle('active', t.dataset.tab === tab));
 
-// ── Sticky nav ───────────────────────────────────────────────
-function initStickyNav() {
-  const nav = document.getElementById('mainNav');
-  if (!nav) return;
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  const productsSection = document.getElementById('products');
+  const homeSection     = document.getElementById('homeSection');
+  const filterBar       = document.getElementById('filterBar');
+  const itemCount       = document.getElementById('itemCount');
+  const searchBar       = document.getElementById('searchBar');
+
+  // Hide all by default
+  if (productsSection) productsSection.style.display = 'none';
+  if (homeSection)     homeSection.classList.remove('visible');
+  if (filterBar)       filterBar.style.display = 'none';
+  if (itemCount)       itemCount.style.display = 'none';
+  if (searchBar)       searchBar.hidden = true;
+
+  switch (tab) {
+    case 'shop':
+      if (productsSection) productsSection.style.display = '';
+      if (filterBar)       filterBar.style.display = '';
+      if (itemCount)       itemCount.style.display = '';
+      break;
+    case 'home':
+      if (homeSection) homeSection.classList.add('visible');
+      break;
+    case 'cart':
+      openDrawer();
+      // Keep shop visible behind drawer
+      if (productsSection) productsSection.style.display = '';
+      if (filterBar)       filterBar.style.display = '';
+      if (itemCount)       itemCount.style.display = '';
+      break;
+    case 'wallet':
+      if (currentUser) {
+        openAccountDrawer();
+        switchAccountTab('orders');
+      } else {
+        openAuthModal('login');
+      }
+      // Keep shop visible behind drawer
+      if (productsSection) productsSection.style.display = '';
+      if (filterBar)       filterBar.style.display = '';
+      if (itemCount)       itemCount.style.display = '';
+      break;
+    case 'profile':
+      if (currentUser) {
+        openAccountDrawer();
+      } else {
+        openAuthModal('login');
+      }
+      // Keep shop visible behind drawer
+      if (productsSection) productsSection.style.display = '';
+      if (filterBar)       filterBar.style.display = '';
+      if (itemCount)       itemCount.style.display = '';
+      break;
+  }
 }
 
 // ── Events ───────────────────────────────────────────────────
@@ -363,31 +401,18 @@ function initEvents() {
   const yr = document.getElementById('year');
   if (yr) yr.textContent = String(new Date().getFullYear());
 
-  // Announcement bar close
-  document.getElementById('announceClose')?.addEventListener('click', () => {
-    document.getElementById('announce')?.remove();
+  // Search toggle
+  document.getElementById('searchToggle')?.addEventListener('click', () => {
+    const bar = document.getElementById('searchBar');
+    if (!bar) return;
+    bar.hidden = !bar.hidden;
+    if (!bar.hidden) document.getElementById('searchInput')?.focus();
   });
-
-  // Mobile nav toggle
-  const toggle  = document.getElementById('navToggle');
-  const navMenu = document.getElementById('navMenu');
-  toggle?.addEventListener('click', () => {
-    const open = navMenu?.classList.toggle('is-open');
-    toggle.classList.toggle('active', open);
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  navMenu?.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => {
-      navMenu.classList.remove('is-open');
-      toggle?.classList.remove('active');
-      toggle?.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Theme toggle
-  document.getElementById('themeToggle')?.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-    setTheme(cur === 'dark' ? 'light' : 'dark');
+  document.getElementById('searchClose')?.addEventListener('click', () => {
+    const bar = document.getElementById('searchBar');
+    if (bar) bar.hidden = true;
+    const input = document.getElementById('searchInput');
+    if (input) { input.value = ''; applyFilters(); }
   });
 
   // Search & sort
@@ -399,9 +424,25 @@ function initEvents() {
     applyFilters();
   });
 
+  // Filter pills
+  document.querySelectorAll('.filter-pill[data-filter]').forEach((pill) => {
+    pill.addEventListener('click', () => {
+      activeFilter = pill.dataset.filter;
+      document.querySelectorAll('.filter-pill[data-filter]').forEach((p) => p.classList.toggle('active', p === pill));
+      applyFilters();
+    });
+  });
+
   // Products grid (click & keyboard)
   const grid = document.getElementById('productsGrid');
   grid?.addEventListener('click', (e) => {
+    // Heart button
+    const heartBtn = e.target.closest('[data-heart]');
+    if (heartBtn) {
+      e.stopPropagation();
+      heartBtn.classList.toggle('liked');
+      return;
+    }
     const addBtn = e.target.closest('[data-add]');
     if (addBtn) { addToCart(Number(addBtn.dataset.add)); return; }
     const card = e.target.closest('[data-product-id]');
@@ -427,7 +468,6 @@ function initEvents() {
   });
 
   // Cart drawer
-  document.getElementById('cartOpen')?.addEventListener('click', openDrawer);
   document.getElementById('cartDrawer')?.addEventListener('click', (e) => {
     if (e.target.dataset.closeDrawer !== undefined || e.target.closest('[data-close-drawer]')) closeDrawer();
   });
@@ -440,6 +480,11 @@ function initEvents() {
   });
   document.getElementById('clearCartBtn')?.addEventListener('click', clearCart);
   document.getElementById('checkoutBtn')?.addEventListener('click', openCheckoutModal);
+
+  // Bottom nav
+  document.querySelectorAll('.bottom-nav__tab').forEach((tab) => {
+    tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+  });
 
   // Escape key
   document.addEventListener('keydown', (e) => {
@@ -489,8 +534,6 @@ function maybeShowAdmin() {
 
 // ── Init ─────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
-  initTheme();
-  initStickyNav();
   loadCart();
   updateCartUI();
 
@@ -499,14 +542,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   initAuthEvents();
   initAccountEvents();
   initCheckoutEvents();
-  initScrollReveal();
   maybeShowAdmin();
   initAuth();
 
   await fetchProducts();
 
   if (!fromStripe) {
-    setTimeout(() => toast('Welcome to Infinity Pearls ✦', 'Browse the collection and add your favorites to cart.'), 600);
+    setTimeout(() => toast('Welcome to Infinity Pearls', 'Browse the collection and add your favorites to cart.'), 600);
   }
 });
 
@@ -525,7 +567,6 @@ async function initAuth() {
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     currentUser = session?.user || null;
     updateAuthUI();
-    // On sign-in, link (or create) the customer record so orders RLS works
     if (_event === 'SIGNED_IN' && currentUser) {
       supabaseClient.from('customers').upsert(
         { email: currentUser.email, auth_user_id: currentUser.id,
@@ -537,11 +578,9 @@ async function initAuth() {
 }
 
 function updateAuthUI() {
-  const dot     = document.getElementById('accountDot');
-  const emailEl = document.getElementById('accountEmail');
+  const emailEl  = document.getElementById('accountEmail');
   const avatarEl = document.getElementById('accountAvatar');
-  if (dot)     dot.hidden = !currentUser;
-  if (emailEl) emailEl.textContent = currentUser?.email || '';
+  if (emailEl)  emailEl.textContent = currentUser?.email || '';
   if (avatarEl) avatarEl.textContent = currentUser?.email?.[0]?.toUpperCase() || '?';
   const pName  = document.getElementById('profileName');
   const pEmail = document.getElementById('profileEmail');
@@ -787,7 +826,6 @@ async function deleteAddress(id) {
 }
 
 function initAccountEvents() {
-  document.getElementById('accountBtn')?.addEventListener('click', openAccountDrawer);
   document.getElementById('accountDrawerClose')?.addEventListener('click', closeAccountDrawer);
   document.getElementById('accountBackdrop')?.addEventListener('click', closeAccountDrawer);
   document.getElementById('signOutBtn')?.addEventListener('click', handleSignOut);
