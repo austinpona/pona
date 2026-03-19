@@ -23,7 +23,7 @@ const supabase = SUPABASE_URL && SUPABASE_SERVICE_KEY
 
 // ── Fallback products (if Supabase unavailable) ───────────────
 const FALLBACK_PRODUCTS = [
-  { id: 1,  name: 'Infinity Link Bracelet',         description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 65, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
+  { id: 1,  name: 'BraceletInfinity Link ',         description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 65, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
   { id: 2,  name: 'Silver Star Necklace',            description: 'Delicate silver chain necklace with a dainty star pendant',                            price: 35, image: 'images/IMG-20260318-WA0059.jpg', badge: 'new' },
   { id: 3,  name: 'Silver Cross Necklace',           description: 'Minimalist silver chain with an elegant open cross pendant',                           price: 65, image: 'images/IMG-20260318-WA0060.jpg', badge: 'new' },
   { id: 4,  name: 'Letter & Star Charm Necklace',    description: 'Silver chain necklace with initial letter pendant and star charms',                    price: 65, image: 'images/IMG-20260318-WA0061.jpg', badge: 'new' },

@@ -12,17 +12,34 @@ if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
 
 // ── Fallback products (if API is unreachable) ────────────────
 const FALLBACK_PRODUCTS = [
-  { id: 1,  name: 'Infinity Link Bracelet',          description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 65, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
-  { id: 2,  name: 'Silver Star Necklace',             description: 'Delicate silver chain necklace with a dainty star pendant',                            price: 35, image: 'images/IMG-20260318-WA0059.jpg', badge: 'new' },
+  { id: 1,  name: 'Infinity Link Bracelet',          description: 'Elegant silver bracelet with repeating infinity symbol links',                         price: 35, image: 'images/IMG-20260318-WA0058.jpg', badge: 'bestseller' },
+  { id: 2,  name: 'Silver Star Necklace',             description: 'Delicate silver chain necklace with a dainty star pendant',                            price: 65, image: 'images/IMG-20260318-WA0059.jpg', badge: 'new' },
   { id: 3,  name: 'Silver Cross Necklace',            description: 'Minimalist silver chain with an elegant open cross pendant',                           price: 65, image: 'images/IMG-20260318-WA0060.jpg', badge: 'new' },
   { id: 4,  name: 'Letter & Star Charm Necklace',     description: 'Silver chain necklace with initial letter pendant and star charms',                    price: 65, image: 'images/IMG-20260318-WA0061.jpg', badge: 'new' },
-  { id: 5,  name: 'Custom Name Bracelets',            description: 'Personalised pearl bracelets with letter beads, flower and butterfly charms',           price: 60, image: 'images/IMG-20260318-WA0062.jpg', badge: 'bestseller' },
-  { id: 6,  name: 'Blue Crystal Cross Bracelet Set',  description: 'Stunning blue and clear crystal bead bracelet pair with cross and angel charms',       price: 50, image: 'images/IMG-20260318-WA0063.jpg', badge: null },
-  { id: 7,  name: 'Pink Crystal Bear Bracelet',       description: 'Sweet pink crystal beads with adorable bear face charm and dangle accent',             price: 65, image: 'images/IMG-20260318-WA0064.jpg', badge: 'bestseller' },
+  { id: 5,  name: 'Custom Name Bracelets',            description: 'Personalised pearl bracelets with letter beads, flower and butterfly charms',           price: 50, image: 'images/IMG-20260318-WA0062.jpg', badge: 'bestseller' },
+  { id: 6,  name: 'Blue Crystal Cross Bracelet Set',  description: 'Stunning blue and clear crystal bead bracelet pair with cross and angel charms',       price: 80, image: 'images/IMG-20260318-WA0063.jpg', badge: null },
+  { id: 7,  name: 'Pink Crystal Bear Bracelet',       description: 'Sweet pink crystal beads with adorable bear face charm and dangle accent',             price: 45, image: 'images/IMG-20260318-WA0064.jpg', badge: 'bestseller' },
   { id: 8,  name: 'Crystal Daisy Bracelet',           description: 'Sparkling clear crystal beads with a beautiful white daisy flower charm',              price: 45, image: 'images/IMG-20260318-WA0065.jpg', badge: null },
   { id: 9,  name: 'Pink & Black Hello Kitty Bracelet', description: 'Pink and black beads with crystal spacers and Hello Kitty star charm',               price: 45, image: 'images/IMG-20260318-WA0066.jpg', badge: null },
-  { id: 10, name: 'Gothic Cross Link Bracelet',       description: 'Bold silver gothic cross link bracelet with vintage charm',                            price: 45, image: 'images/IMG-20260318-WA0067.jpg', badge: null },
-  { id: 11, name: 'Leopard Charm Bangle',             description: 'Silver cable bangle with leopard print beads, 8-ball, cherry and cheetah charms',      price: 50, image: 'images/IMG-20260223-WA0008.jpg', badge: 'new' },
+  { id: 10, name: 'Gothic Cross Link Bracelet',       description: 'Bold silver gothic cross link bracelet with vintage charm',                            price: 50, image: 'images/IMG-20260318-WA0067.jpg', badge: null },
+  { id: 11, name: 'Leopard Charm Bangle',             description: 'Silver cable bangle with leopard print beads, 8-ball, cherry and cheetah charms',      price: 65, image: 'images/IMG-20260223-WA0008.jpg', badge: 'new' },
+  { id: 12, name: "Cat's Eye Bead Bracelet",           description: 'Smooth cat eye glass bead stretch bracelet, available in pink, blue, yellow, orange, burgundy, red and green', price: 30, image: 'images/IMG-20260319-WA0083.jpg', badge: 'new' },
+  { id: 13, name: 'Red Pearl 8-Ball Bracelet',         description: 'Red and pearl bead bracelet with 8-ball charm and silver star dangle',                  price: 40, image: 'images/IMG-20260319-WA0084.jpg', badge: 'new' },
+  { id: 14, name: 'Hot Pink Cross & Star Bracelet',    description: 'Vibrant hot pink bead bracelet with crystal spacers, rhinestone cross and star charms', price: 40, image: 'images/IMG-20260319-WA0086.jpg', badge: 'new' },
+  { id: 15, name: 'Green Pearl 8-Ball Bracelet',       description: 'Green and pearl bead bracelet with 8-ball charm and silver star dangle',                price: 40, image: 'images/IMG-20260319-WA0087.jpg', badge: 'new' },
+  { id: 16, name: 'Yellow Silver 8-Ball Bracelet',     description: 'Yellow and silver bead bracelet with 8-ball charm and star dangle',                     price: 40, image: 'images/IMG-20260319-WA0088.jpg', badge: 'new' },
+  { id: 17, name: 'Blue Crystal Charm Bracelet',       description: 'Soft blue crystal bead bracelet with crystal spacers and charm (paw, letter or owl)',   price: 40, image: 'images/IMG-20260319-WA0089.jpg', badge: 'new' },
+  { id: 18, name: 'Purple Spider Charm Bracelet',      description: 'Purple and lilac bead bracelet with crystal spacers and silver spider charm',           price: 40, image: 'images/IMG-20260319-WA0090.jpg', badge: 'new' },
+  { id: 19, name: 'Pink Charm Bracelet',               description: 'Pink and white bead bracelet with crystal spacers and charm (star, letter or heart)',   price: 40, image: 'images/IMG-20260319-WA0091.jpg', badge: 'new' },
+  { id: 20, name: 'Yellow Charm Bracelet',             description: 'Yellow and white bead bracelet with charm options (butterfly, letter, smiley daisy)',   price: 40, image: 'images/IMG-20260319-WA0092.jpg', badge: 'new' },
+  { id: 21, name: 'Aqua Spider Charm Bracelet',        description: 'Aqua and clear crystal bead bracelet with crystal spacers and silver spider charm',     price: 40, image: 'images/IMG-20260319-WA0093.jpg', badge: 'new' },
+  { id: 22, name: 'Black Spider Charm Bracelet',       description: 'Black and clear crystal bead bracelet with crystal spacers and silver spider charm',    price: 40, image: 'images/IMG-20260319-WA0094.jpg', badge: 'new' },
+  { id: 23, name: 'Evil Eye Bracelet Set (3 Pack)',    description: 'Crystal and evil eye bead bracelet set with star chain, cross charm and evil eye beads', price: 120, image: 'images/IMG-20260319-WA0095.jpg', badge: 'bestseller' },
+  { id: 24, name: 'Pearl & Star Bead Necklace',        description: 'Delicate pearl bead necklace with iridescent star beads and star charm',                price: 70, image: 'images/IMG-20260319-WA0096.jpg', badge: 'new' },
+  { id: 25, name: 'Gamer Charm Necklace',              description: 'Silver chain necklace with controller, butterfly, dice, evil eye and cross charms',      price: 100, image: 'images/IMG-20260319-WA0097.jpg', badge: 'new' },
+  { id: 26, name: 'Skull & Bones Gothic Necklace',     description: 'Gothic bead necklace with skull, dice, butterfly, bone beads and cross pendant',        price: 100, image: 'images/IMG-20260319-WA0098.jpg', badge: 'new' },
+  { id: 27, name: '"Truth" Gothic Charm Necklace',     description: 'Black gothic chain necklace with dice, wings, butterfly, flower charms and "Truth" letter beads', price: 90, image: 'images/IMG-20260319-WA0099.jpg', badge: 'new' },
+  { id: 28, name: 'Custom Name Charm Necklace',        description: 'Colourful custom name bead necklace with skulls, aliens, mushrooms, crosses and butterfly charms', price: 100, image: 'images/IMG-20260319-WA0100.jpg', badge: 'bestseller' },
 ];
 
 // Badge from product data (set in Supabase: 'new' | 'bestseller' | null)
@@ -275,30 +292,6 @@ async function submitContact(form) {
   }
 }
 
-// ── Checkout ─────────────────────────────────────────────────
-async function handleCheckout() {
-  if (cart.length === 0) {
-    toast('Cart is empty', 'Add at least one item before checking out.');
-    return;
-  }
-  const btn = document.getElementById('checkoutBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Processing…'; }
-
-  try {
-    const res  = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: cart }) });
-    const json = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(json.message || 'Checkout failed');
-    if (json.url) {
-      window.location.href = json.url;
-    } else {
-      throw new Error('No payment URL returned.');
-    }
-  } catch (e) {
-    console.error(e);
-    toast('Checkout failed', e.message || 'Please try again.');
-    if (btn) { btn.disabled = false; btn.textContent = 'Checkout'; }
-  }
-}
 
 // ── Admin dashboard ──────────────────────────────────────────
 async function loadAdminTotals() {
