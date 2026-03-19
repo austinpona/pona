@@ -1009,7 +1009,7 @@ async function handleCoPay() {
     window.location.href = json.url;
   } catch (err) {
     if (hint) hint.textContent = err.message;
-    if (btn) { btn.disabled = false; btn.textContent = 'Pay with Stripe'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Pay Now'; }
   }
 }
 

@@ -5,15 +5,14 @@ const cors    = require('cors');
 const path    = require('path');
 const https   = require('https');
 const crypto  = require('crypto');
-const qs      = require('querystring');
 const { createClient } = require('@supabase/supabase-js');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// ── Stripe (direct HTTPS — no SDK) ──────────────────────────
-const STRIPE_SECRET_KEY     = (process.env.STRIPE_SECRET_KEY     || '').trim();
-const STRIPE_WEBHOOK_SECRET = (process.env.STRIPE_WEBHOOK_SECRET || '').trim();
+// ── Yoco ────────────────────────────────────────────────────
+const YOCO_SECRET_KEY     = (process.env.YOCO_SECRET_KEY     || '').trim();
+const YOCO_WEBHOOK_SECRET = (process.env.YOCO_WEBHOOK_SECRET || '').trim();
 
 // ── Supabase (server-side service key) ───────────────────────
 const SUPABASE_URL         = 'https://eascxtwbhzebrlvqzxzp.supabase.co';
@@ -39,19 +38,19 @@ const FALLBACK_PRODUCTS = [
 
 app.use(cors());
 
-// ── Stripe helpers ────────────────────────────────────────────
-function stripeRequest(method, urlPath, params) {
+// ── Yoco helper — make API requests ─────────────────────────
+function yocoRequest(method, urlPath, body) {
   return new Promise((resolve, reject) => {
-    const body = params ? qs.stringify(params) : '';
+    const jsonBody = body ? JSON.stringify(body) : '';
     const options = {
-      hostname: 'api.stripe.com',
+      hostname: 'payments.yoco.com',
       port: 443,
       path: urlPath,
       method,
       headers: {
-        Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        ...(body ? { 'Content-Length': Buffer.byteLength(body) } : {}),
+        Authorization: `Bearer ${YOCO_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+        ...(jsonBody ? { 'Content-Length': Buffer.byteLength(jsonBody) } : {}),
       },
     };
     const req = https.request(options, (res) => {
@@ -61,51 +60,82 @@ function stripeRequest(method, urlPath, params) {
         try {
           const json = JSON.parse(data);
           if (res.statusCode >= 200 && res.statusCode < 300) resolve(json);
-          else reject(new Error(json.error?.message || `Stripe error ${res.statusCode}`));
-        } catch { reject(new Error('Failed to parse Stripe response')); }
+          else reject(new Error(json.message || json.errorMessage || `Yoco error ${res.statusCode}`));
+        } catch { reject(new Error('Failed to parse Yoco response')); }
       });
     });
     req.on('error', reject);
-    if (body) req.write(body);
+    if (jsonBody) req.write(jsonBody);
     req.end();
   });
 }
 
-function verifyStripeWebhook(rawBody, signature, secret) {
-  const parts = signature.split(',').reduce((acc, part) => {
-    const [k, v] = part.split('='); acc[k] = v; return acc;
-  }, {});
-  if (!parts.t || !parts.v1) throw new Error('Invalid signature header');
-  const expected = crypto.createHmac('sha256', secret)
-    .update(`${parts.t}.${rawBody}`).digest('hex');
-  if (expected !== parts.v1) throw new Error('Signature mismatch');
-  if (Math.floor(Date.now() / 1000) - parseInt(parts.t, 10) > 300)
-    throw new Error('Webhook too old');
+// ── Yoco webhook verification ────────────────────────────────
+function verifyYocoWebhook(rawBody, headers, secret) {
+  const webhookId        = headers['webhook-id'];
+  const webhookTimestamp  = headers['webhook-timestamp'];
+  const webhookSignature = headers['webhook-signature'];
+
+  if (!webhookId || !webhookTimestamp || !webhookSignature) {
+    throw new Error('Missing webhook headers');
+  }
+
+  // Check timestamp (reject if older than 3 minutes)
+  const now = Math.floor(Date.now() / 1000);
+  if (Math.abs(now - parseInt(webhookTimestamp, 10)) > 180) {
+    throw new Error('Webhook timestamp too old');
+  }
+
+  // Remove 'whsec_' prefix and decode base64 secret
+  const secretBytes = Buffer.from(secret.replace(/^whsec_/, ''), 'base64');
+
+  // Build signed content: "{webhook-id}.{webhook-timestamp}.{body}"
+  const signedContent = `${webhookId}.${webhookTimestamp}.${rawBody}`;
+
+  // HMAC-SHA256 → base64
+  const expectedSig = crypto
+    .createHmac('sha256', secretBytes)
+    .update(signedContent)
+    .digest('base64');
+
+  // webhook-signature header format: "v1,{base64sig}" (may have multiple)
+  const signatures = webhookSignature.split(' ');
+  const verified = signatures.some((sig) => {
+    const parts = sig.split(',');
+    if (parts.length < 2) return false;
+    return parts[1] === expectedSig;
+  });
+
+  if (!verified) throw new Error('Webhook signature mismatch');
+
   return JSON.parse(rawBody);
 }
 
-// ── Stripe webhook ────────────────────────────────────────────
-app.post('/webhook/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
-  if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SECRET)
+// ── Yoco webhook endpoint ────────────────────────────────────
+app.post('/webhook/yoco', express.raw({ type: 'application/json' }), async (req, res) => {
+  if (!YOCO_WEBHOOK_SECRET)
     return res.status(500).send('Webhook not configured');
   if (!supabase)
     return res.status(500).send('Supabase not configured');
 
   let event;
   try {
-    event = verifyStripeWebhook(req.body.toString(), req.headers['stripe-signature'], STRIPE_WEBHOOK_SECRET);
+    event = verifyYocoWebhook(req.body.toString(), req.headers, YOCO_WEBHOOK_SECRET);
   } catch (err) {
-    console.error('Webhook verification failed:', err.message);
+    console.error('Yoco webhook verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
+  if (event.type === 'payment.succeeded') {
+    const payment = event.payload || event.data?.object || {};
+    const checkoutId = payment.metadata?.checkoutId || payment.id;
+    const amountTotal = (payment.amount || 0) / 100;
+
     try {
-      const lineItemsData = await stripeRequest('GET', `/v1/checkout/sessions/${session.id}/line_items?limit=100`);
-      const amountTotal   = (session.amount_total || 0) / 100;
-      const email = session.customer_details?.email || session.metadata?.customer_email;
-      const name  = session.customer_details?.name  || session.metadata?.customer_name;
+      // Get customer info from checkout metadata
+      const email = payment.metadata?.customer_email || null;
+      const name  = payment.metadata?.customer_name  || null;
+      const cartJson = payment.metadata?.cart_items || null;
 
       let customerId = null;
       if (email) {
@@ -120,18 +150,24 @@ app.post('/webhook/stripe', express.raw({ type: 'application/json' }), async (re
       }
 
       const { data: order, error: orderErr } = await supabase.from('orders')
-        .insert({ customer_id: customerId, status: 'paid', total_amount: amountTotal, stripe_session_id: session.id })
+        .insert({ customer_id: customerId, status: 'paid', total_amount: amountTotal, stripe_session_id: checkoutId })
         .select('id').single();
       if (orderErr) throw orderErr;
 
-      const items = (lineItemsData.data || []).map((li) => ({
+      // Parse cart items from metadata
+      let cartItems = [];
+      if (cartJson) {
+        try { cartItems = JSON.parse(cartJson); } catch {}
+      }
+      const items = cartItems.map((li) => ({
         order_id: order.id,
-        product_name: li.description || 'Item',
-        quantity: li.quantity,
-        unit_price: (li.amount_total || 0) / 100 / (li.quantity || 1),
+        product_name: li.name || 'Item',
+        quantity: li.quantity || 1,
+        unit_price: li.price || 0,
       }));
       if (items.length > 0) await supabase.from('order_items').insert(items);
 
+      console.log('Yoco payment saved: order', order.id, 'amount', amountTotal);
     } catch (err) {
       console.error('Webhook order error:', err.message);
       return res.status(500).send('Order save failed');
@@ -161,7 +197,6 @@ app.get('/api/products', async (req, res) => {
       return res.json(data.map((p) => ({ ...p, image: p.image_url })));
     } catch (e) {
       console.error('Supabase products error:', e.message);
-      // Fall through to hardcoded list
     }
   }
   return res.json(FALLBACK_PRODUCTS);
@@ -186,48 +221,70 @@ app.post('/api/contact', async (req, res) => {
   return res.json({ success: true, message: 'Thanks! We received your message and will reply soon.' });
 });
 
-// ── Checkout — create Stripe Checkout Session ─────────────────
+// ── Checkout — create Yoco Checkout Session ──────────────────
 app.post('/api/checkout', async (req, res) => {
-  if (!STRIPE_SECRET_KEY)
-    return res.status(500).json({ message: 'Stripe is not configured on the server.' });
+  if (!YOCO_SECRET_KEY)
+    return res.status(500).json({ message: 'Payment gateway is not configured on the server.' });
 
   const items = Array.isArray(req.body?.items) ? req.body.items : [];
   if (items.length === 0) return res.status(400).json({ message: 'Cart is empty.' });
 
   const info = req.body?.customerInfo || {};
 
-  const origin = req.headers.origin || `http://localhost:${PORT}`;
-  const params = {
-    mode: 'payment',
-    'payment_method_types[]': 'card',
-    success_url: `${origin}/?success=1`,
-    cancel_url:  `${origin}/?canceled=1`,
-  };
+  // Calculate total in cents (Yoco uses cents)
+  const totalCents = items.reduce((sum, item) => {
+    return sum + Math.round(Number(item.price || 0) * 100) * (item.quantity || 1);
+  }, 0);
 
-  if (info.email) params['customer_email']           = String(info.email).trim();
-  if (info.name)  params['metadata[customer_name]']  = String(info.name).trim();
-  if (info.street) {
-    params['metadata[shipping_street]']   = String(info.street).trim();
-    params['metadata[shipping_city]']     = String(info.city     || '').trim();
-    params['metadata[shipping_province]'] = String(info.province || '').trim();
-    params['metadata[shipping_postal]']   = String(info.postal_code || '').trim();
-    params['metadata[shipping_country]']  = String(info.country  || 'South Africa').trim();
+  if (totalCents < 200) {
+    return res.status(400).json({ message: 'Minimum order is R2.00.' });
   }
 
-  items.forEach((item, i) => {
-    params[`line_items[${i}][quantity]`]                               = item.quantity || 1;
-    params[`line_items[${i}][price_data][currency]`]                   = 'zar';
-    params[`line_items[${i}][price_data][product_data][name]`]         = String(item.name || 'Item');
-    if (item.description)
-      params[`line_items[${i}][price_data][product_data][description]`] = String(item.description);
-    params[`line_items[${i}][price_data][unit_amount]`]                = Math.round(Number(item.price || 0) * 100);
-  });
+  const origin = req.headers.origin || `http://localhost:${PORT}`;
+
+  // Build line items for Yoco
+  const lineItems = items.map((item) => ({
+    displayName: String(item.name || 'Item'),
+    quantity: item.quantity || 1,
+    pricingDetails: {
+      price: Math.round(Number(item.price || 0) * 100),
+    },
+  }));
+
+  // Build metadata (Yoco supports metadata for reconciliation)
+  const metadata = {};
+  if (info.email) metadata.customer_email = String(info.email).trim();
+  if (info.name)  metadata.customer_name  = String(info.name).trim();
+  if (info.street) {
+    metadata.shipping_street   = String(info.street).trim();
+    metadata.shipping_city     = String(info.city     || '').trim();
+    metadata.shipping_province = String(info.province || '').trim();
+    metadata.shipping_postal   = String(info.postal_code || '').trim();
+    metadata.shipping_country  = String(info.country  || 'South Africa').trim();
+  }
+
+  // Store cart items in metadata for webhook order creation
+  metadata.cart_items = JSON.stringify(items.map((item) => ({
+    name: item.name,
+    quantity: item.quantity || 1,
+    price: Number(item.price || 0),
+  })));
+
+  const checkoutBody = {
+    amount: totalCents,
+    currency: 'ZAR',
+    successUrl: `${origin}/?success=1`,
+    cancelUrl:  `${origin}/?canceled=1`,
+    failureUrl: `${origin}/?canceled=1`,
+    lineItems,
+    metadata,
+  };
 
   try {
-    const session = await stripeRequest('POST', '/v1/checkout/sessions', params);
-    return res.json({ url: session.url });
+    const checkout = await yocoRequest('POST', '/api/checkouts', checkoutBody);
+    return res.json({ url: checkout.redirectUrl });
   } catch (e) {
-    console.error('Stripe checkout error:', e.message);
+    console.error('Yoco checkout error:', e.message);
     return res.status(500).json({ message: `Checkout failed: ${e.message}` });
   }
 });
