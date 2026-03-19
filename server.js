@@ -128,49 +128,24 @@ app.post('/webhook/yoco', express.raw({ type: 'application/json' }), async (req,
 
   if (event.type === 'payment.succeeded') {
     const payment = event.payload || event.data?.object || {};
+    const orderId = payment.metadata?.order_id || null;
     const checkoutId = payment.metadata?.checkoutId || payment.id;
-    const amountTotal = (payment.amount || 0) / 100;
 
     try {
-      // Get customer info from checkout metadata
-      const email = payment.metadata?.customer_email || null;
-      const name  = payment.metadata?.customer_name  || null;
-      const cartJson = payment.metadata?.cart_items || null;
-
-      let customerId = null;
-      if (email) {
-        const { data: existing } = await supabase.from('customers').select('id').eq('email', email).maybeSingle();
-        if (existing?.id) {
-          customerId = existing.id;
-        } else {
-          const { data: inserted } = await supabase.from('customers')
-            .insert({ name: name || 'Customer', email }).select('id').single();
-          customerId = inserted?.id || null;
-        }
+      if (orderId) {
+        // Update the existing pending order to 'paid'
+        const { error } = await supabase.from('orders')
+          .update({ status: 'paid', stripe_session_id: checkoutId })
+          .eq('id', orderId);
+        if (error) throw error;
+        console.log('Yoco payment confirmed: order', orderId, 'marked as paid');
+      } else {
+        // Fallback: no order_id in metadata, log for manual review
+        console.warn('Yoco payment succeeded but no order_id in metadata:', checkoutId);
       }
-
-      const { data: order, error: orderErr } = await supabase.from('orders')
-        .insert({ customer_id: customerId, status: 'paid', total_amount: amountTotal, stripe_session_id: checkoutId })
-        .select('id').single();
-      if (orderErr) throw orderErr;
-
-      // Parse cart items from metadata
-      let cartItems = [];
-      if (cartJson) {
-        try { cartItems = JSON.parse(cartJson); } catch {}
-      }
-      const items = cartItems.map((li) => ({
-        order_id: order.id,
-        product_name: li.name || 'Item',
-        quantity: li.quantity || 1,
-        unit_price: li.price || 0,
-      }));
-      if (items.length > 0) await supabase.from('order_items').insert(items);
-
-      console.log('Yoco payment saved: order', order.id, 'amount', amountTotal);
     } catch (err) {
-      console.error('Webhook order error:', err.message);
-      return res.status(500).send('Order save failed');
+      console.error('Webhook order update error:', err.message);
+      return res.status(500).send('Order update failed');
     }
   }
 
@@ -221,7 +196,7 @@ app.post('/api/contact', async (req, res) => {
   return res.json({ success: true, message: 'Thanks! We received your message and will reply soon.' });
 });
 
-// ── Checkout — create Yoco Checkout Session ──────────────────
+// ── Checkout — create Yoco Checkout + save order to Supabase ─
 app.post('/api/checkout', async (req, res) => {
   if (!YOCO_SECRET_KEY)
     return res.status(500).json({ message: 'Payment gateway is not configured on the server.' });
@@ -235,14 +210,68 @@ app.post('/api/checkout', async (req, res) => {
   const totalCents = items.reduce((sum, item) => {
     return sum + Math.round(Number(item.price || 0) * 100) * (item.quantity || 1);
   }, 0);
+  const totalRands = totalCents / 100;
 
   if (totalCents < 200) {
     return res.status(400).json({ message: 'Minimum order is R2.00.' });
   }
 
   const origin = req.headers.origin || `http://localhost:${PORT}`;
+  const email = info.email ? String(info.email).trim() : null;
+  const name  = info.name  ? String(info.name).trim()  : null;
 
-  // Build line items for Yoco
+  // ── Save order to Supabase BEFORE payment ──────────────────
+  let orderId = null;
+  if (supabase) {
+    try {
+      // Find or create customer
+      let customerId = null;
+      if (email) {
+        const { data: existing } = await supabase.from('customers').select('id').eq('email', email).maybeSingle();
+        if (existing?.id) {
+          customerId = existing.id;
+        } else {
+          const { data: inserted } = await supabase.from('customers')
+            .insert({ name: name || 'Customer', email }).select('id').single();
+          customerId = inserted?.id || null;
+        }
+      }
+
+      // Create order with shipping info (status: pending)
+      const orderData = {
+        customer_id: customerId,
+        status: 'pending',
+        total_amount: totalRands,
+        shipping_name:     name || '',
+        shipping_email:    email || '',
+        shipping_street:   String(info.street      || '').trim(),
+        shipping_city:     String(info.city         || '').trim(),
+        shipping_province: String(info.province     || '').trim(),
+        shipping_postal:   String(info.postal_code  || '').trim(),
+        shipping_country:  String(info.country      || 'South Africa').trim(),
+      };
+      const { data: order, error: orderErr } = await supabase.from('orders')
+        .insert(orderData).select('id').single();
+      if (orderErr) throw orderErr;
+      orderId = order.id;
+
+      // Save order items
+      const orderItems = items.map((item) => ({
+        order_id: orderId,
+        product_name: String(item.name || 'Item'),
+        quantity: item.quantity || 1,
+        unit_price: Number(item.price || 0),
+      }));
+      if (orderItems.length > 0) await supabase.from('order_items').insert(orderItems);
+
+      console.log('Order created:', orderId, 'total:', totalRands, 'customer:', email);
+    } catch (err) {
+      console.error('Order save error:', err.message);
+      // Continue to Yoco even if save fails
+    }
+  }
+
+  // ── Create Yoco checkout ───────────────────────────────────
   const lineItems = items.map((item) => ({
     displayName: String(item.name || 'Item'),
     quantity: item.quantity || 1,
@@ -251,29 +280,15 @@ app.post('/api/checkout', async (req, res) => {
     },
   }));
 
-  // Build metadata (Yoco supports metadata for reconciliation)
   const metadata = {};
-  if (info.email) metadata.customer_email = String(info.email).trim();
-  if (info.name)  metadata.customer_name  = String(info.name).trim();
-  if (info.street) {
-    metadata.shipping_street   = String(info.street).trim();
-    metadata.shipping_city     = String(info.city     || '').trim();
-    metadata.shipping_province = String(info.province || '').trim();
-    metadata.shipping_postal   = String(info.postal_code || '').trim();
-    metadata.shipping_country  = String(info.country  || 'South Africa').trim();
-  }
-
-  // Store cart items in metadata for webhook order creation
-  metadata.cart_items = JSON.stringify(items.map((item) => ({
-    name: item.name,
-    quantity: item.quantity || 1,
-    price: Number(item.price || 0),
-  })));
+  if (email)   metadata.customer_email = email;
+  if (name)    metadata.customer_name  = name;
+  if (orderId) metadata.order_id       = String(orderId);
 
   const checkoutBody = {
     amount: totalCents,
     currency: 'ZAR',
-    successUrl: `${origin}/?success=1`,
+    successUrl: `${origin}/?success=1&order=${orderId || ''}`,
     cancelUrl:  `${origin}/?canceled=1`,
     failureUrl: `${origin}/?canceled=1`,
     lineItems,
@@ -282,9 +297,20 @@ app.post('/api/checkout', async (req, res) => {
 
   try {
     const checkout = await yocoRequest('POST', '/api/checkouts', checkoutBody);
+
+    // Store checkout ID on the order
+    if (supabase && orderId && checkout.id) {
+      await supabase.from('orders').update({ stripe_session_id: checkout.id }).eq('id', orderId);
+    }
+
     return res.json({ url: checkout.redirectUrl });
   } catch (e) {
     console.error('Yoco checkout error:', e.message);
+    // If Yoco fails, delete the pending order
+    if (supabase && orderId) {
+      await supabase.from('order_items').delete().eq('order_id', orderId);
+      await supabase.from('orders').delete().eq('id', orderId);
+    }
     return res.status(500).json({ message: `Checkout failed: ${e.message}` });
   }
 });
