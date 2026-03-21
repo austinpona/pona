@@ -486,6 +486,13 @@ input, select, textarea { font: inherit; }
 }
 .btn--google svg { width: 16px; height: 16px; }
 .btn--google:hover { background: var(--bg-2); }
+.auth-forgot-link {
+  display: block; width: 100%; text-align: center;
+  background: none; border: none; color: var(--accent);
+  font-size: 0.72rem; cursor: pointer; margin-top: 8px;
+  padding: 4px 0;
+}
+.auth-forgot-link:hover { text-decoration: underline; }
 
 /* Account drawer */
 .account-user-row {

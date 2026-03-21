@@ -561,20 +561,32 @@ async function initAuth() {
     currentUser = session?.user || null;
     updateAuthUI();
     if (_event === 'SIGNED_IN' && currentUser) {
-      // Upsert customer record
-      var userName = currentUser.user_metadata?.full_name || null;
-      await supabaseClient.from('customers').upsert(
-        { email: currentUser.email, auth_user_id: currentUser.id,
-          name: userName },
-        { onConflict: 'email' }
-      );
-      // If no name in auth metadata, fetch from customers table
-      if (!userName) {
-        var custResult = await supabaseClient
-          .from('customers').select('name').eq('email', currentUser.email).maybeSingle();
-        if (custResult.data?.name) {
-          await supabaseClient.auth.updateUser({ data: { full_name: custResult.data.name } });
+      var meta = currentUser.user_metadata || {};
+      var userName = meta.full_name || meta.name || null;
+
+      // Fetch existing customer to avoid overwriting name with null
+      var custResult = await supabaseClient
+        .from('customers').select('id, name').eq('email', currentUser.email).maybeSingle();
+
+      if (custResult.data?.id) {
+        // Existing customer — only update name if we have a better one
+        var updateData = { auth_user_id: currentUser.id };
+        if (userName && (!custResult.data.name || custResult.data.name === 'Customer')) {
+          updateData.name = userName;
         }
+        await supabaseClient.from('customers').update(updateData).eq('id', custResult.data.id);
+        // If auth has no name but DB does, sync it back
+        if (!userName && custResult.data.name && custResult.data.name !== 'Customer') {
+          await supabaseClient.auth.updateUser({ data: { full_name: custResult.data.name } });
+          currentUser.user_metadata.full_name = custResult.data.name;
+        }
+      } else {
+        // New customer
+        await supabaseClient.from('customers').insert({
+          email: currentUser.email,
+          auth_user_id: currentUser.id,
+          name: userName || 'Customer',
+        });
       }
       updateAuthUI();
     }
@@ -585,7 +597,8 @@ function updateAuthUI() {
   const emailEl  = document.getElementById('accountEmail');
   const avatarEl = document.getElementById('accountAvatar');
   const nameEl   = document.getElementById('accountName');
-  var displayName = currentUser?.user_metadata?.full_name || '';
+  var meta = currentUser?.user_metadata || {};
+  var displayName = meta.full_name || meta.name || '';
   if (emailEl)  emailEl.textContent = currentUser?.email || '';
   if (avatarEl) avatarEl.textContent = (displayName || currentUser?.email || '?')[0].toUpperCase();
   if (nameEl)   nameEl.textContent = displayName;
@@ -698,6 +711,21 @@ function initAuthEvents() {
 
   document.getElementById('googleLoginBtn')?.addEventListener('click', handleGoogleLogin);
   document.getElementById('googleRegisterBtn')?.addEventListener('click', handleGoogleLogin);
+
+  document.getElementById('forgotPasswordBtn')?.addEventListener('click', async function() {
+    var email = document.getElementById('loginEmail').value.trim();
+    var hint  = document.getElementById('loginHint');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      hint.textContent = 'Enter your email above, then click Forgot password.';
+      return;
+    }
+    hint.textContent = 'Sending reset link...';
+    var { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin,
+    });
+    if (error) { hint.textContent = error.message; return; }
+    hint.textContent = 'Password reset link sent! Check your email.';
+  });
 }
 
 // ════════════════════════════════════════════════════════════
@@ -726,6 +754,9 @@ function switchAccountTab(tab) {
   Object.keys(panes).forEach(function(key) {
     var el = document.getElementById(panes[key]);
     if (el) el.hidden = (key !== tab);
+  });
+  document.querySelectorAll('.account-tab-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
   });
   document.querySelectorAll('.account-tab-btn').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.tab === tab);
@@ -860,7 +891,7 @@ function initAccountEvents() {
     hint.textContent = 'Saving...';
     var updateResult = await supabaseClient.auth.updateUser({ email: email, data: { full_name: name } });
     if (updateResult.error) { hint.textContent = updateResult.error.message; return; }
-    await supabaseClient.from('customers').update({ name: name }).eq('auth_user_id', currentUser.id);
+    await supabaseClient.from('customers').update({ name: name, email: email }).eq('auth_user_id', currentUser.id);
     hint.textContent = 'Saved!';
     setTimeout(function() { hint.textContent = ''; }, 2000);
     toast('Profile updated', '');
@@ -903,8 +934,16 @@ async function openCheckoutModal() {
 
   var nameEl  = document.getElementById('coName');
   var emailEl = document.getElementById('coEmail');
-  if (nameEl  && currentUser) nameEl.value  = currentUser.user_metadata?.full_name || '';
-  if (emailEl && currentUser) emailEl.value = currentUser.email || '';
+  var coMeta  = currentUser?.user_metadata || {};
+  if (nameEl  && currentUser) nameEl.value  = coMeta.full_name || coMeta.name || '';
+  if (emailEl && currentUser) {
+    emailEl.value = currentUser.email || '';
+    emailEl.readOnly = true;
+    emailEl.style.opacity = '0.7';
+  } else if (emailEl) {
+    emailEl.readOnly = false;
+    emailEl.style.opacity = '';
+  }
 
   if (supabaseClient && currentUser) {
     var addrResult = await supabaseClient
