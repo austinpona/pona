@@ -557,15 +557,26 @@ async function initAuth() {
   currentUser = session?.user || null;
   updateAuthUI();
 
-  supabaseClient.auth.onAuthStateChange((_event, session) => {
+  supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     currentUser = session?.user || null;
     updateAuthUI();
     if (_event === 'SIGNED_IN' && currentUser) {
-      supabaseClient.from('customers').upsert(
+      // Upsert customer record
+      var userName = currentUser.user_metadata?.full_name || null;
+      await supabaseClient.from('customers').upsert(
         { email: currentUser.email, auth_user_id: currentUser.id,
-          name: currentUser.user_metadata?.full_name || null },
+          name: userName },
         { onConflict: 'email' }
-      ).then(() => {});
+      );
+      // If no name in auth metadata, fetch from customers table
+      if (!userName) {
+        var custResult = await supabaseClient
+          .from('customers').select('name').eq('email', currentUser.email).maybeSingle();
+        if (custResult.data?.name) {
+          await supabaseClient.auth.updateUser({ data: { full_name: custResult.data.name } });
+        }
+      }
+      updateAuthUI();
     }
   });
 }
@@ -573,12 +584,15 @@ async function initAuth() {
 function updateAuthUI() {
   const emailEl  = document.getElementById('accountEmail');
   const avatarEl = document.getElementById('accountAvatar');
+  const nameEl   = document.getElementById('accountName');
+  var displayName = currentUser?.user_metadata?.full_name || '';
   if (emailEl)  emailEl.textContent = currentUser?.email || '';
-  if (avatarEl) avatarEl.textContent = currentUser?.email?.[0]?.toUpperCase() || '?';
+  if (avatarEl) avatarEl.textContent = (displayName || currentUser?.email || '?')[0].toUpperCase();
+  if (nameEl)   nameEl.textContent = displayName;
   const pName  = document.getElementById('profileName');
   const pEmail = document.getElementById('profileEmail');
   if (pEmail && currentUser) pEmail.value = currentUser.email || '';
-  if (pName  && currentUser) pName.value  = currentUser.user_metadata?.full_name || '';
+  if (pName  && currentUser) pName.value  = displayName;
 }
 
 function openAuthModal(tab) {
@@ -740,7 +754,7 @@ async function loadOrders() {
 
   var ordResult = await supabaseClient
     .from('orders')
-    .select('id, status, total_amount, created_at, order_items(product_name, quantity, unit_price)')
+    .select('id, status, total_amount, created_at, shipping_name, shipping_email, shipping_street, shipping_city, shipping_province, shipping_postal, shipping_country, order_items(product_name, quantity, unit_price)')
     .eq('customer_id', customer.id)
     .order('created_at', { ascending: false });
   var orders = ordResult.data;
@@ -753,16 +767,26 @@ async function loadOrders() {
     var items = (o.order_items || []).map(function(i) { return i.product_name + ' x' + i.quantity; }).join(', ');
     var date  = new Date(o.created_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
     var idStr = String(o.id).padStart(4, '0');
+    var shipTo = [o.shipping_street, o.shipping_city, o.shipping_province, o.shipping_postal, o.shipping_country].filter(Boolean).join(', ');
+    var shipName = o.shipping_name || '';
+    var shipEmail = o.shipping_email || '';
     return '<li class="order-card">' +
       '<div class="order-card__header">' +
         '<span class="order-card__id">#' + idStr + '</span>' +
-        '<span class="order-card__status">' + o.status + '</span>' +
+        '<span class="order-card__status order-card__status--' + o.status + '">' + o.status + '</span>' +
       '</div>' +
       '<div style="display:flex;justify-content:space-between;align-items:center">' +
         '<span class="order-card__date">' + date + '</span>' +
         '<span class="order-card__total">' + zar(o.total_amount) + '</span>' +
       '</div>' +
       '<p class="order-card__items">' + items + '</p>' +
+      (shipName || shipEmail || shipTo ?
+        '<div class="order-card__shipping">' +
+          '<span class="order-card__shipping-label">Ship to:</span>' +
+          (shipName ? ' <strong>' + shipName + '</strong>' : '') +
+          (shipEmail ? ' (' + shipEmail + ')' : '') +
+          (shipTo ? '<br><span class="order-card__shipping-addr">' + shipTo + '</span>' : '') +
+        '</div>' : '') +
     '</li>';
   }).join('');
 }

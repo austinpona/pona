@@ -525,11 +525,24 @@ input, select, textarea { font: inherit; }
 .order-card__status {
   font-size: 0.6rem; font-weight: 600; text-transform: uppercase;
   padding: 2px 6px; border-radius: 10px;
+  background: #fff3e0; color: #e65100;
+}
+.order-card__status--paid {
   background: #e8f5e9; color: #2e7d32;
+}
+.order-card__status--pending {
+  background: #fff3e0; color: #e65100;
 }
 .order-card__total { font-weight: 700; font-size: 0.82rem; }
 .order-card__date { font-size: 0.7rem; color: var(--text-3); }
 .order-card__items { font-size: 0.7rem; color: var(--text-2); margin-top: 3px; }
+.order-card__shipping {
+  font-size: 0.68rem; color: var(--text-3); margin-top: 6px;
+  padding-top: 6px; border-top: 1px solid var(--bg-3, #eee);
+  line-height: 1.5;
+}
+.order-card__shipping-label { font-weight: 600; color: var(--text-2); }
+.order-card__shipping-addr { font-size: 0.65rem; }
 
 .address-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
 .address-card {
