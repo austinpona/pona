@@ -604,8 +604,10 @@ function updateAuthUI() {
   if (nameEl)   nameEl.textContent = displayName;
   const pName  = document.getElementById('profileName');
   const pEmail = document.getElementById('profileEmail');
+  const pPhone = document.getElementById('profilePhone');
   if (pEmail && currentUser) pEmail.value = currentUser.email || '';
   if (pName  && currentUser) pName.value  = displayName;
+  if (pPhone && currentUser) pPhone.value = meta.phone || '';
 }
 
 function openAuthModal(tab) {
@@ -651,18 +653,18 @@ async function handleLogin(email, password) {
   toast('Welcome back', email);
 }
 
-async function handleRegister(name, email, password) {
+async function handleRegister(name, email, password, phone) {
   const hint = document.getElementById('registerHint');
   hint.textContent = 'Creating account...';
   const { data, error } = await supabaseClient.auth.signUp({
     email: email,
     password: password,
-    options: { data: { full_name: name } },
+    options: { data: { full_name: name, phone: phone || '' } },
   });
   if (error) { hint.textContent = error.message; return; }
   if (data && data.user) {
     await supabaseClient.from('customers').upsert(
-      { name: name, email: email, auth_user_id: data.user.id },
+      { name: name, email: email, auth_user_id: data.user.id, phone: phone || null },
       { onConflict: 'email' }
     );
   }
@@ -705,8 +707,9 @@ function initAuthEvents() {
     e.preventDefault();
     var name  = document.getElementById('registerName').value.trim();
     var email = document.getElementById('registerEmail').value.trim();
+    var phone = document.getElementById('registerPhone').value.trim();
     var pass  = document.getElementById('registerPassword').value;
-    if (name && email && pass) handleRegister(name, email, pass);
+    if (name && email && pass) handleRegister(name, email, pass, phone);
   });
 
   document.getElementById('googleLoginBtn')?.addEventListener('click', handleGoogleLogin);
@@ -785,7 +788,7 @@ async function loadOrders() {
 
   var ordResult = await supabaseClient
     .from('orders')
-    .select('id, status, total_amount, created_at, shipping_name, shipping_email, shipping_street, shipping_city, shipping_province, shipping_postal, shipping_country, order_items(product_name, quantity, unit_price)')
+    .select('id, status, total_amount, created_at, shipping_name, shipping_email, shipping_phone, shipping_street, shipping_city, shipping_province, shipping_postal, shipping_country, order_items(product_name, quantity, unit_price)')
     .eq('customer_id', customer.id)
     .order('created_at', { ascending: false });
   var orders = ordResult.data;
@@ -799,8 +802,9 @@ async function loadOrders() {
     var date  = new Date(o.created_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
     var idStr = String(o.id).padStart(4, '0');
     var shipTo = [o.shipping_street, o.shipping_city, o.shipping_province, o.shipping_postal, o.shipping_country].filter(Boolean).join(', ');
-    var shipName = o.shipping_name || '';
+    var shipName  = o.shipping_name || '';
     var shipEmail = o.shipping_email || '';
+    var shipPhone = o.shipping_phone || '';
     return '<li class="order-card">' +
       '<div class="order-card__header">' +
         '<span class="order-card__id">#' + idStr + '</span>' +
@@ -815,6 +819,7 @@ async function loadOrders() {
         '<div class="order-card__shipping">' +
           '<span class="order-card__shipping-label">Ship to:</span>' +
           (shipName ? ' <strong>' + shipName + '</strong>' : '') +
+          (shipPhone ? ' · ' + shipPhone : '') +
           (shipEmail ? ' (' + shipEmail + ')' : '') +
           (shipTo ? '<br><span class="order-card__shipping-addr">' + shipTo + '</span>' : '') +
         '</div>' : '') +
@@ -886,12 +891,13 @@ function initAccountEvents() {
     e.preventDefault();
     var name  = document.getElementById('profileName').value.trim();
     var email = document.getElementById('profileEmail').value.trim();
+    var phone = document.getElementById('profilePhone').value.trim();
     var hint  = document.getElementById('profileHint');
     if (!supabaseClient || !currentUser) return;
     hint.textContent = 'Saving...';
-    var updateResult = await supabaseClient.auth.updateUser({ email: email, data: { full_name: name } });
+    var updateResult = await supabaseClient.auth.updateUser({ email: email, data: { full_name: name, phone: phone } });
     if (updateResult.error) { hint.textContent = updateResult.error.message; return; }
-    await supabaseClient.from('customers').update({ name: name, email: email }).eq('auth_user_id', currentUser.id);
+    await supabaseClient.from('customers').update({ name: name, email: email, phone: phone || null }).eq('auth_user_id', currentUser.id);
     hint.textContent = 'Saved!';
     setTimeout(function() { hint.textContent = ''; }, 2000);
     toast('Profile updated', '');
@@ -1273,8 +1279,10 @@ async function openCheckoutModal() {
 
   var nameEl  = document.getElementById('coName');
   var emailEl = document.getElementById('coEmail');
+  var phoneEl = document.getElementById('coPhone');
   var coMeta  = currentUser?.user_metadata || {};
   if (nameEl  && currentUser) nameEl.value  = coMeta.full_name || coMeta.name || '';
+  if (phoneEl && currentUser) phoneEl.value = coMeta.phone || '';
   if (emailEl && currentUser) {
     emailEl.value = currentUser.email || '';
     emailEl.readOnly = true;
@@ -1436,12 +1444,15 @@ function showCoStep(n) {
 function validateCoStep1() {
   var name  = (document.getElementById('coName')?.value  || '').trim();
   var email = (document.getElementById('coEmail')?.value || '').trim();
+  var phone = (document.getElementById('coPhone')?.value || '').trim();
   var hint  = document.getElementById('coStep1Hint');
   if (!name || name.length < 2)                             { hint.textContent = 'Please enter your full name.'; return false; }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { hint.textContent = 'Please enter a valid email.';  return false; }
+  if (!phone || phone.length < 9)                           { hint.textContent = 'Please enter your phone number.'; return false; }
   hint.textContent = '';
   checkoutInfo.name  = name;
   checkoutInfo.email = email;
+  checkoutInfo.phone = phone;
   return true;
 }
 

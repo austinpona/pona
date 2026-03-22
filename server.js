@@ -238,6 +238,7 @@ app.post('/api/checkout', async (req, res) => {
   const origin = req.headers.origin || `http://localhost:${PORT}`;
   const email = info.email ? String(info.email).trim() : null;
   const name  = info.name  ? String(info.name).trim()  : null;
+  const phone = info.phone ? String(info.phone).trim() : null;
 
   // ── Save order to Supabase BEFORE payment ──────────────────
   let orderId = null;
@@ -251,7 +252,7 @@ app.post('/api/checkout', async (req, res) => {
           customerId = existing.id;
         } else {
           const { data: inserted } = await supabase.from('customers')
-            .insert({ name: name || 'Customer', email }).select('id').single();
+            .insert({ name: name || 'Customer', email, phone: phone }).select('id').single();
           customerId = inserted?.id || null;
         }
       }
@@ -265,6 +266,7 @@ app.post('/api/checkout', async (req, res) => {
         total_amount: totalRands,
         shipping_name:     name || '',
         shipping_email:    email || '',
+        shipping_phone:    phone || '',
         shipping_street:   paxiPoint || String(info.street || '').trim(),
         shipping_city:     String(info.city         || '').trim(),
         shipping_province: String(info.province     || '').trim(),
