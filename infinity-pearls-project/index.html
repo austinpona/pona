@@ -390,15 +390,65 @@
         <div class="step-actions"><button class="btn btn--dark btn--full" id="coNext1" type="button">Continue to Shipping</button></div>
       </div>
       <div class="checkout-step" id="coStep2">
-        <div class="form-field"><span class="form-label">Street Address</span><input class="form-input" type="text" id="coStreet" placeholder="123 Main Street" required autocomplete="street-address"></div>
-        <div class="form-row">
-          <div class="form-field"><span class="form-label">City</span><input class="form-input" type="text" id="coCity" placeholder="Johannesburg" required autocomplete="address-level2"></div>
-          <div class="form-field"><span class="form-label">Province</span><input class="form-input" type="text" id="coProvince" placeholder="Gauteng" autocomplete="address-level1"></div>
+        <div class="shipping-methods">
+          <label class="shipping-option shipping-option--active" id="shipOptPaxi">
+            <input type="radio" name="shippingMethod" value="paxi" checked>
+            <div class="shipping-option__body">
+              <div class="shipping-option__row">
+                <span class="shipping-option__name">Paxi PEP Store Pickup</span>
+                <span class="shipping-option__price">R59.99</span>
+              </div>
+              <span class="shipping-option__desc">Collect from a PEP store near you (3–5 business days)</span>
+            </div>
+          </label>
+          <label class="shipping-option" id="shipOptDoor">
+            <input type="radio" name="shippingMethod" value="door">
+            <div class="shipping-option__body">
+              <div class="shipping-option__row">
+                <span class="shipping-option__name">Door-to-Door Delivery</span>
+                <span class="shipping-option__price">R99.99</span>
+              </div>
+              <span class="shipping-option__desc">Delivered to your address (3–7 business days)</span>
+            </div>
+          </label>
         </div>
-        <div class="form-row">
-          <div class="form-field"><span class="form-label">Postal Code</span><input class="form-input" type="text" id="coPostal" placeholder="2000" autocomplete="postal-code"></div>
-          <div class="form-field"><span class="form-label">Country</span><input class="form-input" type="text" id="coCountry" value="South Africa" autocomplete="country-name"></div>
+
+        <!-- Paxi Point Selection -->
+        <div id="paxiFields">
+          <div class="form-field">
+            <span class="form-label">Province</span>
+            <select class="form-input" id="paxiProvince">
+              <option value="">Select province</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <span class="form-label">City / Town</span>
+            <select class="form-input" id="paxiCity" disabled>
+              <option value="">Select city</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <span class="form-label">Paxi Point (PEP Store)</span>
+            <select class="form-input" id="paxiPoint" disabled>
+              <option value="">Select store</option>
+            </select>
+          </div>
+          <p class="paxi-selected" id="paxiSelectedInfo" hidden></p>
         </div>
+
+        <!-- Door-to-door address -->
+        <div id="doorFields" hidden>
+          <div class="form-field"><span class="form-label">Street Address</span><input class="form-input" type="text" id="coStreet" placeholder="123 Main Street" autocomplete="street-address"></div>
+          <div class="form-row">
+            <div class="form-field"><span class="form-label">City</span><input class="form-input" type="text" id="coCity" placeholder="Johannesburg" autocomplete="address-level2"></div>
+            <div class="form-field"><span class="form-label">Province</span><input class="form-input" type="text" id="coProvince" placeholder="Gauteng" autocomplete="address-level1"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="form-label">Postal Code</span><input class="form-input" type="text" id="coPostal" placeholder="2000" autocomplete="postal-code"></div>
+            <div class="form-field"><span class="form-label">Country</span><input class="form-input" type="text" id="coCountry" value="South Africa" autocomplete="country-name"></div>
+          </div>
+        </div>
+
         <label class="save-addr-label" id="saveAddrLabel" hidden><input type="checkbox" id="coSaveAddr"><span>Save this address</span></label>
         <span class="form-hint" id="coStep2Hint"></span>
         <div class="step-actions">
@@ -415,6 +465,9 @@
         <div class="review-section">
           <h3 class="review-heading">Shipping To</h3>
           <p class="review-address" id="coReviewAddress"></p>
+ 
+ 
+ 
         </div>
         <span class="form-hint" id="coStep3Hint"></span>
         <div class="step-actions">

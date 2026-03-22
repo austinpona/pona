@@ -224,9 +224,11 @@ app.post('/api/checkout', async (req, res) => {
   const info = req.body?.customerInfo || {};
 
   // Calculate total in cents (Yoco uses cents)
-  const totalCents = items.reduce((sum, item) => {
+  const itemsCents = items.reduce((sum, item) => {
     return sum + Math.round(Number(item.price || 0) * 100) * (item.quantity || 1);
   }, 0);
+  const shippingCents = Math.round(Number(info.shipping_cost || 0) * 100);
+  const totalCents = itemsCents + shippingCents;
   const totalRands = totalCents / 100;
 
   if (totalCents < 200) {
@@ -255,13 +257,15 @@ app.post('/api/checkout', async (req, res) => {
       }
 
       // Create order with shipping info (status: pending)
+      const shippingMethod = String(info.shipping_method || 'door').trim();
+      const paxiPoint      = info.paxi_point ? String(info.paxi_point).trim() : null;
       const orderData = {
         customer_id: customerId,
         status: 'pending',
         total_amount: totalRands,
         shipping_name:     name || '',
         shipping_email:    email || '',
-        shipping_street:   String(info.street      || '').trim(),
+        shipping_street:   paxiPoint || String(info.street || '').trim(),
         shipping_city:     String(info.city         || '').trim(),
         shipping_province: String(info.province     || '').trim(),
         shipping_postal:   String(info.postal_code  || '').trim(),
@@ -281,7 +285,7 @@ app.post('/api/checkout', async (req, res) => {
       }));
       if (orderItems.length > 0) await supabase.from('order_items').insert(orderItems);
 
-      console.log('Order created:', orderId, 'total:', totalRands, 'customer:', email);
+      console.log('Order created:', orderId, 'total:', totalRands, 'shipping:', shippingMethod, paxiPoint || '', 'customer:', email);
     } catch (err) {
       console.error('Order save error:', err.message);
       // Continue to Yoco even if save fails
@@ -289,6 +293,7 @@ app.post('/api/checkout', async (req, res) => {
   }
 
   // ── Create Yoco checkout ───────────────────────────────────
+  const shippingLabel = info.shipping_method === 'paxi' ? 'Paxi PEP Store Pickup' : 'Door-to-Door Delivery';
   const lineItems = items.map((item) => ({
     displayName: String(item.name || 'Item'),
     quantity: item.quantity || 1,
@@ -296,11 +301,20 @@ app.post('/api/checkout', async (req, res) => {
       price: Math.round(Number(item.price || 0) * 100),
     },
   }));
+  if (shippingCents > 0) {
+    lineItems.push({
+      displayName: shippingLabel,
+      quantity: 1,
+      pricingDetails: { price: shippingCents },
+    });
+  }
 
   const metadata = {};
-  if (email)   metadata.customer_email = email;
-  if (name)    metadata.customer_name  = name;
-  if (orderId) metadata.order_id       = String(orderId);
+  if (email)   metadata.customer_email   = email;
+  if (name)    metadata.customer_name    = name;
+  if (orderId) metadata.order_id         = String(orderId);
+  metadata.shipping_method = info.shipping_method || 'door';
+  if (info.paxi_point) metadata.paxi_point = String(info.paxi_point);
 
   const checkoutBody = {
     amount: totalCents,

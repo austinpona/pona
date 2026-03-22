@@ -921,6 +921,115 @@ function initAccountEvents() {
 }
 
 // ════════════════════════════════════════════════════════════
+// PAXI POINTS DATA
+// ════════════════════════════════════════════════════════════
+
+var PAXI_SHIPPING = 59.99;
+var DOOR_SHIPPING = 99.99;
+
+var PAXI_POINTS = {
+  'Gauteng': {
+    'Johannesburg': ['PEP Jeppe St', 'PEP Maponya Mall', 'PEP Eastgate', 'PEP Southgate', 'PEP Carlton Centre', 'PEP Rosebank'],
+    'Pretoria': ['PEP Pretoria CBD', 'PEP Menlyn', 'PEP Hatfield', 'PEP Mamelodi', 'PEP Atteridgeville', 'PEP Centurion Mall'],
+    'Soweto': ['PEP Maponya Mall', 'PEP Jabulani Mall', 'PEP Dobsonville', 'PEP Protea Glen'],
+    'Midrand': ['PEP Mall of Africa', 'PEP Midrand'],
+    'Benoni': ['PEP Benoni', 'PEP Lakeside Mall'],
+    'Boksburg': ['PEP East Rand Mall', 'PEP Boksburg'],
+    'Germiston': ['PEP Germiston'],
+    'Springs': ['PEP Springs Mall'],
+    'Vereeniging': ['PEP Vereeniging'],
+    'Vanderbijlpark': ['PEP Vanderbijlpark'],
+    'Krugersdorp': ['PEP Krugersdorp'],
+    'Roodepoort': ['PEP Westgate Mall', 'PEP Roodepoort'],
+    'Randburg': ['PEP Randburg'],
+    'Sandton': ['PEP Sandton'],
+    'Tembisa': ['PEP Tembisa'],
+    'Alexandra': ['PEP Alexandra'],
+  },
+  'Western Cape': {
+    'Cape Town': ['PEP Adderley St', 'PEP Canal Walk', 'PEP V&A Waterfront', 'PEP Claremont', 'PEP Bellville', 'PEP Blue Route Mall'],
+    'Stellenbosch': ['PEP Stellenbosch'],
+    'Paarl': ['PEP Paarl Mall'],
+    'George': ['PEP George', 'PEP Garden Route Mall'],
+    'Worcester': ['PEP Worcester'],
+    'Knysna': ['PEP Knysna'],
+    'Mossel Bay': ['PEP Mossel Bay'],
+    'Hermanus': ['PEP Hermanus'],
+    'Malmesbury': ['PEP Malmesbury'],
+    'Khayelitsha': ['PEP Khayelitsha'],
+    'Mitchells Plain': ['PEP Mitchells Plain', 'PEP Westgate Mall'],
+    'Delft': ['PEP Delft'],
+    'Gugulethu': ['PEP Gugulethu'],
+  },
+  'KwaZulu-Natal': {
+    'Durban': ['PEP Durban CBD', 'PEP Gateway Mall', 'PEP Musgrave', 'PEP Pavilion', 'PEP Workshop'],
+    'Pietermaritzburg': ['PEP Pietermaritzburg', 'PEP Liberty Midlands Mall'],
+    'Richards Bay': ['PEP Richards Bay'],
+    'Newcastle': ['PEP Newcastle Mall'],
+    'Ladysmith': ['PEP Ladysmith'],
+    'Pinetown': ['PEP Pinetown', 'PEP Galleria Mall'],
+    'Umlazi': ['PEP Umlazi Mega City'],
+    'KwaMashu': ['PEP KwaMashu'],
+    'Empangeni': ['PEP Empangeni'],
+    'Port Shepstone': ['PEP Port Shepstone'],
+    'Ballito': ['PEP Ballito'],
+  },
+  'Eastern Cape': {
+    'Port Elizabeth': ['PEP Port Elizabeth', 'PEP Greenacres', 'PEP Baywest Mall'],
+    'East London': ['PEP East London', 'PEP Hemingways Mall'],
+    'Mthatha': ['PEP Mthatha', 'PEP BT Ngebs Mall'],
+    'Queenstown': ['PEP Queenstown'],
+    'Grahamstown': ['PEP Grahamstown'],
+    'King Williams Town': ['PEP King Williams Town'],
+    'Uitenhage': ['PEP Uitenhage'],
+    'Bisho': ['PEP Bisho'],
+  },
+  'Free State': {
+    'Bloemfontein': ['PEP Bloemfontein', 'PEP Mimosa Mall', 'PEP Loch Logan Waterfront'],
+    'Welkom': ['PEP Welkom', 'PEP Goldfields Mall'],
+    'Bethlehem': ['PEP Bethlehem'],
+    'Kroonstad': ['PEP Kroonstad'],
+    'Phuthaditjhaba': ['PEP Phuthaditjhaba'],
+    'Sasolburg': ['PEP Sasolburg'],
+  },
+  'Limpopo': {
+    'Polokwane': ['PEP Polokwane', 'PEP Mall of the North', 'PEP Savannah Mall'],
+    'Thohoyandou': ['PEP Thohoyandou'],
+    'Tzaneen': ['PEP Tzaneen'],
+    'Mokopane': ['PEP Mokopane'],
+    'Lephalale': ['PEP Lephalale'],
+    'Musina': ['PEP Musina'],
+    'Giyani': ['PEP Giyani'],
+    'Makhado': ['PEP Makhado'],
+  },
+  'Mpumalanga': {
+    'Nelspruit': ['PEP Nelspruit', 'PEP Riverside Mall', 'PEP Ilanga Mall'],
+    'Witbank': ['PEP Witbank', 'PEP Highveld Mall'],
+    'Secunda': ['PEP Secunda Mall'],
+    'Standerton': ['PEP Standerton'],
+    'Ermelo': ['PEP Ermelo'],
+    'Middelburg': ['PEP Middelburg'],
+    'Barberton': ['PEP Barberton'],
+  },
+  'North West': {
+    'Rustenburg': ['PEP Rustenburg', 'PEP Waterfall Mall'],
+    'Mahikeng': ['PEP Mahikeng', 'PEP Riverwalk Mall'],
+    'Potchefstroom': ['PEP Potchefstroom', 'PEP Mooi Rivier Mall'],
+    'Klerksdorp': ['PEP Klerksdorp', 'PEP City Mall'],
+    'Brits': ['PEP Brits Mall'],
+    'Hartbeespoort': ['PEP Hartbeespoort'],
+  },
+  'Northern Cape': {
+    'Kimberley': ['PEP Kimberley', 'PEP Diamond Pavilion'],
+    'Upington': ['PEP Upington', 'PEP Kalahari Mall'],
+    'Springbok': ['PEP Springbok'],
+    'De Aar': ['PEP De Aar'],
+    'Kuruman': ['PEP Kuruman'],
+    'Kathu': ['PEP Kathu'],
+  },
+};
+
+// ════════════════════════════════════════════════════════════
 // CHECKOUT STEPPER
 // ════════════════════════════════════════════════════════════
 
@@ -945,6 +1054,11 @@ async function openCheckoutModal() {
     emailEl.style.opacity = '';
   }
 
+  // Reset shipping method to Paxi
+  setShippingMethod('paxi');
+  initPaxiDropdowns();
+
+  // Pre-fill door-to-door from saved address
   if (supabaseClient && currentUser) {
     var addrResult = await supabaseClient
       .from('saved_addresses').select('*')
@@ -967,6 +1081,106 @@ async function openCheckoutModal() {
   if (modal) modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   closeDrawer();
+}
+
+function getShippingMethod() {
+  var radio = document.querySelector('input[name="shippingMethod"]:checked');
+  return radio ? radio.value : 'paxi';
+}
+
+function getShippingCost() {
+  return getShippingMethod() === 'paxi' ? PAXI_SHIPPING : DOOR_SHIPPING;
+}
+
+function setShippingMethod(method) {
+  var paxiRadio = document.querySelector('input[name="shippingMethod"][value="paxi"]');
+  var doorRadio = document.querySelector('input[name="shippingMethod"][value="door"]');
+  if (method === 'paxi' && paxiRadio) paxiRadio.checked = true;
+  if (method === 'door' && doorRadio) doorRadio.checked = true;
+  toggleShippingFields();
+}
+
+function toggleShippingFields() {
+  var method = getShippingMethod();
+  var paxiFields = document.getElementById('paxiFields');
+  var doorFields = document.getElementById('doorFields');
+  var saveLabel  = document.getElementById('saveAddrLabel');
+  if (paxiFields) paxiFields.hidden = (method !== 'paxi');
+  if (doorFields) doorFields.hidden = (method !== 'door');
+  if (saveLabel)  saveLabel.hidden  = (method !== 'door') || !currentUser;
+
+  // Update active styling
+  document.getElementById('shipOptPaxi')?.classList.toggle('shipping-option--active', method === 'paxi');
+  document.getElementById('shipOptDoor')?.classList.toggle('shipping-option--active', method === 'door');
+}
+
+function initPaxiDropdowns() {
+  var provSelect = document.getElementById('paxiProvince');
+  var citySelect = document.getElementById('paxiCity');
+  var pointSelect = document.getElementById('paxiPoint');
+  if (!provSelect) return;
+
+  // Populate provinces
+  provSelect.innerHTML = '<option value="">Select province</option>';
+  Object.keys(PAXI_POINTS).sort().forEach(function(prov) {
+    provSelect.innerHTML += '<option value="' + prov + '">' + prov + '</option>';
+  });
+
+  // Reset city and point
+  citySelect.innerHTML = '<option value="">Select city</option>';
+  citySelect.disabled = true;
+  pointSelect.innerHTML = '<option value="">Select store</option>';
+  pointSelect.disabled = true;
+  var info = document.getElementById('paxiSelectedInfo');
+  if (info) info.hidden = true;
+}
+
+function onPaxiProvinceChange() {
+  var prov = document.getElementById('paxiProvince').value;
+  var citySelect = document.getElementById('paxiCity');
+  var pointSelect = document.getElementById('paxiPoint');
+
+  citySelect.innerHTML = '<option value="">Select city</option>';
+  pointSelect.innerHTML = '<option value="">Select store</option>';
+  pointSelect.disabled = true;
+  var info = document.getElementById('paxiSelectedInfo');
+  if (info) info.hidden = true;
+
+  if (!prov || !PAXI_POINTS[prov]) { citySelect.disabled = true; return; }
+  citySelect.disabled = false;
+  Object.keys(PAXI_POINTS[prov]).sort().forEach(function(city) {
+    citySelect.innerHTML += '<option value="' + city + '">' + city + '</option>';
+  });
+}
+
+function onPaxiCityChange() {
+  var prov = document.getElementById('paxiProvince').value;
+  var city = document.getElementById('paxiCity').value;
+  var pointSelect = document.getElementById('paxiPoint');
+  var info = document.getElementById('paxiSelectedInfo');
+  if (info) info.hidden = true;
+
+  pointSelect.innerHTML = '<option value="">Select store</option>';
+  if (!prov || !city || !PAXI_POINTS[prov]?.[city]) { pointSelect.disabled = true; return; }
+  pointSelect.disabled = false;
+  PAXI_POINTS[prov][city].forEach(function(store) {
+    pointSelect.innerHTML += '<option value="' + store + '">' + store + '</option>';
+  });
+}
+
+function onPaxiPointChange() {
+  var prov  = document.getElementById('paxiProvince').value;
+  var city  = document.getElementById('paxiCity').value;
+  var point = document.getElementById('paxiPoint').value;
+  var info  = document.getElementById('paxiSelectedInfo');
+  if (info) {
+    if (point) {
+      info.hidden = false;
+      info.textContent = 'Collect from: ' + point + ', ' + city + ', ' + prov;
+    } else {
+      info.hidden = true;
+    }
+  }
 }
 
 function closeCheckoutModal() {
@@ -1002,36 +1216,69 @@ function validateCoStep1() {
 }
 
 function validateCoStep2() {
-  var street = (document.getElementById('coStreet')?.value || '').trim();
-  var city   = (document.getElementById('coCity')?.value   || '').trim();
-  var hint   = document.getElementById('coStep2Hint');
-  if (!street) { hint.textContent = 'Please enter your street address.'; return false; }
-  if (!city)   { hint.textContent = 'Please enter your city.';           return false; }
-  hint.textContent = '';
-  checkoutInfo.street      = street;
-  checkoutInfo.city        = city;
-  checkoutInfo.province    = (document.getElementById('coProvince')?.value || '').trim();
-  checkoutInfo.postal_code = (document.getElementById('coPostal')?.value   || '').trim();
-  checkoutInfo.country     = (document.getElementById('coCountry')?.value  || 'South Africa').trim();
-  return true;
+  var hint = document.getElementById('coStep2Hint');
+  var method = getShippingMethod();
+  checkoutInfo.shipping_method = method;
+  checkoutInfo.shipping_cost   = getShippingCost();
+
+  if (method === 'paxi') {
+    var prov  = document.getElementById('paxiProvince').value;
+    var city  = document.getElementById('paxiCity').value;
+    var point = document.getElementById('paxiPoint').value;
+    if (!prov)  { hint.textContent = 'Please select a province.'; return false; }
+    if (!city)  { hint.textContent = 'Please select a city.';     return false; }
+    if (!point) { hint.textContent = 'Please select a Paxi Point (PEP store).'; return false; }
+    hint.textContent = '';
+    checkoutInfo.street      = point;
+    checkoutInfo.city        = city;
+    checkoutInfo.province    = prov;
+    checkoutInfo.postal_code = '';
+    checkoutInfo.country     = 'South Africa';
+    checkoutInfo.paxi_point  = point;
+    return true;
+  } else {
+    var street = (document.getElementById('coStreet')?.value || '').trim();
+    var city   = (document.getElementById('coCity')?.value   || '').trim();
+    if (!street) { hint.textContent = 'Please enter your street address.'; return false; }
+    if (!city)   { hint.textContent = 'Please enter your city.';           return false; }
+    hint.textContent = '';
+    checkoutInfo.street      = street;
+    checkoutInfo.city        = city;
+    checkoutInfo.province    = (document.getElementById('coProvince')?.value || '').trim();
+    checkoutInfo.postal_code = (document.getElementById('coPostal')?.value   || '').trim();
+    checkoutInfo.country     = (document.getElementById('coCountry')?.value  || 'South Africa').trim();
+    checkoutInfo.paxi_point  = null;
+    return true;
+  }
 }
 
 function buildCoReview() {
   var itemsEl = document.getElementById('coReviewItems');
   var totalEl = document.getElementById('coReviewTotal');
   var addrEl  = document.getElementById('coReviewAddress');
+  var shippingCost = checkoutInfo.shipping_cost || 0;
+  var grandTotal   = cartTotal() + shippingCost;
+  var isPaxi       = checkoutInfo.shipping_method === 'paxi';
 
   if (itemsEl) {
-    itemsEl.innerHTML = cart.map(function(item) {
+    var rows = cart.map(function(item) {
       return '<li class="review-item"><span>' + item.name + ' x' + item.quantity + '</span><span>' + zar(item.price * item.quantity) + '</span></li>';
     }).join('');
+    rows += '<li class="review-shipping-row"><span>' + (isPaxi ? 'Paxi Pickup' : 'Door-to-Door Delivery') + '</span><span>' + zar(shippingCost) + '</span></li>';
+    itemsEl.innerHTML = rows;
   }
-  if (totalEl) totalEl.textContent = zar(cartTotal());
+  if (totalEl) totalEl.textContent = zar(grandTotal);
   if (addrEl) {
-    var parts = [checkoutInfo.name, checkoutInfo.street,
-      [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', '),
-      checkoutInfo.postal_code, checkoutInfo.country].filter(Boolean);
-    addrEl.textContent = parts.join('\n');
+    if (isPaxi) {
+      addrEl.innerHTML = '<strong>Paxi PEP Store Pickup</strong>\n' +
+        checkoutInfo.paxi_point + '\n' +
+        [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', ');
+    } else {
+      var parts = [checkoutInfo.name, checkoutInfo.street,
+        [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', '),
+        checkoutInfo.postal_code, checkoutInfo.country].filter(Boolean);
+      addrEl.textContent = parts.join('\n');
+    }
     addrEl.style.whiteSpace = 'pre-line';
   }
 }
@@ -1077,4 +1324,14 @@ function initCheckoutEvents() {
   document.getElementById('coNext2')?.addEventListener('click', function() { if (validateCoStep2()) showCoStep(3); });
   document.getElementById('coBack3')?.addEventListener('click', function() { showCoStep(2); });
   document.getElementById('coPayBtn')?.addEventListener('click', handleCoPay);
+
+  // Shipping method toggle
+  document.querySelectorAll('input[name="shippingMethod"]').forEach(function(radio) {
+    radio.addEventListener('change', toggleShippingFields);
+  });
+
+  // Paxi dropdowns
+  document.getElementById('paxiProvince')?.addEventListener('change', onPaxiProvinceChange);
+  document.getElementById('paxiCity')?.addEventListener('change', onPaxiCityChange);
+  document.getElementById('paxiPoint')?.addEventListener('change', onPaxiPointChange);
 }
