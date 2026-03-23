@@ -259,7 +259,7 @@ app.post('/api/checkout', async (req, res) => {
 
       // Create order with shipping info (status: pending)
       const shippingMethod = String(info.shipping_method || 'door').trim();
-      const paxiPoint      = info.paxi_point ? String(info.paxi_point).trim() : null;
+      const courierPoint   = info.courier_point ? String(info.courier_point).trim() : null;
       const orderData = {
         customer_id: customerId,
         status: 'pending',
@@ -267,7 +267,7 @@ app.post('/api/checkout', async (req, res) => {
         shipping_name:     name || '',
         shipping_email:    email || '',
         shipping_phone:    phone || '',
-        shipping_street:   paxiPoint || String(info.street || '').trim(),
+        shipping_street:   courierPoint || String(info.street || '').trim(),
         shipping_city:     String(info.city         || '').trim(),
         shipping_province: String(info.province     || '').trim(),
         shipping_postal:   String(info.postal_code  || '').trim(),
@@ -287,7 +287,7 @@ app.post('/api/checkout', async (req, res) => {
       }));
       if (orderItems.length > 0) await supabase.from('order_items').insert(orderItems);
 
-      console.log('Order created:', orderId, 'total:', totalRands, 'shipping:', shippingMethod, paxiPoint || '', 'customer:', email);
+      console.log('Order created:', orderId, 'total:', totalRands, 'shipping:', shippingMethod, courierPoint || '', 'customer:', email);
     } catch (err) {
       console.error('Order save error:', err.message);
       // Continue to Yoco even if save fails
@@ -295,7 +295,7 @@ app.post('/api/checkout', async (req, res) => {
   }
 
   // ── Create Yoco checkout ───────────────────────────────────
-  const shippingLabel = info.shipping_method === 'paxi' ? 'Paxi PEP Store Pickup' : 'Door-to-Door Delivery';
+  const shippingLabel = info.shipping_method === 'courier' ? 'The Courier Guy — Pickup Point' : 'The Courier Guy — Door to Door';
   const lineItems = items.map((item) => ({
     displayName: String(item.name || 'Item'),
     quantity: item.quantity || 1,
@@ -316,7 +316,7 @@ app.post('/api/checkout', async (req, res) => {
   if (name)    metadata.customer_name    = name;
   if (orderId) metadata.order_id         = String(orderId);
   metadata.shipping_method = info.shipping_method || 'door';
-  if (info.paxi_point) metadata.paxi_point = String(info.paxi_point);
+  if (info.courier_point) metadata.courier_point = String(info.courier_point);
 
   const checkoutBody = {
     amount: totalCents,

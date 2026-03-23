@@ -394,49 +394,49 @@
       </div>
       <div class="checkout-step" id="coStep2">
         <div class="shipping-methods">
-          <label class="shipping-option shipping-option--active" id="shipOptPaxi">
-            <input type="radio" name="shippingMethod" value="paxi" checked>
+          <label class="shipping-option shipping-option--active" id="shipOptCourier">
+            <input type="radio" name="shippingMethod" value="courier" checked>
             <div class="shipping-option__body">
               <div class="shipping-option__row">
-                <span class="shipping-option__name">Paxi PEP Store Pickup</span>
-                <span class="shipping-option__price">R59.99</span>
+                <span class="shipping-option__name">The Courier Guy — Pickup Point</span>
+                <span class="shipping-option__price" id="courierPriceLabel">R50</span>
               </div>
-              <span class="shipping-option__desc">Collect from a PEP store near you (3–5 business days)</span>
+              <span class="shipping-option__desc">Collect from a pickup point near you (2–4 business days)</span>
             </div>
           </label>
           <label class="shipping-option" id="shipOptDoor">
             <input type="radio" name="shippingMethod" value="door">
             <div class="shipping-option__body">
               <div class="shipping-option__row">
-                <span class="shipping-option__name">Door-to-Door Delivery</span>
-                <span class="shipping-option__price">R99.99</span>
+                <span class="shipping-option__name">The Courier Guy — Door to Door</span>
+                <span class="shipping-option__price" id="doorPriceLabel">R50</span>
               </div>
-              <span class="shipping-option__desc">Delivered to your address (3–7 business days)</span>
+              <span class="shipping-option__desc">Delivered to your door, nationwide (2–5 business days)</span>
             </div>
           </label>
         </div>
 
-        <!-- Paxi Point Selection -->
-        <div id="paxiFields">
+        <!-- Courier Guy Pickup Point Selection -->
+        <div id="courierFields">
           <div class="form-field">
             <span class="form-label">Province</span>
-            <select class="form-input" id="paxiProvince">
+            <select class="form-input" id="courierProvince">
               <option value="">Select province</option>
             </select>
           </div>
           <div class="form-field">
             <span class="form-label">City / Town</span>
-            <select class="form-input" id="paxiCity" disabled>
+            <select class="form-input" id="courierCity" disabled>
               <option value="">Select city</option>
             </select>
           </div>
           <div class="form-field">
-            <span class="form-label">Paxi Point (PEP Store)</span>
-            <select class="form-input" id="paxiPoint" disabled>
-              <option value="">Select store</option>
+            <span class="form-label">Pickup Point</span>
+            <select class="form-input" id="courierPoint" disabled>
+              <option value="">Select pickup point</option>
             </select>
           </div>
-          <p class="paxi-selected" id="paxiSelectedInfo" hidden></p>
+          <p class="courier-selected" id="courierSelectedInfo" hidden></p>
         </div>
 
         <!-- Door-to-door address -->

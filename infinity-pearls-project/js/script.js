@@ -927,341 +927,341 @@ function initAccountEvents() {
 }
 
 // ════════════════════════════════════════════════════════════
-// PAXI POINTS DATA
+// THE COURIER GUY PICKUP POINTS DATA
 // ════════════════════════════════════════════════════════════
 
-var PAXI_SHIPPING = 59.99;
-var DOOR_SHIPPING = 99.99;
+var PHALABORWA_SHIPPING = 20;
+var STANDARD_SHIPPING = 50;
 
-var PAXI_POINTS = {
+var COURIER_POINTS = {
   'Gauteng': {
-    'Johannesburg CBD': ['PEP Jeppe St', 'PEP Carlton Centre', 'PEP Ghandi Square'],
-    'Sandton': ['PEP Sandton City', 'PEP Sandton'],
-    'Rosebank': ['PEP Rosebank Mall'],
-    'Randburg': ['PEP Randburg', 'PEP Cresta Mall'],
-    'Roodepoort': ['PEP Westgate Mall', 'PEP Roodepoort', 'PEP Clearwater Mall'],
-    'Midrand': ['PEP Mall of Africa', 'PEP Midrand', 'PEP Boulders Mall'],
-    'Fourways': ['PEP Fourways Mall'],
-    'Soweto': ['PEP Maponya Mall', 'PEP Jabulani Mall', 'PEP Dobsonville', 'PEP Protea Glen', 'PEP Bara Mall'],
-    'Alexandra': ['PEP Alexandra', 'PEP Pan Africa Mall'],
-    'Tembisa': ['PEP Tembisa', 'PEP Birch Acres Mall'],
-    'Kempton Park': ['PEP Kempton Park', 'PEP Festival Mall'],
-    'Benoni': ['PEP Benoni', 'PEP Lakeside Mall'],
-    'Boksburg': ['PEP East Rand Mall', 'PEP Boksburg'],
-    'Germiston': ['PEP Germiston', 'PEP Golden Walk'],
-    'Alberton': ['PEP Alberton City'],
-    'Springs': ['PEP Springs Mall', 'PEP Springs'],
-    'Brakpan': ['PEP Brakpan'],
-    'Nigel': ['PEP Nigel'],
-    'Edenvale': ['PEP Edenvale', 'PEP Greenstone Mall'],
-    'Pretoria CBD': ['PEP Pretoria CBD', 'PEP Church St'],
-    'Pretoria East': ['PEP Menlyn Mall', 'PEP Woodlands Mall'],
-    'Pretoria North': ['PEP Wonderpark Mall', 'PEP Pretoria North'],
-    'Hatfield': ['PEP Hatfield Plaza'],
-    'Centurion': ['PEP Centurion Mall', 'PEP The Glen'],
-    'Mamelodi': ['PEP Mamelodi', 'PEP Denneboom'],
-    'Atteridgeville': ['PEP Atteridgeville'],
-    'Soshanguve': ['PEP Soshanguve', 'PEP Crossing Mall'],
-    'Ga-Rankuwa': ['PEP Ga-Rankuwa'],
-    'Hammanskraal': ['PEP Hammanskraal'],
-    'Vereeniging': ['PEP Vereeniging', 'PEP River Square Mall'],
-    'Vanderbijlpark': ['PEP Vanderbijlpark', 'PEP Value Mall'],
-    'Krugersdorp': ['PEP Krugersdorp', 'PEP Key West Mall'],
-    'Randfontein': ['PEP Randfontein'],
-    'Westonaria': ['PEP Westonaria'],
-    'Carletonville': ['PEP Carletonville'],
-    'Heidelberg': ['PEP Heidelberg'],
-    'Bronkhorstspruit': ['PEP Bronkhorstspruit'],
-    'Meyerton': ['PEP Meyerton'],
-    'Katlehong': ['PEP Katlehong Mall'],
-    'Vosloorus': ['PEP Vosloorus'],
-    'Thokoza': ['PEP Thokoza'],
-    'Daveyton': ['PEP Daveyton'],
-    'Tsakane': ['PEP Tsakane'],
-    'KwaThema': ['PEP KwaThema'],
-    'Ratanda': ['PEP Ratanda'],
-    'Diepsloot': ['PEP Diepsloot'],
-    'Orange Farm': ['PEP Orange Farm'],
-    'Ivory Park': ['PEP Ivory Park'],
+    'Johannesburg CBD': ['TCG Jeppe St', 'TCG Carlton Centre', 'TCG Ghandi Square'],
+    'Sandton': ['TCG Sandton City', 'TCG Sandton'],
+    'Rosebank': ['TCG Rosebank Mall'],
+    'Randburg': ['TCG Randburg', 'TCG Cresta Mall'],
+    'Roodepoort': ['TCG Westgate Mall', 'TCG Roodepoort', 'TCG Clearwater Mall'],
+    'Midrand': ['TCG Mall of Africa', 'TCG Midrand', 'TCG Boulders Mall'],
+    'Fourways': ['TCG Fourways Mall'],
+    'Soweto': ['TCG Maponya Mall', 'TCG Jabulani Mall', 'TCG Dobsonville', 'TCG Protea Glen', 'TCG Bara Mall'],
+    'Alexandra': ['TCG Alexandra', 'TCG Pan Africa Mall'],
+    'Tembisa': ['TCG Tembisa', 'TCG Birch Acres Mall'],
+    'Kempton Park': ['TCG Kempton Park', 'TCG Festival Mall'],
+    'Benoni': ['TCG Benoni', 'TCG Lakeside Mall'],
+    'Boksburg': ['TCG East Rand Mall', 'TCG Boksburg'],
+    'Germiston': ['TCG Germiston', 'TCG Golden Walk'],
+    'Alberton': ['TCG Alberton City'],
+    'Springs': ['TCG Springs Mall', 'TCG Springs'],
+    'Brakpan': ['TCG Brakpan'],
+    'Nigel': ['TCG Nigel'],
+    'Edenvale': ['TCG Edenvale', 'TCG Greenstone Mall'],
+    'Pretoria CBD': ['TCG Pretoria CBD', 'TCG Church St'],
+    'Pretoria East': ['TCG Menlyn Mall', 'TCG Woodlands Mall'],
+    'Pretoria North': ['TCG Wonderpark Mall', 'TCG Pretoria North'],
+    'Hatfield': ['TCG Hatfield Plaza'],
+    'Centurion': ['TCG Centurion Mall', 'TCG The Glen'],
+    'Mamelodi': ['TCG Mamelodi', 'TCG Denneboom'],
+    'Atteridgeville': ['TCG Atteridgeville'],
+    'Soshanguve': ['TCG Soshanguve', 'TCG Crossing Mall'],
+    'Ga-Rankuwa': ['TCG Ga-Rankuwa'],
+    'Hammanskraal': ['TCG Hammanskraal'],
+    'Vereeniging': ['TCG Vereeniging', 'TCG River Square Mall'],
+    'Vanderbijlpark': ['TCG Vanderbijlpark', 'TCG Value Mall'],
+    'Krugersdorp': ['TCG Krugersdorp', 'TCG Key West Mall'],
+    'Randfontein': ['TCG Randfontein'],
+    'Westonaria': ['TCG Westonaria'],
+    'Carletonville': ['TCG Carletonville'],
+    'Heidelberg': ['TCG Heidelberg'],
+    'Bronkhorstspruit': ['TCG Bronkhorstspruit'],
+    'Meyerton': ['TCG Meyerton'],
+    'Katlehong': ['TCG Katlehong Mall'],
+    'Vosloorus': ['TCG Vosloorus'],
+    'Thokoza': ['TCG Thokoza'],
+    'Daveyton': ['TCG Daveyton'],
+    'Tsakane': ['TCG Tsakane'],
+    'KwaThema': ['TCG KwaThema'],
+    'Ratanda': ['TCG Ratanda'],
+    'Diepsloot': ['TCG Diepsloot'],
+    'Orange Farm': ['TCG Orange Farm'],
+    'Ivory Park': ['TCG Ivory Park'],
   },
   'Western Cape': {
-    'Cape Town CBD': ['PEP Adderley St', 'PEP Golden Acre'],
-    'Canal Walk': ['PEP Canal Walk'],
-    'Bellville': ['PEP Bellville', 'PEP Tyger Valley'],
-    'Claremont': ['PEP Claremont', 'PEP Cavendish Square'],
-    'Tokai': ['PEP Blue Route Mall'],
-    'Khayelitsha': ['PEP Khayelitsha', 'PEP Khayelitsha Mall'],
-    'Mitchells Plain': ['PEP Mitchells Plain', 'PEP Liberty Promenade'],
-    'Gugulethu': ['PEP Gugulethu Square'],
-    'Delft': ['PEP Delft'],
-    'Nyanga': ['PEP Nyanga'],
-    'Langa': ['PEP Langa'],
-    'Philippi': ['PEP Philippi'],
-    'Athlone': ['PEP Athlone', 'PEP Vangate Mall'],
-    'Goodwood': ['PEP Goodwood'],
-    'Parow': ['PEP Parow Centre'],
-    'Durbanville': ['PEP Durbanville'],
-    'Strand': ['PEP Strand'],
-    'Somerset West': ['PEP Somerset West', 'PEP Somerset Mall'],
-    'Gordons Bay': ['PEP Gordons Bay'],
-    'Stellenbosch': ['PEP Stellenbosch', 'PEP Eikestad Mall'],
-    'Paarl': ['PEP Paarl', 'PEP Paarl Mall'],
-    'Franschhoek': ['PEP Franschhoek'],
-    'Wellington': ['PEP Wellington'],
-    'Malmesbury': ['PEP Malmesbury'],
-    'Saldanha': ['PEP Saldanha'],
-    'Langebaan': ['PEP Langebaan'],
-    'Vredenburg': ['PEP Vredenburg'],
-    'Piketberg': ['PEP Piketberg'],
-    'Citrusdal': ['PEP Citrusdal'],
-    'Clanwilliam': ['PEP Clanwilliam'],
-    'Ceres': ['PEP Ceres'],
-    'Worcester': ['PEP Worcester', 'PEP Mountain Mill Mall'],
-    'Robertson': ['PEP Robertson'],
-    'Montagu': ['PEP Montagu'],
-    'Hermanus': ['PEP Hermanus', 'PEP Whale Coast Mall'],
-    'Bredasdorp': ['PEP Bredasdorp'],
-    'Swellendam': ['PEP Swellendam'],
-    'George': ['PEP George', 'PEP Garden Route Mall'],
-    'Mossel Bay': ['PEP Mossel Bay', 'PEP Langeberg Mall'],
-    'Knysna': ['PEP Knysna'],
-    'Plettenberg Bay': ['PEP Plettenberg Bay'],
-    'Oudtshoorn': ['PEP Oudtshoorn'],
-    'Beaufort West': ['PEP Beaufort West'],
-    'Grabouw': ['PEP Grabouw'],
-    'Atlantis': ['PEP Atlantis'],
-    'Mfuleni': ['PEP Mfuleni'],
-    'Kraaifontein': ['PEP Kraaifontein'],
-    'Eerste River': ['PEP Eerste River'],
-    'Kuils River': ['PEP Kuils River'],
+    'Cape Town CBD': ['TCG Adderley St', 'TCG Golden Acre'],
+    'Canal Walk': ['TCG Canal Walk'],
+    'Bellville': ['TCG Bellville', 'TCG Tyger Valley'],
+    'Claremont': ['TCG Claremont', 'TCG Cavendish Square'],
+    'Tokai': ['TCG Blue Route Mall'],
+    'Khayelitsha': ['TCG Khayelitsha', 'TCG Khayelitsha Mall'],
+    'Mitchells Plain': ['TCG Mitchells Plain', 'TCG Liberty Promenade'],
+    'Gugulethu': ['TCG Gugulethu Square'],
+    'Delft': ['TCG Delft'],
+    'Nyanga': ['TCG Nyanga'],
+    'Langa': ['TCG Langa'],
+    'Philippi': ['TCG Philippi'],
+    'Athlone': ['TCG Athlone', 'TCG Vangate Mall'],
+    'Goodwood': ['TCG Goodwood'],
+    'Parow': ['TCG Parow Centre'],
+    'Durbanville': ['TCG Durbanville'],
+    'Strand': ['TCG Strand'],
+    'Somerset West': ['TCG Somerset West', 'TCG Somerset Mall'],
+    'Gordons Bay': ['TCG Gordons Bay'],
+    'Stellenbosch': ['TCG Stellenbosch', 'TCG Eikestad Mall'],
+    'Paarl': ['TCG Paarl', 'TCG Paarl Mall'],
+    'Franschhoek': ['TCG Franschhoek'],
+    'Wellington': ['TCG Wellington'],
+    'Malmesbury': ['TCG Malmesbury'],
+    'Saldanha': ['TCG Saldanha'],
+    'Langebaan': ['TCG Langebaan'],
+    'Vredenburg': ['TCG Vredenburg'],
+    'Piketberg': ['TCG Piketberg'],
+    'Citrusdal': ['TCG Citrusdal'],
+    'Clanwilliam': ['TCG Clanwilliam'],
+    'Ceres': ['TCG Ceres'],
+    'Worcester': ['TCG Worcester', 'TCG Mountain Mill Mall'],
+    'Robertson': ['TCG Robertson'],
+    'Montagu': ['TCG Montagu'],
+    'Hermanus': ['TCG Hermanus', 'TCG Whale Coast Mall'],
+    'Bredasdorp': ['TCG Bredasdorp'],
+    'Swellendam': ['TCG Swellendam'],
+    'George': ['TCG George', 'TCG Garden Route Mall'],
+    'Mossel Bay': ['TCG Mossel Bay', 'TCG Langeberg Mall'],
+    'Knysna': ['TCG Knysna'],
+    'Plettenberg Bay': ['TCG Plettenberg Bay'],
+    'Oudtshoorn': ['TCG Oudtshoorn'],
+    'Beaufort West': ['TCG Beaufort West'],
+    'Grabouw': ['TCG Grabouw'],
+    'Atlantis': ['TCG Atlantis'],
+    'Mfuleni': ['TCG Mfuleni'],
+    'Kraaifontein': ['TCG Kraaifontein'],
+    'Eerste River': ['TCG Eerste River'],
+    'Kuils River': ['TCG Kuils River'],
   },
   'KwaZulu-Natal': {
-    'Durban CBD': ['PEP Durban CBD', 'PEP Workshop Mall', 'PEP West St'],
-    'Durban North': ['PEP Gateway Mall', 'PEP Umhlanga'],
-    'Durban South': ['PEP Amanzimtoti', 'PEP Galleria Mall'],
-    'Musgrave': ['PEP Musgrave Centre'],
-    'Pinetown': ['PEP Pinetown', 'PEP Pavilion Mall'],
-    'Chatsworth': ['PEP Chatsworth Centre'],
-    'Phoenix': ['PEP Phoenix Plaza'],
-    'Umlazi': ['PEP Umlazi Mega City'],
-    'KwaMashu': ['PEP KwaMashu', 'PEP Bridge City Mall'],
-    'Inanda': ['PEP Inanda'],
-    'Ntuzuma': ['PEP Ntuzuma'],
-    'Clermont': ['PEP Clermont'],
-    'Tongaat': ['PEP Tongaat'],
-    'Verulam': ['PEP Verulam'],
-    'Stanger (KwaDukuza)': ['PEP Stanger', 'PEP KwaDukuza Mall'],
-    'Ballito': ['PEP Ballito', 'PEP Ballito Junction'],
-    'Pietermaritzburg': ['PEP Pietermaritzburg', 'PEP Liberty Midlands Mall', 'PEP Scottsville Mall'],
-    'Edendale': ['PEP Edendale Mall'],
-    'Howick': ['PEP Howick'],
-    'Richards Bay': ['PEP Richards Bay', 'PEP Boardwalk Mall'],
-    'Empangeni': ['PEP Empangeni'],
-    'Eshowe': ['PEP Eshowe'],
-    'Ulundi': ['PEP Ulundi', 'PEP King Cetshwayo Mall'],
-    'Nongoma': ['PEP Nongoma'],
-    'Hluhluwe': ['PEP Hluhluwe'],
-    'Mtubatuba': ['PEP Mtubatuba'],
-    'Newcastle': ['PEP Newcastle', 'PEP Amajuba Mall'],
-    'Ladysmith': ['PEP Ladysmith', 'PEP Oval Mall'],
-    'Dundee': ['PEP Dundee'],
-    'Vryheid': ['PEP Vryheid'],
-    'Glencoe': ['PEP Glencoe'],
-    'Port Shepstone': ['PEP Port Shepstone', 'PEP Shelly Centre'],
-    'Margate': ['PEP Margate'],
-    'Scottburgh': ['PEP Scottburgh'],
-    'Kokstad': ['PEP Kokstad'],
-    'Ixopo': ['PEP Ixopo'],
-    'Estcourt': ['PEP Estcourt'],
-    'Greytown': ['PEP Greytown'],
-    'Mandeni': ['PEP Mandeni'],
-    'Jozini': ['PEP Jozini'],
-    'Pongola': ['PEP Pongola'],
-    'Bergville': ['PEP Bergville'],
+    'Durban CBD': ['TCG Durban CBD', 'TCG Workshop Mall', 'TCG West St'],
+    'Durban North': ['TCG Gateway Mall', 'TCG Umhlanga'],
+    'Durban South': ['TCG Amanzimtoti', 'TCG Galleria Mall'],
+    'Musgrave': ['TCG Musgrave Centre'],
+    'Pinetown': ['TCG Pinetown', 'TCG Pavilion Mall'],
+    'Chatsworth': ['TCG Chatsworth Centre'],
+    'Phoenix': ['TCG Phoenix Plaza'],
+    'Umlazi': ['TCG Umlazi Mega City'],
+    'KwaMashu': ['TCG KwaMashu', 'TCG Bridge City Mall'],
+    'Inanda': ['TCG Inanda'],
+    'Ntuzuma': ['TCG Ntuzuma'],
+    'Clermont': ['TCG Clermont'],
+    'Tongaat': ['TCG Tongaat'],
+    'Verulam': ['TCG Verulam'],
+    'Stanger (KwaDukuza)': ['TCG Stanger', 'TCG KwaDukuza Mall'],
+    'Ballito': ['TCG Ballito', 'TCG Ballito Junction'],
+    'Pietermaritzburg': ['TCG Pietermaritzburg', 'TCG Liberty Midlands Mall', 'TCG Scottsville Mall'],
+    'Edendale': ['TCG Edendale Mall'],
+    'Howick': ['TCG Howick'],
+    'Richards Bay': ['TCG Richards Bay', 'TCG Boardwalk Mall'],
+    'Empangeni': ['TCG Empangeni'],
+    'Eshowe': ['TCG Eshowe'],
+    'Ulundi': ['TCG Ulundi', 'TCG King Cetshwayo Mall'],
+    'Nongoma': ['TCG Nongoma'],
+    'Hluhluwe': ['TCG Hluhluwe'],
+    'Mtubatuba': ['TCG Mtubatuba'],
+    'Newcastle': ['TCG Newcastle', 'TCG Amajuba Mall'],
+    'Ladysmith': ['TCG Ladysmith', 'TCG Oval Mall'],
+    'Dundee': ['TCG Dundee'],
+    'Vryheid': ['TCG Vryheid'],
+    'Glencoe': ['TCG Glencoe'],
+    'Port Shepstone': ['TCG Port Shepstone', 'TCG Shelly Centre'],
+    'Margate': ['TCG Margate'],
+    'Scottburgh': ['TCG Scottburgh'],
+    'Kokstad': ['TCG Kokstad'],
+    'Ixopo': ['TCG Ixopo'],
+    'Estcourt': ['TCG Estcourt'],
+    'Greytown': ['TCG Greytown'],
+    'Mandeni': ['TCG Mandeni'],
+    'Jozini': ['TCG Jozini'],
+    'Pongola': ['TCG Pongola'],
+    'Bergville': ['TCG Bergville'],
   },
   'Eastern Cape': {
-    'Port Elizabeth (Gqeberha)': ['PEP Port Elizabeth', 'PEP Greenacres', 'PEP Baywest Mall', 'PEP The Bridge'],
-    'Uitenhage': ['PEP Uitenhage', 'PEP Penford Mall'],
-    'Despatch': ['PEP Despatch'],
-    'KwaNobanshi': ['PEP KwaNobuhle'],
-    'East London': ['PEP East London', 'PEP Hemingways Mall', 'PEP Vincent Park'],
-    'Mdantsane': ['PEP Mdantsane City'],
-    'King Williams Town': ['PEP King Williams Town'],
-    'Bhisho': ['PEP Bhisho'],
-    'Mthatha': ['PEP Mthatha', 'PEP BT Ngebs Mall', 'PEP Circus Triangle'],
-    'Butterworth': ['PEP Butterworth'],
-    'Idutywa': ['PEP Idutywa'],
-    'Mqanduli': ['PEP Mqanduli'],
-    'Lusikisiki': ['PEP Lusikisiki'],
-    'Flagstaff': ['PEP Flagstaff'],
-    'Mount Ayliff': ['PEP Mount Ayliff'],
-    'Libode': ['PEP Libode'],
-    'Ngqeleni': ['PEP Ngqeleni'],
-    'Queenstown': ['PEP Queenstown', 'PEP Queenstown Mall'],
-    'Cradock': ['PEP Cradock'],
-    'Grahamstown (Makhanda)': ['PEP Grahamstown'],
-    'Fort Beaufort': ['PEP Fort Beaufort'],
-    'Alice': ['PEP Alice'],
-    'Graaff-Reinet': ['PEP Graaff-Reinet'],
-    'Aliwal North': ['PEP Aliwal North'],
-    'Sterkspruit': ['PEP Sterkspruit'],
-    'Lady Frere': ['PEP Lady Frere'],
-    'Elliotdale': ['PEP Elliotdale'],
-    'Cofimvaba': ['PEP Cofimvaba'],
-    'Komani': ['PEP Komani'],
-    'Jeffreys Bay': ['PEP Jeffreys Bay'],
-    'Humansdorp': ['PEP Humansdorp'],
-    'Joubertina': ['PEP Joubertina'],
+    'Port Elizabeth (Gqeberha)': ['TCG Port Elizabeth', 'TCG Greenacres', 'TCG Baywest Mall', 'TCG The Bridge'],
+    'Uitenhage': ['TCG Uitenhage', 'TCG Penford Mall'],
+    'Despatch': ['TCG Despatch'],
+    'KwaNobanshi': ['TCG KwaNobuhle'],
+    'East London': ['TCG East London', 'TCG Hemingways Mall', 'TCG Vincent Park'],
+    'Mdantsane': ['TCG Mdantsane City'],
+    'King Williams Town': ['TCG King Williams Town'],
+    'Bhisho': ['TCG Bhisho'],
+    'Mthatha': ['TCG Mthatha', 'TCG BT Ngebs Mall', 'TCG Circus Triangle'],
+    'Butterworth': ['TCG Butterworth'],
+    'Idutywa': ['TCG Idutywa'],
+    'Mqanduli': ['TCG Mqanduli'],
+    'Lusikisiki': ['TCG Lusikisiki'],
+    'Flagstaff': ['TCG Flagstaff'],
+    'Mount Ayliff': ['TCG Mount Ayliff'],
+    'Libode': ['TCG Libode'],
+    'Ngqeleni': ['TCG Ngqeleni'],
+    'Queenstown': ['TCG Queenstown', 'TCG Queenstown Mall'],
+    'Cradock': ['TCG Cradock'],
+    'Grahamstown (Makhanda)': ['TCG Grahamstown'],
+    'Fort Beaufort': ['TCG Fort Beaufort'],
+    'Alice': ['TCG Alice'],
+    'Graaff-Reinet': ['TCG Graaff-Reinet'],
+    'Aliwal North': ['TCG Aliwal North'],
+    'Sterkspruit': ['TCG Sterkspruit'],
+    'Lady Frere': ['TCG Lady Frere'],
+    'Elliotdale': ['TCG Elliotdale'],
+    'Cofimvaba': ['TCG Cofimvaba'],
+    'Komani': ['TCG Komani'],
+    'Jeffreys Bay': ['TCG Jeffreys Bay'],
+    'Humansdorp': ['TCG Humansdorp'],
+    'Joubertina': ['TCG Joubertina'],
   },
   'Free State': {
-    'Bloemfontein': ['PEP Bloemfontein', 'PEP Mimosa Mall', 'PEP Loch Logan Waterfront', 'PEP Preller Walk'],
-    'Mangaung': ['PEP Mangaung'],
-    'Botshabelo': ['PEP Botshabelo'],
-    'Thaba Nchu': ['PEP Thaba Nchu'],
-    'Welkom': ['PEP Welkom', 'PEP Goldfields Mall'],
-    'Virginia': ['PEP Virginia'],
-    'Odendaalsrus': ['PEP Odendaalsrus'],
-    'Bethlehem': ['PEP Bethlehem', 'PEP Dihlabeng Mall'],
-    'Harrismith': ['PEP Harrismith'],
-    'Kroonstad': ['PEP Kroonstad', 'PEP Kroon Mall'],
-    'Phuthaditjhaba': ['PEP Phuthaditjhaba', 'PEP Setsing Mall'],
-    'Sasolburg': ['PEP Sasolburg'],
-    'Parys': ['PEP Parys'],
-    'Heilbron': ['PEP Heilbron'],
-    'Ladybrand': ['PEP Ladybrand'],
-    'Ficksburg': ['PEP Ficksburg'],
-    'Senekal': ['PEP Senekal'],
-    'Wepener': ['PEP Wepener'],
-    'Zastron': ['PEP Zastron'],
-    'Trompsburg': ['PEP Trompsburg'],
-    'Frankfort': ['PEP Frankfort'],
-    'Reitz': ['PEP Reitz'],
-    'Villiers': ['PEP Villiers'],
-    'Vrede': ['PEP Vrede'],
+    'Bloemfontein': ['TCG Bloemfontein', 'TCG Mimosa Mall', 'TCG Loch Logan Waterfront', 'TCG Preller Walk'],
+    'Mangaung': ['TCG Mangaung'],
+    'Botshabelo': ['TCG Botshabelo'],
+    'Thaba Nchu': ['TCG Thaba Nchu'],
+    'Welkom': ['TCG Welkom', 'TCG Goldfields Mall'],
+    'Virginia': ['TCG Virginia'],
+    'Odendaalsrus': ['TCG Odendaalsrus'],
+    'Bethlehem': ['TCG Bethlehem', 'TCG Dihlabeng Mall'],
+    'Harrismith': ['TCG Harrismith'],
+    'Kroonstad': ['TCG Kroonstad', 'TCG Kroon Mall'],
+    'Phuthaditjhaba': ['TCG Phuthaditjhaba', 'TCG Setsing Mall'],
+    'Sasolburg': ['TCG Sasolburg'],
+    'Parys': ['TCG Parys'],
+    'Heilbron': ['TCG Heilbron'],
+    'Ladybrand': ['TCG Ladybrand'],
+    'Ficksburg': ['TCG Ficksburg'],
+    'Senekal': ['TCG Senekal'],
+    'Wepener': ['TCG Wepener'],
+    'Zastron': ['TCG Zastron'],
+    'Trompsburg': ['TCG Trompsburg'],
+    'Frankfort': ['TCG Frankfort'],
+    'Reitz': ['TCG Reitz'],
+    'Villiers': ['TCG Villiers'],
+    'Vrede': ['TCG Vrede'],
   },
   'Limpopo': {
-    'Polokwane': ['PEP Polokwane', 'PEP Mall of the North', 'PEP Savannah Mall', 'PEP Polokwane CBD'],
-    'Seshego': ['PEP Seshego'],
-    'Mankweng': ['PEP Mankweng', 'PEP University of Limpopo Mall'],
-    'Lebowakgomo': ['PEP Lebowakgomo'],
-    'Phalaborwa': ['PEP Namakgale Complex', 'PEP Phalaborwa'],
-    'Tzaneen': ['PEP Tzaneen', 'PEP Tzaneen Lifestyle Centre'],
-    'Nkowankowa': ['PEP Nkowankowa'],
-    'Modjadjiskloof': ['PEP Modjadjiskloof'],
-    'Lenyenye': ['PEP Lenyenye'],
-    'Thohoyandou': ['PEP Thohoyandou', 'PEP Thavhani Mall'],
-    'Sibasa': ['PEP Sibasa'],
-    'Makhado (Louis Trichardt)': ['PEP Makhado', 'PEP Makhado Crossing'],
-    'Musina': ['PEP Musina'],
-    'Mokopane (Potgietersrus)': ['PEP Mokopane', 'PEP Mokopane Mall'],
-    'Mahwelereng': ['PEP Mahwelereng'],
-    'Lephalale (Ellisras)': ['PEP Lephalale', 'PEP Onverwacht Mall'],
-    'Giyani': ['PEP Giyani', 'PEP Giyani Mall'],
-    'Malamulele': ['PEP Malamulele'],
-    'Modimolle (Nylstroom)': ['PEP Modimolle'],
-    'Mookgophong (Naboomspruit)': ['PEP Mookgophong'],
-    'Bela-Bela (Warmbaths)': ['PEP Bela-Bela'],
-    'Burgersfort': ['PEP Burgersfort', 'PEP Burgersfort Mall'],
-    'Jane Furse': ['PEP Jane Furse', 'PEP Jane Furse Mall'],
-    'Praktiseer': ['PEP Praktiseer'],
-    'Marble Hall': ['PEP Marble Hall'],
-    'Groblersdal': ['PEP Groblersdal'],
-    'Thabazimbi': ['PEP Thabazimbi'],
-    'Mokwakwaila': ['PEP Mokwakwaila'],
-    'Senwabarwana': ['PEP Senwabarwana'],
-    'Dendron': ['PEP Dendron'],
-    'Sealene': ['PEP Sealene'],
-    'Botlokwa': ['PEP Botlokwa'],
-    'Hlanganani': ['PEP Hlanganani'],
-    'Elim': ['PEP Elim'],
+    'Polokwane': ['TCG Polokwane', 'TCG Mall of the North', 'TCG Savannah Mall', 'TCG Polokwane CBD'],
+    'Seshego': ['TCG Seshego'],
+    'Mankweng': ['TCG Mankweng', 'TCG University of Limpopo Mall'],
+    'Lebowakgomo': ['TCG Lebowakgomo'],
+    'Phalaborwa': ['TCG Namakgale Complex', 'TCG Phalaborwa'],
+    'Tzaneen': ['TCG Tzaneen', 'TCG Tzaneen Lifestyle Centre'],
+    'Nkowankowa': ['TCG Nkowankowa'],
+    'Modjadjiskloof': ['TCG Modjadjiskloof'],
+    'Lenyenye': ['TCG Lenyenye'],
+    'Thohoyandou': ['TCG Thohoyandou', 'TCG Thavhani Mall'],
+    'Sibasa': ['TCG Sibasa'],
+    'Makhado (Louis Trichardt)': ['TCG Makhado', 'TCG Makhado Crossing'],
+    'Musina': ['TCG Musina'],
+    'Mokopane (Potgietersrus)': ['TCG Mokopane', 'TCG Mokopane Mall'],
+    'Mahwelereng': ['TCG Mahwelereng'],
+    'Lephalale (Ellisras)': ['TCG Lephalale', 'TCG Onverwacht Mall'],
+    'Giyani': ['TCG Giyani', 'TCG Giyani Mall'],
+    'Malamulele': ['TCG Malamulele'],
+    'Modimolle (Nylstroom)': ['TCG Modimolle'],
+    'Mookgophong (Naboomspruit)': ['TCG Mookgophong'],
+    'Bela-Bela (Warmbaths)': ['TCG Bela-Bela'],
+    'Burgersfort': ['TCG Burgersfort', 'TCG Burgersfort Mall'],
+    'Jane Furse': ['TCG Jane Furse', 'TCG Jane Furse Mall'],
+    'Praktiseer': ['TCG Praktiseer'],
+    'Marble Hall': ['TCG Marble Hall'],
+    'Groblersdal': ['TCG Groblersdal'],
+    'Thabazimbi': ['TCG Thabazimbi'],
+    'Mokwakwaila': ['TCG Mokwakwaila'],
+    'Senwabarwana': ['TCG Senwabarwana'],
+    'Dendron': ['TCG Dendron'],
+    'Sealene': ['TCG Sealene'],
+    'Botlokwa': ['TCG Botlokwa'],
+    'Hlanganani': ['TCG Hlanganani'],
+    'Elim': ['TCG Elim'],
   },
   'Mpumalanga': {
-    'Nelspruit (Mbombela)': ['PEP Nelspruit', 'PEP Riverside Mall', 'PEP Ilanga Mall', 'PEP Nelspruit CBD'],
-    'White River': ['PEP White River', 'PEP Casterbridge Mall'],
-    'Hazyview': ['PEP Hazyview'],
-    'Bushbuckridge': ['PEP Bushbuckridge'],
-    'Acornhoek': ['PEP Acornhoek', 'PEP Acornhoek Mall'],
-    'Thulamahashe': ['PEP Thulamahashe'],
-    'Malalane': ['PEP Malalane'],
-    'Komatipoort': ['PEP Komatipoort'],
-    'Barberton': ['PEP Barberton'],
-    'Witbank (Emalahleni)': ['PEP Witbank', 'PEP Highveld Mall', 'PEP Emalahleni Mall'],
-    'Middelburg': ['PEP Middelburg', 'PEP Middelburg Mall'],
-    'Secunda': ['PEP Secunda', 'PEP Secunda Mall'],
-    'Standerton': ['PEP Standerton'],
-    'Ermelo': ['PEP Ermelo'],
-    'Piet Retief': ['PEP Piet Retief'],
-    'Volksrust': ['PEP Volksrust'],
-    'Bethal': ['PEP Bethal'],
-    'Hendrina': ['PEP Hendrina'],
-    'Carolina': ['PEP Carolina'],
-    'Belfast': ['PEP Belfast'],
-    'Lydenburg (Mashishing)': ['PEP Lydenburg'],
-    'Sabie': ['PEP Sabie'],
-    'Graskop': ['PEP Graskop'],
-    'Delmas': ['PEP Delmas'],
-    'KwaMhlanga': ['PEP KwaMhlanga', 'PEP KwaMhlanga Mall'],
-    'Siyabuswa': ['PEP Siyabuswa'],
-    'Dennilton': ['PEP Dennilton'],
-    'Elukwatini': ['PEP Elukwatini'],
-    'eMbalenhle': ['PEP eMbalenhle'],
-    'Kinross': ['PEP Kinross'],
-    'Evander': ['PEP Evander'],
-    'Ogies': ['PEP Ogies'],
+    'Nelspruit (Mbombela)': ['TCG Nelspruit', 'TCG Riverside Mall', 'TCG Ilanga Mall', 'TCG Nelspruit CBD'],
+    'White River': ['TCG White River', 'TCG Casterbridge Mall'],
+    'Hazyview': ['TCG Hazyview'],
+    'Bushbuckridge': ['TCG Bushbuckridge'],
+    'Acornhoek': ['TCG Acornhoek', 'TCG Acornhoek Mall'],
+    'Thulamahashe': ['TCG Thulamahashe'],
+    'Malalane': ['TCG Malalane'],
+    'Komatipoort': ['TCG Komatipoort'],
+    'Barberton': ['TCG Barberton'],
+    'Witbank (Emalahleni)': ['TCG Witbank', 'TCG Highveld Mall', 'TCG Emalahleni Mall'],
+    'Middelburg': ['TCG Middelburg', 'TCG Middelburg Mall'],
+    'Secunda': ['TCG Secunda', 'TCG Secunda Mall'],
+    'Standerton': ['TCG Standerton'],
+    'Ermelo': ['TCG Ermelo'],
+    'Piet Retief': ['TCG Piet Retief'],
+    'Volksrust': ['TCG Volksrust'],
+    'Bethal': ['TCG Bethal'],
+    'Hendrina': ['TCG Hendrina'],
+    'Carolina': ['TCG Carolina'],
+    'Belfast': ['TCG Belfast'],
+    'Lydenburg (Mashishing)': ['TCG Lydenburg'],
+    'Sabie': ['TCG Sabie'],
+    'Graskop': ['TCG Graskop'],
+    'Delmas': ['TCG Delmas'],
+    'KwaMhlanga': ['TCG KwaMhlanga', 'TCG KwaMhlanga Mall'],
+    'Siyabuswa': ['TCG Siyabuswa'],
+    'Dennilton': ['TCG Dennilton'],
+    'Elukwatini': ['TCG Elukwatini'],
+    'eMbalenhle': ['TCG eMbalenhle'],
+    'Kinross': ['TCG Kinross'],
+    'Evander': ['TCG Evander'],
+    'Ogies': ['TCG Ogies'],
   },
   'North West': {
-    'Rustenburg': ['PEP Rustenburg', 'PEP Waterfall Mall', 'PEP Rustenburg CBD'],
-    'Phokeng': ['PEP Phokeng'],
-    'Sun City': ['PEP Sun City'],
-    'Mahikeng (Mafikeng)': ['PEP Mahikeng', 'PEP Riverwalk Mall', 'PEP Mega City Mall'],
-    'Mmabatho': ['PEP Mmabatho'],
-    'Potchefstroom': ['PEP Potchefstroom', 'PEP Mooi Rivier Mall'],
-    'Klerksdorp': ['PEP Klerksdorp', 'PEP City Mall', 'PEP Matlosana Mall'],
-    'Orkney': ['PEP Orkney'],
-    'Stilfontein': ['PEP Stilfontein'],
-    'Brits': ['PEP Brits', 'PEP Brits Mall'],
-    'Hartbeespoort': ['PEP Hartbeespoort'],
-    'Madibeng': ['PEP Madibeng'],
-    'Moretele': ['PEP Moretele Mall'],
-    'Vryburg': ['PEP Vryburg'],
-    'Lichtenburg': ['PEP Lichtenburg', 'PEP Ditsobotla Mall'],
-    'Zeerust': ['PEP Zeerust'],
-    'Delareyville': ['PEP Delareyville'],
-    'Schweizer-Reneke': ['PEP Schweizer-Reneke'],
-    'Christiana': ['PEP Christiana'],
-    'Wolmaransstad': ['PEP Wolmaransstad'],
-    'Coligny': ['PEP Coligny'],
-    'Koster': ['PEP Koster'],
-    'Swartruggens': ['PEP Swartruggens'],
-    'Taung': ['PEP Taung'],
-    'Mogwase': ['PEP Mogwase', 'PEP Moruleng Mall'],
-    'Ga-Motlatla': ['PEP Ga-Motlatla'],
-    'Itsoseng': ['PEP Itsoseng'],
-    'Lehurutshe': ['PEP Lehurutshe'],
+    'Rustenburg': ['TCG Rustenburg', 'TCG Waterfall Mall', 'TCG Rustenburg CBD'],
+    'Phokeng': ['TCG Phokeng'],
+    'Sun City': ['TCG Sun City'],
+    'Mahikeng (Mafikeng)': ['TCG Mahikeng', 'TCG Riverwalk Mall', 'TCG Mega City Mall'],
+    'Mmabatho': ['TCG Mmabatho'],
+    'Potchefstroom': ['TCG Potchefstroom', 'TCG Mooi Rivier Mall'],
+    'Klerksdorp': ['TCG Klerksdorp', 'TCG City Mall', 'TCG Matlosana Mall'],
+    'Orkney': ['TCG Orkney'],
+    'Stilfontein': ['TCG Stilfontein'],
+    'Brits': ['TCG Brits', 'TCG Brits Mall'],
+    'Hartbeespoort': ['TCG Hartbeespoort'],
+    'Madibeng': ['TCG Madibeng'],
+    'Moretele': ['TCG Moretele Mall'],
+    'Vryburg': ['TCG Vryburg'],
+    'Lichtenburg': ['TCG Lichtenburg', 'TCG Ditsobotla Mall'],
+    'Zeerust': ['TCG Zeerust'],
+    'Delareyville': ['TCG Delareyville'],
+    'Schweizer-Reneke': ['TCG Schweizer-Reneke'],
+    'Christiana': ['TCG Christiana'],
+    'Wolmaransstad': ['TCG Wolmaransstad'],
+    'Coligny': ['TCG Coligny'],
+    'Koster': ['TCG Koster'],
+    'Swartruggens': ['TCG Swartruggens'],
+    'Taung': ['TCG Taung'],
+    'Mogwase': ['TCG Mogwase', 'TCG Moruleng Mall'],
+    'Ga-Motlatla': ['TCG Ga-Motlatla'],
+    'Itsoseng': ['TCG Itsoseng'],
+    'Lehurutshe': ['TCG Lehurutshe'],
   },
   'Northern Cape': {
-    'Kimberley': ['PEP Kimberley', 'PEP Diamond Pavilion', 'PEP Kimberley CBD'],
-    'Galeshewe': ['PEP Galeshewe'],
-    'Upington': ['PEP Upington', 'PEP Kalahari Mall'],
-    'Springbok': ['PEP Springbok'],
-    'De Aar': ['PEP De Aar'],
-    'Kuruman': ['PEP Kuruman', 'PEP Kuruman Mall'],
-    'Kathu': ['PEP Kathu'],
-    'Postmasburg': ['PEP Postmasburg'],
-    'Jan Kempdorp': ['PEP Jan Kempdorp'],
-    'Hartswater': ['PEP Hartswater'],
-    'Douglas': ['PEP Douglas'],
-    'Colesberg': ['PEP Colesberg'],
-    'Victoria West': ['PEP Victoria West'],
-    'Calvinia': ['PEP Calvinia'],
-    'Carnarvon': ['PEP Carnarvon'],
-    'Prieska': ['PEP Prieska'],
-    'Pofadder': ['PEP Pofadder'],
-    'Port Nolloth': ['PEP Port Nolloth'],
-    'Griekwastad': ['PEP Griekwastad'],
-    'Danielskuil': ['PEP Danielskuil'],
-    'Warrenton': ['PEP Warrenton'],
-    'Barkly West': ['PEP Barkly West'],
+    'Kimberley': ['TCG Kimberley', 'TCG Diamond Pavilion', 'TCG Kimberley CBD'],
+    'Galeshewe': ['TCG Galeshewe'],
+    'Upington': ['TCG Upington', 'TCG Kalahari Mall'],
+    'Springbok': ['TCG Springbok'],
+    'De Aar': ['TCG De Aar'],
+    'Kuruman': ['TCG Kuruman', 'TCG Kuruman Mall'],
+    'Kathu': ['TCG Kathu'],
+    'Postmasburg': ['TCG Postmasburg'],
+    'Jan Kempdorp': ['TCG Jan Kempdorp'],
+    'Hartswater': ['TCG Hartswater'],
+    'Douglas': ['TCG Douglas'],
+    'Colesberg': ['TCG Colesberg'],
+    'Victoria West': ['TCG Victoria West'],
+    'Calvinia': ['TCG Calvinia'],
+    'Carnarvon': ['TCG Carnarvon'],
+    'Prieska': ['TCG Prieska'],
+    'Pofadder': ['TCG Pofadder'],
+    'Port Nolloth': ['TCG Port Nolloth'],
+    'Griekwastad': ['TCG Griekwastad'],
+    'Danielskuil': ['TCG Danielskuil'],
+    'Warrenton': ['TCG Warrenton'],
+    'Barkly West': ['TCG Barkly West'],
   },
 };
 
@@ -1292,9 +1292,9 @@ async function openCheckoutModal() {
     emailEl.style.opacity = '';
   }
 
-  // Reset shipping method to Paxi
-  setShippingMethod('paxi');
-  initPaxiDropdowns();
+  // Reset shipping method to Courier Guy
+  setShippingMethod('courier');
+  initCourierDropdowns();
 
   // Pre-fill door-to-door from saved address
   if (supabaseClient && currentUser) {
@@ -1323,94 +1323,106 @@ async function openCheckoutModal() {
 
 function getShippingMethod() {
   var radio = document.querySelector('input[name="shippingMethod"]:checked');
-  return radio ? radio.value : 'paxi';
+  return radio ? radio.value : 'courier';
+}
+
+function getSelectedCity() {
+  var method = getShippingMethod();
+  if (method === 'courier') {
+    return (document.getElementById('courierCity')?.value || '').trim();
+  } else {
+    return (document.getElementById('coCity')?.value || '').trim();
+  }
 }
 
 function getShippingCost() {
-  return getShippingMethod() === 'paxi' ? PAXI_SHIPPING : DOOR_SHIPPING;
+  var city = getSelectedCity().toLowerCase();
+  if (city === 'phalaborwa') return PHALABORWA_SHIPPING;
+  return STANDARD_SHIPPING;
 }
 
 function setShippingMethod(method) {
-  var paxiRadio = document.querySelector('input[name="shippingMethod"][value="paxi"]');
+  var courierRadio = document.querySelector('input[name="shippingMethod"][value="courier"]');
   var doorRadio = document.querySelector('input[name="shippingMethod"][value="door"]');
-  if (method === 'paxi' && paxiRadio) paxiRadio.checked = true;
+  if (method === 'courier' && courierRadio) courierRadio.checked = true;
   if (method === 'door' && doorRadio) doorRadio.checked = true;
   toggleShippingFields();
 }
 
 function toggleShippingFields() {
   var method = getShippingMethod();
-  var paxiFields = document.getElementById('paxiFields');
+  var courierFields = document.getElementById('courierFields');
   var doorFields = document.getElementById('doorFields');
   var saveLabel  = document.getElementById('saveAddrLabel');
-  if (paxiFields) paxiFields.hidden = (method !== 'paxi');
+  if (courierFields) courierFields.hidden = (method !== 'courier');
   if (doorFields) doorFields.hidden = (method !== 'door');
   if (saveLabel)  saveLabel.hidden  = (method !== 'door') || !currentUser;
 
   // Update active styling
-  document.getElementById('shipOptPaxi')?.classList.toggle('shipping-option--active', method === 'paxi');
+  document.getElementById('shipOptCourier')?.classList.toggle('shipping-option--active', method === 'courier');
   document.getElementById('shipOptDoor')?.classList.toggle('shipping-option--active', method === 'door');
 }
 
-function initPaxiDropdowns() {
-  var provSelect = document.getElementById('paxiProvince');
-  var citySelect = document.getElementById('paxiCity');
-  var pointSelect = document.getElementById('paxiPoint');
+function initCourierDropdowns() {
+  var provSelect = document.getElementById('courierProvince');
+  var citySelect = document.getElementById('courierCity');
+  var pointSelect = document.getElementById('courierPoint');
   if (!provSelect) return;
 
   // Populate provinces
   provSelect.innerHTML = '<option value="">Select province</option>';
-  Object.keys(PAXI_POINTS).sort().forEach(function(prov) {
+  Object.keys(COURIER_POINTS).sort().forEach(function(prov) {
     provSelect.innerHTML += '<option value="' + prov + '">' + prov + '</option>';
   });
 
   // Reset city and point
   citySelect.innerHTML = '<option value="">Select city</option>';
   citySelect.disabled = true;
-  pointSelect.innerHTML = '<option value="">Select store</option>';
+  pointSelect.innerHTML = '<option value="">Select pickup point</option>';
   pointSelect.disabled = true;
-  var info = document.getElementById('paxiSelectedInfo');
+  var info = document.getElementById('courierSelectedInfo');
   if (info) info.hidden = true;
 }
 
-function onPaxiProvinceChange() {
-  var prov = document.getElementById('paxiProvince').value;
-  var citySelect = document.getElementById('paxiCity');
-  var pointSelect = document.getElementById('paxiPoint');
+function onCourierProvinceChange() {
+  var prov = document.getElementById('courierProvince').value;
+  var citySelect = document.getElementById('courierCity');
+  var pointSelect = document.getElementById('courierPoint');
 
   citySelect.innerHTML = '<option value="">Select city</option>';
-  pointSelect.innerHTML = '<option value="">Select store</option>';
+  pointSelect.innerHTML = '<option value="">Select pickup point</option>';
   pointSelect.disabled = true;
-  var info = document.getElementById('paxiSelectedInfo');
+  var info = document.getElementById('courierSelectedInfo');
   if (info) info.hidden = true;
 
-  if (!prov || !PAXI_POINTS[prov]) { citySelect.disabled = true; return; }
+  if (!prov || !COURIER_POINTS[prov]) { citySelect.disabled = true; return; }
   citySelect.disabled = false;
-  Object.keys(PAXI_POINTS[prov]).sort().forEach(function(city) {
+  Object.keys(COURIER_POINTS[prov]).sort().forEach(function(city) {
     citySelect.innerHTML += '<option value="' + city + '">' + city + '</option>';
   });
 }
 
-function onPaxiCityChange() {
-  var prov = document.getElementById('paxiProvince').value;
-  var city = document.getElementById('paxiCity').value;
-  var pointSelect = document.getElementById('paxiPoint');
-  var info = document.getElementById('paxiSelectedInfo');
+function onCourierCityChange() {
+  var prov = document.getElementById('courierProvince').value;
+  var city = document.getElementById('courierCity').value;
+  var pointSelect = document.getElementById('courierPoint');
+  var info = document.getElementById('courierSelectedInfo');
   if (info) info.hidden = true;
 
-  pointSelect.innerHTML = '<option value="">Select store</option>';
-  if (!prov || !city || !PAXI_POINTS[prov]?.[city]) { pointSelect.disabled = true; return; }
+  pointSelect.innerHTML = '<option value="">Select pickup point</option>';
+  if (!prov || !city || !COURIER_POINTS[prov]?.[city]) { pointSelect.disabled = true; return; }
   pointSelect.disabled = false;
-  PAXI_POINTS[prov][city].forEach(function(store) {
+  COURIER_POINTS[prov][city].forEach(function(store) {
     pointSelect.innerHTML += '<option value="' + store + '">' + store + '</option>';
   });
+  updateShippingPriceLabels();
 }
 
-function onPaxiPointChange() {
-  var prov  = document.getElementById('paxiProvince').value;
-  var city  = document.getElementById('paxiCity').value;
-  var point = document.getElementById('paxiPoint').value;
-  var info  = document.getElementById('paxiSelectedInfo');
+function onCourierPointChange() {
+  var prov  = document.getElementById('courierProvince').value;
+  var city  = document.getElementById('courierCity').value;
+  var point = document.getElementById('courierPoint').value;
+  var info  = document.getElementById('courierSelectedInfo');
   if (info) {
     if (point) {
       info.hidden = false;
@@ -1419,6 +1431,15 @@ function onPaxiPointChange() {
       info.hidden = true;
     }
   }
+}
+
+function updateShippingPriceLabels() {
+  var cost = getShippingCost();
+  var label = 'R' + cost;
+  var courierLabel = document.getElementById('courierPriceLabel');
+  var doorLabel = document.getElementById('doorPriceLabel');
+  if (courierLabel) courierLabel.textContent = label;
+  if (doorLabel) doorLabel.textContent = label;
 }
 
 function closeCheckoutModal() {
@@ -1462,20 +1483,20 @@ function validateCoStep2() {
   checkoutInfo.shipping_method = method;
   checkoutInfo.shipping_cost   = getShippingCost();
 
-  if (method === 'paxi') {
-    var prov  = document.getElementById('paxiProvince').value;
-    var city  = document.getElementById('paxiCity').value;
-    var point = document.getElementById('paxiPoint').value;
+  if (method === 'courier') {
+    var prov  = document.getElementById('courierProvince').value;
+    var city  = document.getElementById('courierCity').value;
+    var point = document.getElementById('courierPoint').value;
     if (!prov)  { hint.textContent = 'Please select a province.'; return false; }
     if (!city)  { hint.textContent = 'Please select a city.';     return false; }
-    if (!point) { hint.textContent = 'Please select a Paxi Point (PEP store).'; return false; }
+    if (!point) { hint.textContent = 'Please select a pickup point.'; return false; }
     hint.textContent = '';
     checkoutInfo.street      = point;
     checkoutInfo.city        = city;
     checkoutInfo.province    = prov;
     checkoutInfo.postal_code = '';
     checkoutInfo.country     = 'South Africa';
-    checkoutInfo.paxi_point  = point;
+    checkoutInfo.courier_point = point;
     return true;
   } else {
     var street = (document.getElementById('coStreet')?.value || '').trim();
@@ -1488,7 +1509,7 @@ function validateCoStep2() {
     checkoutInfo.province    = (document.getElementById('coProvince')?.value || '').trim();
     checkoutInfo.postal_code = (document.getElementById('coPostal')?.value   || '').trim();
     checkoutInfo.country     = (document.getElementById('coCountry')?.value  || 'South Africa').trim();
-    checkoutInfo.paxi_point  = null;
+    checkoutInfo.courier_point = null;
     return true;
   }
 }
@@ -1499,20 +1520,20 @@ function buildCoReview() {
   var addrEl  = document.getElementById('coReviewAddress');
   var shippingCost = checkoutInfo.shipping_cost || 0;
   var grandTotal   = cartTotal() + shippingCost;
-  var isPaxi       = checkoutInfo.shipping_method === 'paxi';
+  var isCourier    = checkoutInfo.shipping_method === 'courier';
 
   if (itemsEl) {
     var rows = cart.map(function(item) {
       return '<li class="review-item"><span>' + item.name + ' x' + item.quantity + '</span><span>' + zar(item.price * item.quantity) + '</span></li>';
     }).join('');
-    rows += '<li class="review-shipping-row"><span>' + (isPaxi ? 'Paxi Pickup' : 'Door-to-Door Delivery') + '</span><span>' + zar(shippingCost) + '</span></li>';
+    rows += '<li class="review-shipping-row"><span>' + (isCourier ? 'TCG Pickup Point' : 'TCG Door to Door') + '</span><span>' + zar(shippingCost) + '</span></li>';
     itemsEl.innerHTML = rows;
   }
   if (totalEl) totalEl.textContent = zar(grandTotal);
   if (addrEl) {
-    if (isPaxi) {
-      addrEl.innerHTML = '<strong>Paxi PEP Store Pickup</strong>\n' +
-        checkoutInfo.paxi_point + '\n' +
+    if (isCourier) {
+      addrEl.innerHTML = '<strong>The Courier Guy — Pickup Point</strong>\n' +
+        checkoutInfo.courier_point + '\n' +
         [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', ');
     } else {
       var parts = [checkoutInfo.name, checkoutInfo.street,
@@ -1571,8 +1592,11 @@ function initCheckoutEvents() {
     radio.addEventListener('change', toggleShippingFields);
   });
 
-  // Paxi dropdowns
-  document.getElementById('paxiProvince')?.addEventListener('change', onPaxiProvinceChange);
-  document.getElementById('paxiCity')?.addEventListener('change', onPaxiCityChange);
-  document.getElementById('paxiPoint')?.addEventListener('change', onPaxiPointChange);
+  // Courier Guy dropdowns
+  document.getElementById('courierProvince')?.addEventListener('change', onCourierProvinceChange);
+  document.getElementById('courierCity')?.addEventListener('change', onCourierCityChange);
+  document.getElementById('courierPoint')?.addEventListener('change', onCourierPointChange);
+
+  // Update shipping price when door-to-door city changes
+  document.getElementById('coCity')?.addEventListener('input', updateShippingPriceLabels);
 }
