@@ -1,10 +1,11 @@
 require('dotenv').config();
 
-const express = require('express');
-const cors    = require('cors');
-const path    = require('path');
-const https   = require('https');
-const crypto  = require('crypto');
+const express    = require('express');
+const cors       = require('cors');
+const path       = require('path');
+const https      = require('https');
+const crypto     = require('crypto');
+const rateLimit  = require('express-rate-limit');
 const { createClient } = require('@supabase/supabase-js');
 
 const app  = express();
@@ -51,9 +52,47 @@ const FALLBACK_PRODUCTS = [
   { id: 26, name: 'Skull & Bones Gothic Necklace',     description: 'Gothic bead necklace with skull, dice, butterfly, bone beads and cross pendant',        price: 100, image: 'images/IMG-20260319-WA0098.jpg', badge: 'new' },
   { id: 27, name: '"Truth" Gothic Charm Necklace',     description: 'Black gothic chain necklace with dice, wings, butterfly, flower charms and "Truth" letter beads', price: 90, image: 'images/IMG-20260319-WA0099.jpg', badge: 'new' },
   { id: 28, name: 'Custom Name Charm Necklace',        description: 'Colourful custom name bead necklace with skulls, aliens, mushrooms, crosses and butterfly charms', price: 100, image: 'images/IMG-20260319-WA0100.jpg', badge: 'bestseller' },
+  { id: 39, name: 'Gothic Skull & 8-Ball Charm Bracelet', description: 'Silver snake chain charm bracelet with 8-ball beads, skull, dice, gun and cross charms', price: 45, original_price: 65, image: 'images/IMG-20260406-WA0071.jpg', badge: 'new' },
 ];
 
-app.use(cors());
+// ── CORS — restrict to allowed origins ───────────────────────
+const ALLOWED_ORIGINS = [
+  'https://infinity-pearls.vercel.app',
+  'https://www.infinitypearls.co.za',
+];
+if (process.env.NODE_ENV !== 'production') {
+  ALLOWED_ORIGINS.push('http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000');
+}
+app.use(cors({
+  origin(origin, cb) {
+    // Allow server-to-server (no origin) and allowed origins
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
+    cb(new Error('Not allowed by CORS'));
+  },
+}));
+
+// ── Rate limiting ────────────────────────────────────────────
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,                  // 100 requests per window per IP
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests, please try again later.' },
+});
+const strictLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,                   // 10 requests per window (contact, checkout)
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests, please try again later.' },
+});
+app.use('/api/', apiLimiter);
+app.use('/api/contact', strictLimiter);
+app.use('/api/checkout', strictLimiter);
+app.use('/api/newsletter', strictLimiter);
+
+// ── Health check ─────────────────────────────────────────────
+app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
 // ── Yoco helper — make API requests ─────────────────────────
 function yocoRequest(method, urlPath, body) {
@@ -140,7 +179,7 @@ app.post('/webhook/yoco', express.raw({ type: 'application/json' }), async (req,
     event = verifyYocoWebhook(req.body.toString(), req.headers, YOCO_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Yoco webhook verification failed:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    return res.status(400).send('Webhook verification failed');
   }
 
   if (event.type === 'payment.succeeded') {
@@ -344,7 +383,7 @@ app.post('/api/checkout', async (req, res) => {
       await supabase.from('order_items').delete().eq('order_id', orderId);
       await supabase.from('orders').delete().eq('id', orderId);
     }
-    return res.status(500).json({ message: `Checkout failed: ${e.message}` });
+    return res.status(500).json({ message: 'Checkout failed. Please try again or contact support.' });
   }
 });
 

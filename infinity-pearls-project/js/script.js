@@ -5,6 +5,13 @@ const SUPABASE_URL = 'https://eascxtwbhzebrlvqzxzp.supabase.co';
 const SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhc2N4dHdiaHplYnJsdnF6eHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwNTk2NjcsImV4cCI6MjA4NjYzNTY2N30.30JA1cBgPE0UfKcMTNfUN_PFpg8lBtDDdcRe3KViBdQ';
 
+// ── HTML escape helper (XSS prevention) ──────────────────────
+function esc(str) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(String(str)));
+  return d.innerHTML;
+}
+
 let supabaseClient = null;
 if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -40,6 +47,7 @@ const FALLBACK_PRODUCTS = [
   { id: 26, name: 'Skull & Bones Gothic Necklace',     description: 'Gothic bead necklace with skull, dice, butterfly, bone beads and cross pendant',        price: 100, image: 'images/IMG-20260319-WA0098.jpg', badge: 'new' },
   { id: 27, name: '"Truth" Gothic Charm Necklace',     description: 'Black gothic chain necklace with dice, wings, butterfly, flower charms and "Truth" letter beads', price: 90, image: 'images/IMG-20260319-WA0099.jpg', badge: 'new' },
   { id: 28, name: 'Custom Name Charm Necklace',        description: 'Colourful custom name bead necklace with skulls, aliens, mushrooms, crosses and butterfly charms', price: 100, image: 'images/IMG-20260319-WA0100.jpg', badge: 'bestseller' },
+  { id: 39, name: 'Gothic Skull & 8-Ball Charm Bracelet', description: 'Silver snake chain charm bracelet with 8-ball beads, skull, dice, gun and cross charms', price: 45, original_price: 65, image: 'images/IMG-20260406-WA0071.jpg', badge: 'new' },
 ];
 
 // Badge from product data (set in Supabase: 'new' | 'bestseller' | null)
@@ -113,13 +121,13 @@ function updateCartUI() {
 
   itemsEl.innerHTML = cart.map((item) => `
     <div class="cart-item" data-cart-id="${item.id}">
-      <img src="${item.image}" alt="${item.name}" loading="lazy"
+      <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy"
            onerror="this.onerror=null;this.src='${IMG_FALLBACK}'">
       <div>
-        <p class="cart-item__name">${item.name}</p>
+        <p class="cart-item__name">${esc(item.name)}</p>
         <p class="cart-item__meta">${zar(item.price)} &middot; qty: ${item.quantity}</p>
       </div>
-      <div class="qty" aria-label="Quantity for ${item.name}">
+      <div class="qty" aria-label="Quantity for ${esc(item.name)}">
         <button type="button" data-qty="-1" aria-label="Decrease">−</button>
         <span>${item.quantity}</span>
         <button type="button" data-qty="1" aria-label="Increase">+</button>
@@ -237,18 +245,19 @@ function renderGrid() {
     const badge = getBadge(p);
     return `
       <article class="product-card" tabindex="0" role="button"
-               aria-label="View ${p.name}" data-product-id="${p.id}"
+               aria-label="View ${esc(p.name)}" data-product-id="${p.id}"
                style="animation-delay:${i * 0.05}s">
         <div class="product-card__img-wrap">
-          ${badge ? `<span class="product-card__badge ${badge.cls}">${badge.label}</span>` : ''}
-          <img class="product-card__img" src="${p.image}" alt="${p.name}" loading="lazy"
+          ${badge ? `<span class="product-card__badge ${badge.cls}">${esc(badge.label)}</span>` : ''}
+          <img class="product-card__img" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy"
                onerror="this.onerror=null;this.src='${IMG_FALLBACK}'">
           <button class="product-card__heart" type="button" data-heart="${p.id}" aria-label="Add to wishlist">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           </button>
         </div>
         <div class="product-card__body">
-          <h3 class="product-card__name">${p.name}</h3>
+          <h3 class="product-card__name">${esc(p.name)}</h3>
+          ${p.original_price ? `<span class="product-card__price product-card__price--old">${zar(p.original_price)}</span>` : ''}
           <span class="product-card__price">${zar(p.price)}</span>
         </div>
       </article>
@@ -516,13 +525,15 @@ function initEvents() {
   });
 }
 
-// ── Admin visibility (URL param: ?admin=1) ───────────────────
+// ── Admin visibility (requires auth + admin email + ?admin=1) ─
+const ADMIN_EMAILS = ['infinitypearls5@gmail.com'];
+
 function maybeShowAdmin() {
-  if (new URLSearchParams(window.location.search).get('admin') === '1') {
-    const sec = document.getElementById('admin');
-    if (sec) { sec.style.display = ''; sec.removeAttribute('aria-hidden'); }
-    loadAdminTotals();
-  }
+  if (new URLSearchParams(window.location.search).get('admin') !== '1') return;
+  if (!currentUser || !ADMIN_EMAILS.includes(currentUser.email)) return;
+  const sec = document.getElementById('admin');
+  if (sec) { sec.style.display = ''; sec.removeAttribute('aria-hidden'); }
+  loadAdminTotals();
 }
 
 // ── Init ─────────────────────────────────────────────────────
@@ -535,8 +546,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   initAuthEvents();
   initAccountEvents();
   initCheckoutEvents();
+  await initAuth();
   maybeShowAdmin();
-  initAuth();
 
   await fetchProducts();
 
@@ -560,6 +571,7 @@ async function initAuth() {
   supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     currentUser = session?.user || null;
     updateAuthUI();
+    maybeShowAdmin();
     if (_event === 'SIGNED_IN' && currentUser) {
       var meta = currentUser.user_metadata || {};
       var userName = meta.full_name || meta.name || null;
@@ -798,17 +810,17 @@ async function loadOrders() {
   if (emptyEl) emptyEl.hidden = true;
 
   listEl.innerHTML = orders.map(function(o) {
-    var items = (o.order_items || []).map(function(i) { return i.product_name + ' x' + i.quantity; }).join(', ');
+    var items = (o.order_items || []).map(function(i) { return esc(i.product_name) + ' x' + i.quantity; }).join(', ');
     var date  = new Date(o.created_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
     var idStr = String(o.id).padStart(4, '0');
-    var shipTo = [o.shipping_street, o.shipping_city, o.shipping_province, o.shipping_postal, o.shipping_country].filter(Boolean).join(', ');
-    var shipName  = o.shipping_name || '';
-    var shipEmail = o.shipping_email || '';
-    var shipPhone = o.shipping_phone || '';
+    var shipTo = [o.shipping_street, o.shipping_city, o.shipping_province, o.shipping_postal, o.shipping_country].filter(Boolean).map(esc).join(', ');
+    var shipName  = esc(o.shipping_name || '');
+    var shipEmail = esc(o.shipping_email || '');
+    var shipPhone = esc(o.shipping_phone || '');
     return '<li class="order-card">' +
       '<div class="order-card__header">' +
         '<span class="order-card__id">#' + idStr + '</span>' +
-        '<span class="order-card__status order-card__status--' + o.status + '">' + o.status + '</span>' +
+        '<span class="order-card__status order-card__status--' + esc(o.status) + '">' + esc(o.status) + '</span>' +
       '</div>' +
       '<div style="display:flex;justify-content:space-between;align-items:center">' +
         '<span class="order-card__date">' + date + '</span>' +
@@ -845,7 +857,7 @@ async function loadAddresses() {
   if (emptyEl) emptyEl.hidden = true;
 
   listEl.innerHTML = addrs.map(function(a) {
-    var addrText = [a.street, a.city, a.province, a.postal_code, a.country].filter(Boolean).join(', ');
+    var addrText = [a.street, a.city, a.province, a.postal_code, a.country].filter(Boolean).map(esc).join(', ');
     var defBadge = a.is_default ? '<span class="address-card__default-badge">Default · </span>' : '';
     var setBtn   = !a.is_default ? '<button class="address-card__btn" data-set-default="' + a.id + '">Set default</button>' : '';
     return '<li class="address-card ' + (a.is_default ? 'address-card--default' : '') + '" data-addr-id="' + a.id + '">' +
@@ -1524,7 +1536,7 @@ function buildCoReview() {
 
   if (itemsEl) {
     var rows = cart.map(function(item) {
-      return '<li class="review-item"><span>' + item.name + ' x' + item.quantity + '</span><span>' + zar(item.price * item.quantity) + '</span></li>';
+      return '<li class="review-item"><span>' + esc(item.name) + ' x' + item.quantity + '</span><span>' + zar(item.price * item.quantity) + '</span></li>';
     }).join('');
     rows += '<li class="review-shipping-row"><span>' + (isCourier ? 'TCG Pickup Point' : 'TCG Door to Door') + '</span><span>' + zar(shippingCost) + '</span></li>';
     itemsEl.innerHTML = rows;
@@ -1533,8 +1545,8 @@ function buildCoReview() {
   if (addrEl) {
     if (isCourier) {
       addrEl.innerHTML = '<strong>The Courier Guy — Pickup Point</strong>\n' +
-        checkoutInfo.courier_point + '\n' +
-        [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', ');
+        esc(checkoutInfo.courier_point) + '\n' +
+        [checkoutInfo.city, checkoutInfo.province].filter(Boolean).map(esc).join(', ');
     } else {
       var parts = [checkoutInfo.name, checkoutInfo.street,
         [checkoutInfo.city, checkoutInfo.province].filter(Boolean).join(', '),

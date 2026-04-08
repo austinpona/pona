@@ -210,6 +210,9 @@ input, select, textarea { font: inherit; }
 .product-card__price {
   font-size: 0.8rem; font-weight: 700; color: var(--text);
 }
+.product-card__price--old {
+  text-decoration: line-through; color: #999; font-weight: 400; margin-right: 4px;
+}
 
 /* Empty state */
 .empty-state { text-align: center; padding: 48px 20px; }
