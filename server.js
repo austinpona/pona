@@ -219,10 +219,23 @@ app.get('/api/products', async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('id, name, description, price, image_url, badge')
+        .select('id, name, description, price, original_price, image_url, badge')
         .eq('active', true)
         .order('id', { ascending: true });
-      if (error) throw error;
+
+      if (error) {
+        // If original_price column doesn't exist yet, retry without it
+        if (error.message && error.message.includes('original_price')) {
+          const { data: data2, error: error2 } = await supabase
+            .from('products')
+            .select('id, name, description, price, image_url, badge')
+            .eq('active', true)
+            .order('id', { ascending: true });
+          if (error2) throw error2;
+          return res.json(data2.map((p) => ({ ...p, image: p.image_url })));
+        }
+        throw error;
+      }
 
       // Normalise image_url → image for the frontend
       return res.json(data.map((p) => ({ ...p, image: p.image_url })));
