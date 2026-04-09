@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/api/:path*", "destination": "/api/index" },
+    { "source": "/webhook/:path*", "destination": "/api/index" },
+    { "source": "/:path*", "destination": "/infinity-pearls-project/:path*" }
   ]
 }
