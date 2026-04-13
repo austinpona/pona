@@ -59,6 +59,7 @@ const FALLBACK_PRODUCTS = [
 const ALLOWED_ORIGINS = [
   'https://infinity-pearls.vercel.app',
   'https://www.infinitypearls.co.za',
+  'https://infinitypearls.co.za',
 ];
 if (process.env.NODE_ENV !== 'production') {
   ALLOWED_ORIGINS.push('http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000');
