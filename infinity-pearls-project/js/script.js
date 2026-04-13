@@ -1576,14 +1576,22 @@ async function handleCoPay() {
   }
 
   try {
-    var res = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart, customerInfo: checkoutInfo }),
-    });
+    var res;
+    try {
+      res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: cart, customerInfo: checkoutInfo }),
+      });
+    } catch (networkErr) {
+      throw new Error('Network error. Please check your connection and try again.');
+    }
     var text = await res.text();
     var json;
-    try { json = JSON.parse(text); } catch (_) { throw new Error('Server returned an invalid response. Please try again.'); }
+    try { json = JSON.parse(text); } catch (_) {
+      console.error('Checkout response (status ' + res.status + '):', text.slice(0, 500));
+      throw new Error('Server error (' + res.status + '). Please try again.');
+    }
     if (!res.ok || !json.url) throw new Error(json.message || 'Checkout failed');
     window.location.href = json.url;
   } catch (err) {
