@@ -117,7 +117,10 @@ function yocoRequest(method, urlPath, body) {
           const json = JSON.parse(data);
           if (res.statusCode >= 200 && res.statusCode < 300) resolve(json);
           else reject(new Error(json.message || json.errorMessage || `Yoco error ${res.statusCode}`));
-        } catch { reject(new Error('Failed to parse Yoco response')); }
+        } catch {
+          console.error('Yoco non-JSON response (status ' + res.statusCode + '):', data.slice(0, 500));
+          reject(new Error('Payment gateway returned an invalid response. Please try again.'));
+        }
       });
     });
     req.on('error', reject);
@@ -209,6 +212,12 @@ app.post('/webhook/yoco', express.raw({ type: 'application/json' }), async (req,
 });
 
 app.use(express.json());
+app.use((err, _req, res, next) => {
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({ message: 'Invalid JSON in request body.' });
+  }
+  next(err);
+});
 
 // ── Helpers ───────────────────────────────────────────────────
 function isEmail(v) { return typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }

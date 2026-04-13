@@ -1581,7 +1581,9 @@ async function handleCoPay() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: cart, customerInfo: checkoutInfo }),
     });
-    var json = await res.json();
+    var text = await res.text();
+    var json;
+    try { json = JSON.parse(text); } catch (_) { throw new Error('Server returned an invalid response. Please try again.'); }
     if (!res.ok || !json.url) throw new Error(json.message || 'Checkout failed');
     window.location.href = json.url;
   } catch (err) {
